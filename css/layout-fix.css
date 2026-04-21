@@ -1,0 +1,339 @@
+/* ============================================
+   KIRAM PHARMA - CORRECTIONS LAYOUT
+   Formulaire, Footer & Card Sections
+   ============================================ */
+
+/* --- SECTION CONTACT GLOBAL --- */
+.contact-section {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #f9fafb 0%, #f0f4f2 100%);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* CARTE CONTACT (coordonnées) */
+.contact-info-card {
+  background: white;
+  border-radius: 28px;
+  padding: 2rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  height: 100%;
+}
+
+.contact-info-card h3 {
+  font-size: 1.5rem;
+  color: #0b3b3c;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: #f8fafc;
+  border-radius: 16px;
+  transition: all 0.2s;
+}
+
+.contact-item:hover {
+  background: #eef9f5;
+  transform: translateX(4px);
+}
+
+.contact-icon {
+  width: 44px;
+  height: 44px;
+  background: #1e7f6e;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.contact-text {
+  flex: 1;
+}
+
+.contact-text strong {
+  display: block;
+  color: #1e293b;
+  margin-bottom: 0.2rem;
+}
+
+.contact-text span,
+.contact-text a {
+  color: #64748b;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.contact-text a:hover {
+  color: #1e7f6e;
+}
+
+/* --- FORMULAIRE DE CONTACT --- */
+.contact-form-card {
+  background: white;
+  border-radius: 28px;
+  padding: 2rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+.contact-form-card h3 {
+  font-size: 1.5rem;
+  color: #0b3b3c;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #1e293b;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+  background: #fefefe;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #1e7f6e;
+  box-shadow: 0 0 0 3px rgba(30, 127, 110, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.submit-btn {
+  background: #1e7f6e;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 40px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.submit-btn:hover {
+  background: #0b3b3c;
+  transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Spinner pour bouton */
+.submit-btn .spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid white;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- FOOTER --- */
+.footer {
+  background: #0b3b3c;
+  color: #cbdcd9;
+  padding: 3rem 0 1.5rem;
+  margin-top: 0;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-col h4 {
+  color: white;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.footer-col h4:after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: #f5c542;
+}
+
+.footer-col p,
+.footer-col a {
+  color: #cbdcd9;
+  text-decoration: none;
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+
+.footer-col a:hover {
+  color: #f5c542;
+}
+
+.footer-social {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.footer-social a {
+  width: 38px;
+  height: 38px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.footer-social a:hover {
+  background: #f5c542;
+  color: #0b3b3c;
+  transform: translateY(-3px);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 0.8rem;
+}
+
+/* --- CARDS SECTIONS (ACTIVITIES & ENGAGEMENT) --- */
+.engagement-grid, .activities-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.card-luxe {
+    background: white;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(30, 127, 110, 0.05);
+    border: 1px solid rgba(30, 127, 110, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.card-luxe:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(11, 59, 60, 0.1);
+    border-color: rgba(30, 127, 110, 0.2);
+}
+
+.card-luxe-icon {
+    width: 64px;
+    height: 64px;
+    background: #eef9f5;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1e7f6e;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s;
+}
+
+.card-luxe:hover .card-luxe-icon {
+    background: #1e7f6e;
+    color: white;
+    transform: rotate(5deg) scale(1.1);
+}
+
+.card-luxe h3 {
+    font-size: 1.25rem;
+    color: #0b3b3c;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.card-luxe p {
+    font-size: 0.95rem;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  .contact-grid, .engagement-grid, .activities-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .footer-col h4:after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

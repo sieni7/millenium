@@ -1,0 +1,143 @@
+{
+  "company": {
+    "name": "KIRAM PHARMA",
+    "type": "SARL",
+    "rccm": "CI-ABJ-2018-B-15115",
+    "bp": "06 BP 6649 Abidjan 06",
+    "address": "Cocody, Angré Djibi (proximité agence SIB), Abidjan",
+    "manager": "Madame Fofana Geneviève",
+    "creation_date": "2018-06-08"
+  },
+  "contact": {
+    "phone": "+225 27 22 51 45 45",
+    "email": "contact@kirampharma.ci",
+    "hours": "Lun-Ven : 8h30 – 17h30",
+    "webhook_url": "https://discord.com/api/webhooks/PLACEHOLDER",
+    "social": {
+      "facebook": "https://facebook.com/kirampharma",
+      "linkedin": "https://linkedin.com/company/kiram-pharma",
+      "whatsapp": "+2252722514545"
+    },
+    "agreements": [
+      { "name": "Agrément Sanitaire", "icon": "fas fa-certificate" }
+    ]
+  },
+  "design": {
+    "colors": {
+      "primary": "#1e7f6e",
+      "secondary": "#0b3b3c",
+      "accent": "#f5c542",
+      "background": "#fdfdfb",
+      "surface": "#ffffff",
+      "text": "#1a1a1a",
+      "soft_green": "#e9f2f0",
+      "premium_charcoal": "#1a2421"
+    },
+    "typography": {
+      "serif": "'Cormorant Garamond', serif",
+      "sans": "'Montserrat', sans-serif"
+    },
+    "shadows": {
+      "soft": "0 10px 30px rgba(30, 127, 110, 0.05)",
+      "premium": "0 20px 40px rgba(11, 59, 60, 0.08)"
+    }
+  },
+  "hero": {
+    "slides": [
+      {
+        "title": "L'Excellence Santé en Côte d'Ivoire",
+        "text": "KIRAM PHARMA redéfinit la représentation et la promotion médicale avec une exigence de qualité supérieure.",
+        "image": "https://images.unsplash.com/photo-1587854692152-cbe660dbbb88?auto=format&fit=crop&q=80&w=1200",
+        "cta": "Découvrir notre vision",
+        "link": "#contact"
+      },
+      {
+        "title": "Partenaire Stratégique des Laboratoires",
+        "text": "Une expertise de gérance par Mme Fofana Geneviève pour une commercialisation éthique et performante.",
+        "image": "https://images.unsplash.com/photo-1576091160550-217359f4ecf8?auto=format&fit=crop&q=80&w=1200",
+        "cta": "Nos Services",
+        "link": "#activites"
+      },
+      {
+        "title": "Innovation & Engagement",
+        "text": "Basés à Cocody Angré Djibi, nous bâtissons des ponts entre l'innovation pharmaceutique et les patients.",
+        "image": "https://images.unsplash.com/photo-1631549916768-4119b295f1a1?auto=format&fit=crop&q=80&w=1200",
+        "cta": "Nous Rejoindre",
+        "link": "#identite"
+      }
+    ]
+  },
+  "activities": [
+    {
+      "id": "act_001",
+      "title": "Représentation Exclusive",
+      "icon": "fas fa-shield-virus",
+      "description": "Nous agissons en tant qu'agent de confiance pour les laboratoires internationaux les plus exigeants."
+    },
+    {
+      "id": "act_002",
+      "title": "Promotion Médicale",
+      "icon": "fas fa-stethoscope",
+      "description": "Une force de vente experte pour valoriser vos produits auprès des professionnels de santé."
+    },
+    {
+      "id": "act_003",
+      "title": "Commercialisation AGILE",
+      "icon": "fas fa-chart-line",
+      "description": "Optimisation des flux de vente et négociation stratégique sur le marché local."
+    }
+  ],
+  "products": [
+    {
+      "id": "prod_001",
+      "name": "Antalgique X",
+      "laboratory": "PharmaCI",
+      "active_ingredient": "Paracétamol",
+      "presentation": "Boîte de 20 comprimés",
+      "indication": "Douleurs et fièvre",
+      "image_placeholder": "https://placehold.co/400x300/1e7f6e/white?text=Antalgique+X"
+    },
+    {
+      "id": "prod_002",
+      "name": "Antibiotique Y",
+      "laboratory": "EuroPharm",
+      "active_ingredient": "Amoxicilline",
+      "presentation": "Boîte de 12 gélules",
+      "indication": "Infections bactériennes",
+      "image_placeholder": "https://placehold.co/400x300/0b3b3c/white?text=Antibiotique+Y"
+    },
+    {
+      "id": "prod_003",
+      "name": "Antihypertenseur Z",
+      "laboratory": "LaboPlus",
+      "active_ingredient": "Lisinopril",
+      "presentation": "Boîte de 30 comprimés",
+      "indication": "Hypertension artérielle",
+      "image_placeholder": "https://placehold.co/400x300/f5c542/white?text=Antihypertenseur+Z"
+    },
+    {
+      "id": "prod_004",
+      "name": "Antidiabétique D",
+      "laboratory": "PharmaCI",
+      "active_ingredient": "Metformine",
+      "presentation": "Boîte de 60 comprimés",
+      "indication": "Diabète de type 2",
+      "image_placeholder": "https://placehold.co/400x300/1e7f6e/white?text=Antidiabétique+D"
+    },
+    {
+      "id": "prod_005",
+      "name": "Antifongique F",
+      "laboratory": "EuroPharm",
+      "active_ingredient": "Fluconazole",
+      "presentation": "Boîte de 7 gélules",
+      "indication": "Candidoses",
+      "image_placeholder": "https://placehold.co/400x300/0b3b3c/white?text=Antifongique+F"
+    }
+  ],
+  "partners": [
+    { "name": "PharmaCI", "icon": "fas fa-flask" },
+    { "name": "EuroPharm", "icon": "fas fa-microscope" },
+    { "name": "LaboPlus", "icon": "fas fa-vial" },
+    { "name": "MedikAzur", "icon": "fas fa-dna" }
+  ]
+}

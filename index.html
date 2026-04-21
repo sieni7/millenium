@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIRAM PHARMA | Excellence Pharmaceutique</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="assets/icons/icon-512.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e7f6e">
+    <!-- Styles bundled by Vite -->
+    <style>
+        :root {
+            --primary: #1e7f6e;
+            --secondary: #0b3b3c;
+            --accent: #f5c542;
+            --background: #fdfdfb;
+            --surface: #ffffff;
+            --text-dark: #1a2421;
+            --text-muted: #5c6c67;
+            --soft-green: #e9f2f0;
+            --glass: rgba(255, 255, 255, 0.85);
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --shadow-soft: 0 10px 30px rgba(30, 127, 110, 0.05);
+            --shadow-premium: 0 20px 40px rgba(11, 59, 60, 0.08);
+            --transition: all 400ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); background-color: var(--background); color: var(--text-dark); line-height: 1.7; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; line-height: 1.2; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+
+        header { background: var(--glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(30, 127, 110, 0.1); position: fixed; width: 100%; top: 0; z-index: 5000; height: 90px; display: flex; align-items: center; }
+        nav { display: flex; justify-content: space-between; align-items: center; width: 100%; transition: var(--transition); }
+        .logo { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; color: var(--secondary); text-decoration: none; display: flex; align-items: center; gap: 12px; }
+        ul.nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
+        ul.nav-links a { text-decoration: none; color: var(--secondary); font-weight: 500; font-size: 1rem; transition: var(--transition); }
+        ul.nav-links a:hover { color: var(--primary); }
+        
+        .btn { background: var(--primary); color: #fff; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: var(--transition); display: inline-flex; align-items: center; gap: 10px; box-shadow: var(--shadow-soft); border: none; cursor: pointer; }
+        .btn:hover { background: var(--secondary); transform: translateY(-3px); box-shadow: var(--shadow-premium); }
+        .btn-sm { padding: 8px 22px; font-size: 0.9rem; }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: #fff; }
+
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 3rem; color: var(--secondary); margin-bottom: 15px; }
+        .section-title span { display: block; width: 80px; height: 3px; background: var(--accent); margin: 0 auto; }
+
+        /* Sections spacing */
+        section { padding: 100px 0; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav id="main-nav">
+                <a href="#" class="logo">
+                    <i class="fas fa-microscope"></i>
+                    <span>KIRAM</span> PHARMA
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="#activites" class="nav-link">Activités</a></li>
+                    <li><a href="#produits" class="nav-link">Produits</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+
+                <div class="nav-actions" style="display: flex; align-items: center; gap: 15px;">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Changer de thème">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="admin.html" class="btn btn-sm" style="color: #fff; border-radius: 12px; font-weight: 500;">Admin</a>
+                </div>
+
+                <button class="burger" id="mobile-burger" aria-label="Menu Mobile">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section ([Sprint 1] Hydrated via config.json) -->
+        <div id="hero-slider-container"></div>
+
+        <!-- Numbers Section ([Sprint 1] Counter section) -->
+        <div id="numbers-section-container"></div>
+
+        <!-- About Section ([Sprint 1]) -->
+        <section id="about" class="about-section reveal">
+            <div class="container">
+                <div class="about-grid">
+                    <div id="about-text-container">
+                        <!-- Hydrated by main.js -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Activites Section ([Sprint 1]) -->
+        <section id="activites" class="activites-section reveal">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Nos Activités Stratégiques</h2>
+                    <span></span>
+                </div>
+                <div id="activities-container"></div>
+            </div>
+        </section>
+
+        <!-- Products Section ([Sprint 2]) -->
+        <section id="produits" class="product-section reveal">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Catalogue des Produits</h2>
+                    <span></span>
+                    <p style="margin-top: 20px;">Découvrez notre sélection de solutions pharmaceutiques d'excellence.</p>
+                </div>
+                <div id="filter-bar-container"></div>
+                <div id="product-grid-container" style="margin-top: 40px;"></div>
+            </div>
+        </section>
+
+        <!-- Partners Section ([Sprint 1]) -->
+        <div id="partners-section-container" class="reveal"></div>
+
+        <section id="identite" class="identity reveal">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Notre Engagement</h2>
+                    <span></span>
+                </div>
+                <div id="engagement-cards-container"></div>
+            </div>
+        </section>
+
+        <!-- SECTION CONTACT CORRIGÉE -->
+        <section id="contact" class="contact-section reveal">
+          <div class="container" id="contact-container">
+            <!-- Dynamisé par ContactForm.render() -->
+          </div>
+        </section>
+    </main>
+
+    <!-- Footer ([Sprint 1]) -->
+    <!-- FOOTER CORRIGÉ -->
+    <!-- Footer ([Sprint 1] Dynamisé) -->
+    <div id="footer-container"></div>
+
+    <!-- Product Modal ([Sprint 2]) -->
+    <div id="product-modal-container"></div>
+
+    <!-- Sticky CTA ([Sprint 2]) -->
+    <div id="sticky-cta-container"></div>
+
+    <!-- Toast Container (N3-013) -->
+    <div id="toast-root"></div>
+
+    <script type="module" src="js/refinements.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <!-- PWA Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('[PWA] Service Worker Registered', reg))
+            .catch(err => console.log('[PWA] Service Worker Failed', err));
+        });
+      }
+    </script>
+</body>
+</html>

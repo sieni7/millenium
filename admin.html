@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIRAM PHARMA | Administration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <!-- Login Overlay -->
+    <div id="login-overlay" class="overlay active">
+        <div class="login-card">
+            <div class="login-header">
+                <i class="fas fa-lock"></i>
+                <h2>KIRAM PHARMA</h2>
+                <p>Espace d'administration sécurisé</p>
+            </div>
+            <div class="login-body">
+                <input type="password" id="admin-password" placeholder="Mot de passe">
+                <button id="login-btn" class="btn">Se connecter</button>
+                <p id="login-error" class="error-msg" style="display: none;">Mot de passe incorrect</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="dashboard-container" style="display: none;">
+        <header class="admin-header">
+            <div class="container">
+                <div class="header-inner">
+                    <div class="admin-logo">
+                        <span>KIRAM</span> ADMIN
+                    </div>
+                    <div class="admin-user">
+                        <span id="user-status"><i class="fas fa-user-shield"></i> Administrateur</span>
+                        <button id="logout-btn" class="logout-btn"><i class="fas fa-sign-out-alt"></i></button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="admin-nav">
+            <div class="container">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="products">
+                        <i class="fas fa-box"></i> Produits
+                    </button>
+                    <button class="tab-btn" data-tab="content">
+                        <i class="fas fa-edit"></i> Contenu
+                    </button>
+                    <button class="tab-btn" data-tab="export">
+                        <i class="fas fa-file-pdf"></i> Export
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <main class="container">
+            <!-- Products Tab -->
+            <div id="tab-products" class="tab-content active">
+                <div class="content-header">
+                    <h3>Gestion du Catalogue</h3>
+                    <button id="add-product-btn" class="btn btn-sm">
+                        <i class="fas fa-plus"></i> Ajouter un produit
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table id="products-table">
+                        <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th>Laboratoire</th>
+                                <th>Principe Actif</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-body">
+                            <!-- Injected by admin.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Content Tab -->
+            <div id="tab-content" class="tab-content">
+                <div class="content-header">
+                    <h3>Textes et Coordonnées</h3>
+                </div>
+                <div class="admin-forms">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nom de l'entreprise</label>
+                            <input type="text" id="edit-company-name">
+                        </div>
+                        <div class="form-group">
+                            <label>Téléphone Contact</label>
+                            <input type="text" id="edit-company-phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Adresse (Siège)</label>
+                        <textarea id="edit-company-address"></textarea>
+                    </div>
+                    
+                    <!-- Advanced Content (WYSIWYG N3-011) -->
+                    <div class="form-group" id="editor-presentation-container">
+                        <label>Texte de présentation (Hero)</label>
+                        <textarea id="edit-presentation-text" style="height: 100px;"></textarea>
+                    </div>
+                    <div class="form-group" id="editor-vision-container" style="margin-top: 30px;">
+                        <label>Vision & Engagement</label>
+                        <textarea id="edit-vision-text" style="height: 100px;"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export Tab -->
+            <div id="tab-export" class="tab-content">
+                <div class="content-header">
+                    <h3>Outils d'Exportation</h3>
+                </div>
+                <div class="export-options">
+                    <div class="export-card" style="
+                        background: white;
+                        padding: 40px;
+                        border-radius: 24px;
+                        box-shadow: var(--shadow-soft);
+                        text-align: center;
+                        max-width: 400px;
+                        margin: 40px auto;
+                    ">
+                        <i class="fas fa-file-pdf" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px; display: block;"></i>
+                        <h4>Générer le Catalogue PDF</h4>
+                        <p style="color: var(--text-muted); margin: 15px 0 30px;">Produisez une version imprimable de votre catalogue complet avec les logos et coordonnées officielles.</p>
+                        <button id="export-pdf-btn" class="btn btn-sm" disabled>Chargement du module...</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Save Notification Bar -->
+        <div id="save-bar" class="save-bar">
+            <div class="container">
+                <p><i class="fas fa-info-circle"></i> Vous avez des modifications en attente.</p>
+                <div class="save-actions">
+                    <button id="discard-btn" class="btn btn-outline">Annuler</button>
+                    <button id="save-config-btn" class="btn btn-accent">Sauvegarder config.json</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Add/Edit Product -->
+    <div id="product-form-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="form-title">Nouveau Produit</h3>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="product-form" class="modal-body">
+                <input type="hidden" id="form-product-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nom commercial</label>
+                        <input type="text" id="form-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Laboratoire</label>
+                        <input type="text" id="form-lab" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Principe Actif</label>
+                    <input type="text" id="form-active" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Présentation</label>
+                        <input type="text" id="form-presentation" placeholder="Ex: Boîte de 20">
+                    </div>
+                    <div class="form-group">
+                        <label>URL Image</label>
+                        <input type="text" id="form-image" placeholder="https://...">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Indication</label>
+                    <textarea id="form-indication" style="height: 100px;"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn">Valider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+{
+    "meta": {
+        "sprint": 2,
+        "project": "KIRAM PHARMA",
+        "version": "v1.0.0-ProMax",
+        "previous_sprint_status": "completed",
+        "created_at": "2026-04-07T00:00:00Z",
+        "orchestrator": "BUILDER (Core7)",
+        "status": "pending"
+    },
+    "context_summary": {
+        "vision": "Ajout du catalogue produits dynamique avec grille, fiches détaillées et filtrage par laboratoire",
+        "stack": "Vanilla JS (ES6 Modules) + HTML5 + CSS3 (Soft UI Evolution)",
+        "design_system": {
+            "typography": [
+                "Cormorant Garamond",
+                "Montserrat"
+            ],
+            "colors": [
+                "#1e7f6e",
+                "#0b3b3c",
+                "#f5c542",
+                "#fdfdfb"
+            ],
+            "style": "Glassmorphism, Soft UI, transitions 400ms"
+        },
+        "constraints": [
+            "pas de framework additionnel (React/Vue)",
+            "responsive obligatoire",
+            "compatible avec architecture composants existante",
+            "config.json comme source de vérité"
+        ],
+        "sample_products": [
+            {
+                "id": "prod_001",
+                "name": "Antalgique X",
+                "laboratory": "PharmaCI",
+                "active_ingredient": "Paracétamol",
+                "presentation": "Boîte de 20 comprimés",
+                "indication": "Douleurs et fièvre",
+                "image_placeholder": "https://placehold.co/400x300/1e7f6e/white?text=Antalgique+X"
+            },
+            {
+                "id": "prod_002",
+                "name": "Antibiotique Y",
+                "laboratory": "EuroPharm",
+                "active_ingredient": "Amoxicilline",
+                "presentation": "Boîte de 12 gélules",
+                "indication": "Infections bactériennes",
+                "image_placeholder": "https://placehold.co/400x300/0b3b3c/white?text=Antibiotique+Y"
+            },
+            {
+                "id": "prod_003",
+                "name": "Antihypertenseur Z",
+                "laboratory": "LaboPlus",
+                "active_ingredient": "Lisinopril",
+                "presentation": "Boîte de 30 comprimés",
+                "indication": "Hypertension artérielle",
+                "image_placeholder": "https://placehold.co/400x300/f5c542/white?text=Antihypertenseur+Z"
+            },
+            {
+                "id": "prod_004",
+                "name": "Antidiabétique D",
+                "laboratory": "PharmaCI",
+                "active_ingredient": "Metformine",
+                "presentation": "Boîte de 60 comprimés",
+                "indication": "Diabète de type 2",
+                "image_placeholder": "https://placehold.co/400x300/1e7f6e/white?text=Antidiabétique+D"
+            },
+            {
+                "id": "prod_005",
+                "name": "Antifongique F",
+                "laboratory": "EuroPharm",
+                "active_ingredient": "Fluconazole",
+                "presentation": "Boîte de 7 gélules",
+                "indication": "Candidoses",
+                "image_placeholder": "https://placehold.co/400x300/0b3b3c/white?text=Antifongique+F"
+            }
+        ]
+    },
+    "dependencies_graph": {
+        "N3-007": [],
+        "N3-008": [
+            "N3-007"
+        ],
+        "N3-009": [
+            "N3-007"
+        ]
+    },
+    "tasks": [
+        {
+            "id": "N3-007",
+            "title": "Catalogue produits – grille dynamique",
+            "agent_target": "Frontend Agent",
+            "priority": 0,
+            "dependencies": [],
+            "status": "pending",
+            "retry_count": 0,
+            "max_retries": 2,
+            "prompt": {
+                "system_role": "Tu es Frontend Agent spécialisé en composants vanilla JS dynamiques.",
+                "instruction": "Crée un composant ProductGrid qui :\n1. Lit les produits depuis config.json (section 'products' à ajouter)\n2. Affiche une grille responsive (3 colonnes desktop, 2 tablette, 1 mobile)\n3. Chaque carte produit contient : nom, laboratoire, principe actif, présentation, image placeholder\n4. Ajoute un bouton 'Voir détails' qui déclenche l'ouverture de la fiche produit (sans rechargement)\n5. Intègre la grille dans la page d'accueil après la section 'Nos activités'\n6. Respecte le design system Soft UI (glassmorphism, ombres, transitions)",
+                "expected_output": [
+                    "components/productGrid.js",
+                    "css/productGrid.css"
+                ],
+                "acceptance_criteria": [
+                    "Grille responsive fonctionnelle",
+                    "Données lues depuis config.json",
+                    "Bouton 'Voir détails' déclenche un événement personnalisé",
+                    "Pas d'erreur console"
+                ]
+            },
+            "timeout_seconds": 1800,
+            "assigned_at": null,
+            "completed_at": null,
+            "output_hash": null
+        },
+        {
+            "id": "N3-008",
+            "title": "Fiche produit détaillée (modal)",
+            "agent_target": "UI Agent",
+            "priority": 0,
+            "dependencies": [
+                "N3-007"
+            ],
+            "status": "pending",
+            "retry_count": 0,
+            "max_retries": 2,
+            "prompt": {
+                "system_role": "Tu es UI Agent spécialisé en modales et expérience utilisateur.",
+                "instruction": "Crée un composant ProductModal qui :\n1. S'ouvre quand l'événement 'product:show' est déclenché (avec l'ID produit)\n2. Affiche les informations détaillées : nom, laboratoire, principe actif, présentation, indication\n3. Inclut un bouton 'Fermer' et un overlay cliquable\n4. Style : glassmorphism, animation d'entrée (fade + scale)\n5. Accessible : focus trap, fermeture avec Echap, aria-hidden\n6. S'intègre avec ProductGrid existant",
+                "expected_output": [
+                    "components/productModal.js",
+                    "css/productModal.css"
+                ],
+                "acceptance_criteria": [
+                    "Modal s'ouvre/ferme correctement",
+                    "Affiche les bonnes données du produit",
+                    "Fermeture par Echap, overlay, bouton fermer",
+                    "Focus trap fonctionnel",
+                    "Animation fluide"
+                ]
+            },
+            "timeout_seconds": 1500,
+            "assigned_at": null,
+            "completed_at": null,
+            "output_hash": null
+        },
+        {
+            "id": "N3-009",
+            "title": "Filtrage produits par laboratoire",
+            "agent_target": "Frontend Agent",
+            "priority": 0,
+            "dependencies": [
+                "N3-007"
+            ],
+            "status": "pending",
+            "retry_count": 0,
+            "max_retries": 2,
+            "prompt": {
+                "system_role": "Tu es Frontend Agent spécialisé en filtrage côté client.",
+                "instruction": "Ajoute une barre de filtrage au catalogue :\n1. Extrait la liste unique des laboratoires depuis les produits\n2. Crée des boutons filtres : 'Tous', puis chaque laboratoire\n3. Au clic, filtre la grille pour n'afficher que les produits du laboratoire sélectionné\n4. Animation de transition lors du filtrage (fade/disparition progressive)\n5. Indicateur visuel du filtre actif\n6. Compatible avec le composant ProductGrid existant (ne pas le réécrire entièrement)",
+                "expected_output": [
+                    "components/filterBar.js",
+                    "css/filterBar.css"
+                ],
+                "acceptance_criteria": [
+                    "Filtres générés dynamiquement",
+                    "Filtrage fonctionnel sans rechargement",
+                    "Filtre 'Tous' réinitialise l'affichage",
+                    "Animation présente",
+                    "Responsive"
+                ]
+            },
+            "timeout_seconds": 1200,
+            "assigned_at": null,
+            "completed_at": null,
+            "output_hash": null
+        }
+    ],
+    "execution_plan": {
+        "phase_1_parallel": [
+            "N3-007"
+        ],
+        "phase_2_parallel": [
+            "N3-008",
+            "N3-009"
+        ],
+        "estimated_duration_minutes": 75
+    },
+    "config_update_required": {
+        "action": "Ajouter une section 'products' dans config.json",
+        "structure": {
+            "products": [
+                {
+                    "id": "string",
+                    "name": "string",
+                    "laboratory": "string",
+                    "active_ingredient": "string",
+                    "presentation": "string",
+                    "indication": "string",
+                    "image_placeholder": "string"
+                }
+            ]
+        }
+    },
+    "success_metrics": {
+        "grid_responsive": true,
+        "modal_functional": true,
+        "filters_working": true,
+        "min_lighthouse_performance": 85,
+        "min_lighthouse_accessibility": 90,
+        "console_errors": 0
+    },
+    "workspace_webhook": null,
+    "knowledge_graph_ref": "knowledge_graph.json"
+}

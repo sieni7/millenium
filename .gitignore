@@ -1,0 +1,29 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+
+# Backup files
+*.bak
+*.backup
+
+# Temp files
+.tmp/
+temp/
+
+# Deployment
+.cache/
+dist/
+build/

@@ -1,0 +1,296 @@
+/* ============================================
+   KIRAM PHARMA - UI/UX REFINEMENTS (Top 10)
+   ============================================ */
+
+/* 1. Hover cartes avec glow (#1e7f6e) */
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 35px -12px rgba(30, 127, 110, 0.3),
+        0 0 0 1px rgba(30, 127, 110, 0.2);
+}
+
+/* 2. Smooth scroll (déjà géré par JS, style complémentaire) */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 3. Back-to-top button */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 48px;
+    height: 48px;
+    background: #1e7f6e;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: #0b3b3c;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 4. Compteur de résultats */
+.results-counter {
+    font-size: 0.9rem;
+    color: #1e7f6e;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* 5. Badge filtre actif */
+.active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.filter-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #eef9f5;
+    color: #1e7f6e;
+    padding: 0.4rem 0.8rem;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.filter-badge .remove-filter {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #1e7f6e;
+    padding: 0 4px;
+    transition: transform 0.2s;
+}
+
+.filter-badge .remove-filter:hover {
+    transform: scale(1.2);
+    color: #c0392b;
+}
+
+/* 6. Message "aucun résultat" illustré */
+.empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: #f9fafb;
+    border-radius: 28px;
+    margin: 2rem 0;
+}
+
+.empty-state-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+}
+
+.empty-state h3 {
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: #64748b;
+    margin-bottom: 1rem;
+}
+
+.empty-state .suggestion {
+    font-size: 0.9rem;
+    color: #1e7f6e;
+}
+
+/* 7. Progress bar */
+.progress-bar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: transparent;
+    z-index: 1001;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #1e7f6e, #f5c542);
+    transition: width 0.2s ease;
+}
+
+/* 8. Suppression tap highlight mobile */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 9. Protection double-clic (style visuel complémentaire) */
+button:disabled,
+.btn:disabled,
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* 10. Animation cascade menu mobile (complément) */
+.mobile-nav.open .nav-links li {
+    animation: slideIn 0.3s ease forwards;
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Délais progressifs pour les liens du menu mobile */
+.mobile-nav.open .nav-links li:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.mobile-nav.open .nav-links li:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.mobile-nav.open .nav-links li:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.mobile-nav.open .nav-links li:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.mobile-nav.open .nav-links li:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+/* 11. Sticky CTA (Parler à un expert) */
+.sticky-cta {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background: #1e7f6e !important;
+    color: white !important;
+    padding: 14px 28px;
+    border-radius: 50px;
+    text-decoration: none !important;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 10px 30px rgba(30, 127, 110, 0.4);
+    z-index: 10000;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sticky-cta i {
+    font-size: 1.2rem;
+    color: white !important;
+}
+
+.sticky-cta span {
+    color: white !important;
+}
+
+.sticky-cta:hover {
+    background: #0b3b3c !important;
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(11, 59, 60, 0.5);
+    color: white !important;
+}
+
+/* 12. Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#loading-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.loader-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #1e7f6e;
+    margin-bottom: 1.5rem;
+    letter-spacing: 5px;
+}
+
+.loader-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(30, 127, 110, 0.1);
+    border-top: 3px solid #1e7f6e;
+    border-radius: 50%;
+    margin: 0 auto 2rem;
+    animation: spin-loader 1s linear infinite;
+}
+
+@keyframes spin-loader {
+    to { transform: rotate(360deg); }
+}
+
+.loader-content p {
+    font-size: 1rem;
+    color: #64748b;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sticky-cta {
+        bottom: 20px;
+        left: 20px;
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+}
