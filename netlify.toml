@@ -17,12 +17,12 @@
     Cache-Control = "no-store, must-revalidate"
 
 [[redirects]]
+  from = "/admin"
+  to = "/admin.html"
+  status = 301
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
   force = false
-
-[[redirects]]
-  from = "/admin"
-  to = "/admin.html"
-  status = 301

@@ -7,7 +7,13 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    minify: 'terser', // On garde Terser car c'est ce qui était utilisé
-    sourcemap: true
+    minify: 'terser',
+    sourcemap: true,
+    rollupOptions: {
+      input: {
+        main: './index.html',
+        admin: './admin.html'
+      }
+    }
   }
 });
