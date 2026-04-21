@@ -10,7 +10,7 @@
 ![PWA](https://img.shields.io/badge/PWA-Installable-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white)
 ![Lighthouse](https://img.shields.io/badge/Lighthouse-100%25-4B32C3?style=for-the-badge&logo=lighthouse&logoColor=white)
 
-**Plateforme institutionnelle haut de gamme pour la promotion médicale et pharmaceutique en Côte d'Ivoire.**
+**Site web institutionnel haut de gamme du cabinet médical et pharmaceutique KIRAM PHARMA en Côte d'Ivoire.**
 
 [Consulter le site](https://labo-kiram.netlify.app/) • [Rapport d'Audit](reports/a11y_audit.md) • [Documentation API](config.schema.json)
 
