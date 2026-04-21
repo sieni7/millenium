@@ -10,36 +10,35 @@ const ContactForm = {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      const submitBtn = form.querySelector('.submit-btn');
-      const originalContent = submitBtn.innerHTML;
+        const submitBtn = form.querySelector('.submit-btn');
+        const originalContent = submitBtn.innerHTML;
+        const i18n = window.kiram_i18n;
 
-      const formData = {
-        name: form.name.value,
-        email: form.email.value,
-        phone: form.phone ? form.phone.value : '',
-        message: form.message.value
-      };
+        const formData = {
+          name: form.name.value,
+          email: form.email.value,
+          phone: form.phone ? form.phone.value : '',
+          message: form.message.value
+        };
 
-      // Simple internal validation (since we don't have error spans in the new layout yet)
-      if (!formData.name || !formData.email || !formData.message) {
-        if (window.Toast) window.Toast.show("Veuillez remplir tous les champs obligatoires", "warning");
-        return;
-      }
+        if (!formData.name || !formData.email || !formData.message) {
+          if (window.Toast) window.Toast.show(i18n?.form_warning || "Veuillez remplir tous les champs obligatoires", "warning");
+          return;
+        }
 
-      // Submit
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<div class="spinner"></div><span>Envoi...</span>';
-      
-      try {
-        const response = await sendToWebhook(formData, data.contact.webhook_url);
-        if (window.Toast) window.Toast.show(response.message || "Message envoyé avec succès !", "success");
-        form.reset();
-      } catch (err) {
-        if (window.Toast) window.Toast.show("Une erreur est survenue lors de l'envoi.", "error");
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalContent;
-      }
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<div class="spinner"></div><span>${i18n?.form_sending || 'Envoi...'}</span>`;
+        
+        try {
+          const response = await sendToWebhook(formData, data.contact.webhook_url);
+          if (window.Toast) window.Toast.show(i18n?.form_success || "Message envoyé avec succès !", "success");
+          form.reset();
+        } catch (err) {
+          if (window.Toast) window.Toast.show(i18n?.form_error || "Une erreur est survenue lors de l'envoi.", "error");
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalContent;
+        }
     });
   },
 
@@ -53,34 +52,27 @@ const ContactForm = {
         <div class="contact-info-card">
           <h3>
             <i class="fas fa-map-marker-alt" style="color: #1e7f6e;"></i>
-            Nos coordonnées
+            ${window.kiram_i18n?.contact_title || 'Nos coordonnées'}
           </h3>
           <div class="contact-details">
             <div class="contact-item">
               <div class="contact-icon"><i class="fas fa-map-pin"></i></div>
               <div class="contact-text">
-                <strong>Adresse</strong>
+                <strong>${window.currentLang === 'fr' ? 'Adresse' : 'Address'}</strong>
                 <span>${data.company.address}</span>
               </div>
             </div>
             <div class="contact-item">
               <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
               <div class="contact-text">
-                <strong>Téléphone</strong>
+                <strong>${window.currentLang === 'fr' ? 'Téléphone' : 'Phone'}</strong>
                 <span>${data.contact.phone}</span>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-              <div class="contact-text">
-                <strong>Email</strong>
-                <a href="mailto:${data.contact.email}">${data.contact.email}</a>
               </div>
             </div>
             <div class="contact-item">
               <div class="contact-icon"><i class="fas fa-clock"></i></div>
               <div class="contact-text">
-                <strong>Horaires</strong>
+                <strong>${window.currentLang === 'fr' ? 'Horaires' : 'Opening Hours'}</strong>
                 <span>${data.contact.hours}</span>
               </div>
             </div>
@@ -91,11 +83,11 @@ const ContactForm = {
         <div class="contact-form-card">
           <h3>
             <i class="fas fa-paper-plane" style="color: #1e7f6e;"></i>
-            Envoyez-nous un message
+            ${window.kiram_i18n?.form_title || 'Envoyez-nous un message'}
           </h3>
           <form id="contact-form" class="contact-form">
             <div class="form-group">
-              <label for="name">Nom complet *</label>
+              <label for="name">${window.currentLang === 'fr' ? 'Nom complet' : 'Full Name'} *</label>
               <input type="text" id="name" name="name" required>
             </div>
             <div class="form-group">
@@ -103,16 +95,12 @@ const ContactForm = {
               <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
-              <label for="phone">Téléphone</label>
-              <input type="tel" id="phone" name="phone">
-            </div>
-            <div class="form-group">
               <label for="message">Message *</label>
               <textarea id="message" name="message" required></textarea>
             </div>
             <button type="submit" class="submit-btn">
               <i class="fas fa-paper-plane"></i>
-              Envoyer le message
+              ${window.kiram_i18n?.form_btn || 'Envoyer le message'}
             </button>
           </form>
         </div>

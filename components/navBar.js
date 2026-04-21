@@ -11,13 +11,18 @@ const NavBar = {
                   <span style="font-family: var(--font-heading);">${data.name}</span>
               </a>
               <ul class="nav-links">
-                  <li><a href="#accueil" tabindex="0">Accueil</a></li>
-                  <li><a href="#activites" tabindex="0">Expertise</a></li>
-                  <li><a href="#identite" tabindex="0">Engagement</a></li>
-                  <li><a href="#contact" tabindex="0">Contact</a></li>
+                  <li><a href="#accueil" tabindex="0">${window.kiram_i18n?.nav_home || 'Accueil'}</a></li>
+                  <li><a href="#activites" tabindex="0">${window.kiram_i18n?.nav_expertise || 'Expertise'}</a></li>
+                  <li><a href="#identite" tabindex="0">${window.kiram_i18n?.nav_engagement || 'Engagement'}</a></li>
+                  <li><a href="#contact" tabindex="0">${window.kiram_i18n?.nav_contact || 'Contact'}</a></li>
               </ul>
-              <div class="mobile-menu-btn" id="mobile-toggle" role="button" aria-expanded="false" aria-label="Ouvrir le menu" tabindex="0">
-                  <i class="fas fa-bars" aria-hidden="true"></i>
+              <div class="nav-actions" style="display: flex; align-items: center; gap: 15px;">
+                  <div class="lang-toggle" id="lang-toggle" style="cursor: pointer; font-weight: 600; font-size: 0.9rem; color: var(--primary);">
+                      ${window.currentLang === 'fr' ? 'EN' : 'FR'}
+                  </div>
+                  <div class="mobile-menu-btn" id="mobile-toggle" role="button" aria-expanded="false" aria-label="Ouvrir le menu" tabindex="0">
+                      <i class="fas fa-bars" aria-hidden="true"></i>
+                  </div>
               </div>
           </nav>
       </div>
@@ -26,6 +31,17 @@ const NavBar = {
     // Mobile Toggle Logic (Improved)
     const toggle = container.querySelector('#mobile-toggle');
     const navLinks = container.querySelector('.nav-links');
+    
+    // Language Toggle logic
+    const langBtn = container.querySelector('#lang-toggle');
+    if (langBtn) {
+        langBtn.addEventListener('click', () => {
+            const nextLang = window.currentLang === 'fr' ? 'en' : 'fr';
+            localStorage.setItem('kiram_lang', nextLang);
+            window.location.reload(); // Simple approach for now
+        });
+    }
+
     if (toggle) {
       toggle.addEventListener('click', () => {
         const expanded = toggle.getAttribute('aria-expanded') === 'true';

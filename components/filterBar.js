@@ -8,7 +8,7 @@ const FilterBar = {
     container.innerHTML = `
       <div class="filter-bar" id="product-filter-bar">
           <div class="search-box" style="margin-right: 20px;">
-              <input type="text" id="product-search" placeholder="Rechercher..." style="
+              <input type="text" id="product-search" placeholder="${window.kiram_i18n?.search_placeholder || 'Rechercher...'}" style="
                   padding: 12px 25px;
                   border-radius: 100px;
                   border: 1px solid rgba(30,127,110,0.1);
@@ -16,7 +16,7 @@ const FilterBar = {
                   box-shadow: var(--shadow-soft);
               ">
           </div>
-          <button class="filter-btn active" data-lab="all">Tous</button>
+          <button class="filter-btn active" data-lab="all">${window.kiram_i18n?.filter_all || 'Tous'}</button>
           ${labs.map(lab => `<button class="filter-btn" data-lab="${lab}">${lab}</button>`).join('')}
       </div>
     `;

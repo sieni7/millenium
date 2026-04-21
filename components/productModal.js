@@ -31,6 +31,15 @@ const ProductModal = {
     const openModal = (product) => {
         const id = product.id;
         overlay.setAttribute('data-last-id', id);
+
+        // -- RECENTLY VIEWED LOGIC --
+        let viewed = JSON.parse(localStorage.getItem('kiram_viewed') || '[]');
+        viewed = viewed.filter(v => v.id !== id); // Remove if exists
+        viewed.unshift(product); // Add to top
+        if (viewed.length > 4) viewed.pop(); // Keep only 4
+        localStorage.setItem('kiram_viewed', JSON.stringify(viewed));
+        window.dispatchEvent(new CustomEvent('product:viewed_refresh'));
+
         contentInner.innerHTML = `
             <div class="modal-header">
                 <img src="${product.image_placeholder}" alt="${product.name}">
@@ -87,6 +96,21 @@ const ProductModal = {
     window.addEventListener('product:show', (e) => {
         const product = products.find(p => p.id === e.detail.id);
         if (product) openModal(product);
+    });
+
+    // -- IMAGE ZOOM LOGIC --
+    const zoomOverlay = document.querySelector('#image-zoom-overlay');
+    const zoomedImg = document.querySelector('#zoomed-image');
+
+    overlay.addEventListener('click', (e) => {
+        if (e.target.tagName === 'IMG' && e.target.closest('.modal-header')) {
+            zoomedImg.src = e.target.src;
+            zoomOverlay.classList.add('active');
+        }
+    });
+
+    zoomOverlay?.addEventListener('click', () => {
+        zoomOverlay.classList.remove('active');
     });
   }
 };

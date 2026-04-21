@@ -24,11 +24,13 @@ const Footer = {
             
             <div class="footer-col">
               <h4>${data.company.name}</h4>
-              <p>SARL basée à Abidjan, spécialisée dans la représentation, la promotion médicale et la commercialisation de produits pharmaceutiques en Côte d'Ivoire.</p>
+              <p>${window.currentLang === 'fr' 
+                  ? "SARL basée à Abidjan, spécialisée dans la représentation, la promotion médicale et la commercialisation de produits pharmaceutiques en Côte d'Ivoire."
+                  : "SARL based in Abidjan, specialized in representation, medical promotion, and commercialization of pharmaceutical products in Côte d'Ivoire."}</p>
             </div>
             
             <div class="footer-col">
-              <h4>Coordonnées</h4>
+              <h4>${window.currentLang === 'fr' ? 'Coordonnées' : 'Contact Details'}</h4>
               <p><i class="fas fa-map-marker-alt"></i> ${data.company.address}</p>
               <p><i class="fas fa-phone"></i> ${data.contact.phone}</p>
               <p><i class="fas fa-envelope"></i> ${data.contact.email}</p>
@@ -36,11 +38,11 @@ const Footer = {
             </div>
             
             <div class="footer-col" id="footer-quick-links">
-              <h4>Liens rapides</h4>
-              <p><a href="#accueil">Accueil</a></p>
-              <p><a href="#activites">Nos activités</a></p>
-              <p><a href="#produits">Catalogue</a></p>
-              <p><a href="#contact">Contact</a></p>
+              <h4>${window.currentLang === 'fr' ? 'Liens rapides' : 'Quick Links'}</h4>
+              <p><a href="#accueil">${window.kiram_i18n?.nav_home || 'Accueil'}</a></p>
+              <p><a href="#activites">${window.kiram_i18n?.nav_expertise || 'Activités'}</a></p>
+              <p><a href="#produits">${window.currentLang === 'fr' ? 'Catalogue' : 'Catalogue'}</a></p>
+              <p><a href="#contact">${window.kiram_i18n?.nav_contact || 'Contact'}</a></p>
               <p><a href="admin.html">Administration</a></p>
             </div>
             
@@ -52,9 +54,9 @@ const Footer = {
             
           </div>
           <div class="footer-bottom">
-            <p>&copy; ${new Date().getFullYear()} ${data.company.name} – Tous droits réservés</p>
+            <p>&copy; ${new Date().getFullYear()} ${data.company.name} – ${window.currentLang === 'fr' ? 'Tous droits réservés' : 'All rights reserved'}</p>
             <p style="margin-top: 0.5rem; font-size: 0.75rem;">
-              Site conçu avec ❤️ par OULAI Siéni
+              ${window.currentLang === 'fr' ? 'Site conçu avec ❤️ par OULAI Siéni' : 'Website designed with ❤️ by OULAI Siéni'}
             </p>
           </div>
         </div>

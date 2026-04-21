@@ -10,11 +10,27 @@
     background: var(--surface);
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: var(--shadow-soft);
-    border: 1px solid rgba(30, 127, 110, 0.05);
     transition: var(--transition);
+    border: 1px solid rgba(30, 127, 110, 0.05);
+    box-shadow: var(--shadow-soft);
+    position: relative;
     display: flex;
     flex-direction: column;
+}
+
+.product-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--accent);
+    color: var(--secondary);
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-transform: uppercase;
 }
 
 .product-card:hover {

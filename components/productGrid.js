@@ -2,6 +2,25 @@ const ProductGrid = {
   allProducts: [],
   filters: { lab: 'all', search: '' },
 
+  showSkeleton: (containerSelector) => {
+    const container = document.querySelector(containerSelector);
+    if (!container) return;
+    container.innerHTML = `
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px;">
+            ${Array(3).fill(`
+                <div class="product-card skeleton-card">
+                    <div class="skeleton" style="height: 200px; border-radius: 15px 15px 0 0;"></div>
+                    <div style="padding: 20px;">
+                        <div class="skeleton" style="height: 12px; width: 40%; margin-bottom: 10px;"></div>
+                        <div class="skeleton" style="height: 18px; width: 70%; margin-bottom: 20px;"></div>
+                        <div class="skeleton" style="height: 40px; border-radius: 10px;"></div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+  },
+
   render: (containerSelector, products) => {
     const container = document.querySelector(containerSelector);
     if (!container) return;
@@ -11,7 +30,9 @@ const ProductGrid = {
     
     // Clear and prepare grid
     container.innerHTML = `
-        <div id="results-count" class="results-counter">Affichage de ${products.length} produits</div>
+        <div id="results-count" class="results-counter">
+            ${window.kiram_i18n?.results_count_prefix || 'Affichage de'} ${products.length} ${window.kiram_i18n?.results_count || 'produits'}
+        </div>
         <div class="product-grid" id="product-grid-inner"></div>
     `;
     
@@ -59,8 +80,8 @@ const ProductGrid = {
             gridDiv.innerHTML = `
                 <div class="empty-state" style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
                     <i class="fas fa-search-minus" style="font-size: 3rem; color: var(--primary); opacity: 0.3; margin-bottom: 20px;"></i>
-                    <h3 style="color: var(--secondary);">Aucun résultat trouvé</h3>
-                    <p style="color: var(--text-muted);">Essayez de réinitialiser vos filtres.</p>
+                    <h3 style="color: var(--secondary);">${window.kiram_i18n?.no_results || 'Aucun résultat trouvé'}</h3>
+                    <p style="color: var(--text-muted);">${window.currentLang === 'fr' ? 'Essayez de réinitialiser vos filtres.' : 'Try resetting your filters.'}</p>
                 </div>
             `;
         }
@@ -70,6 +91,7 @@ const ProductGrid = {
   update: (gridElement, products) => {
     gridElement.innerHTML = products.map(product => `
       <div class="product-card fade-in" data-id="${product.id}" data-lab="${product.laboratory}">
+          ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
           <div class="product-image">
               <img src="${product.image_placeholder}" alt="${product.name}" loading="lazy">
           </div>
@@ -77,11 +99,13 @@ const ProductGrid = {
               <div class="product-lab">${product.laboratory}</div>
               <h3>${product.name}</h3>
               <div class="product-info">
-                  <strong>Actif :</strong> ${product.active_ingredient}<br>
+                  <strong>${window.currentLang === 'fr' ? 'Actif' : 'Active'} :</strong> ${product.active_ingredient}<br>
                   <strong>Format :</strong> ${product.presentation}
               </div>
               <div class="product-actions">
-                  <button class="btn show-details" data-id="${product.id}">Voir détails</button>
+                  <button class="btn show-details" data-id="${product.id}">
+                    ${window.kiram_i18n?.view_details || 'Voir détails'}
+                  </button>
               </div>
           </div>
       </div>

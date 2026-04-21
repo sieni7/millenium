@@ -8,8 +8,55 @@
 }
 
 .reveal.active {
-    opacity: 1;
-    transform: translateY(0);
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Skeleton Shimmer */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes shimmer {
+  from { background-position: -100% 0; }
+  to { background-position: 100% 0; }
+}
+
+/* Back to Top */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 4000;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+  box-shadow: var(--shadow-premium);
+  border: none;
+}
+
+.back-to-top.active {
+  opacity: 1;
+  visibility: visible;
+  bottom: 40px;
+}
+
+.back-to-top:hover {
+  background: var(--secondary);
+  transform: translateY(-5px);
 }
 
 /* Delay Utils */
@@ -116,3 +163,67 @@
 .skeleton-card { height: 350px; margin-bottom: 20px; }
 .skeleton-title { height: 24px; width: 60%; margin-bottom: 10px; }
 .skeleton-text { height: 16px; width: 80%; }
+
+/* Scroll Progress Bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: var(--primary);
+  z-index: 9999;
+  transition: width 0.1s ease;
+  box-shadow: 0 0 10px rgba(30, 127, 110, 0.5);
+}
+
+/* Stats Section */
+.stats-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, var(--secondary) 0%, #0b3b3c 100%);
+  color: white;
+  text-align: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-value {
+  font-size: 3.5rem;
+  font-weight: 800;
+  font-family: var(--font-heading);
+  line-height: 1;
+  display: inline-block;
+}
+
+.stat-suffix {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 2px;
+}
+
+.stat-label {
+  margin-top: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .stat-value { font-size: 2.5rem; }
+  .stat-suffix { font-size: 1.5rem; }
+}

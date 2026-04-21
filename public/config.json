@@ -1,4 +1,9 @@
 {
+  "settings": {
+    "maintenanceMode": false,
+    "defaultLanguage": "fr",
+    "supportedLanguages": ["fr", "en"]
+  },
   "company": {
     "name": "KIRAM PHARMA",
     "type": "SARL",
@@ -6,7 +11,13 @@
     "bp": "06 BP 6649 Abidjan 06",
     "address": "Cocody, Angré Djibi (proximité agence SIB), Abidjan",
     "manager": "Madame Fofana Geneviève",
-    "creation_date": "2018-06-08"
+    "creation_date": "2018-06-08",
+    "stats": [
+      { "key": "stat_expertise", "value": 8, "suffix": "+" },
+      { "key": "stat_labs", "value": 15, "suffix": "" },
+      { "key": "stat_products", "value": 120, "suffix": "+" },
+      { "key": "stat_partners", "value": 50, "suffix": "+" }
+    ]
   },
   "contact": {
     "phone": "+225 27 22 51 45 45",
@@ -95,6 +106,7 @@
       "active_ingredient": "Paracétamol",
       "presentation": "Boîte de 20 comprimés",
       "indication": "Douleurs et fièvre",
+      "badge": "Top Ventes",
       "image_placeholder": "https://placehold.co/400x300/1e7f6e/white?text=Antalgique+X"
     },
     {
@@ -131,6 +143,7 @@
       "active_ingredient": "Fluconazole",
       "presentation": "Boîte de 7 gélules",
       "indication": "Candidoses",
+      "badge": "Nouveau",
       "image_placeholder": "https://placehold.co/400x300/0b3b3c/white?text=Antifongique+F"
     }
   ],
@@ -139,5 +152,67 @@
     { "name": "EuroPharm", "icon": "fas fa-microscope" },
     { "name": "LaboPlus", "icon": "fas fa-vial" },
     { "name": "MedikAzur", "icon": "fas fa-dna" }
-  ]
+  ],
+  "i18n": {
+    "fr": {
+      "nav_home": "Accueil",
+      "nav_expertise": "Activités",
+      "nav_engagement": "Engagement",
+      "nav_contact": "Contact",
+      "hero_cta": "Découvrir",
+      "catalogue_title": "Catalogue des Produits",
+      "catalogue_subtitle": "Découvrez notre sélection de solutions pharmaceutiques d'excellence.",
+      "filter_all": "Tous les laboratoires",
+      "search_placeholder": "Rechercher un produit ou un actif...",
+      "results_count": "produits",
+      "no_results": "Aucun résultat trouvé",
+      "view_details": "Voir détails",
+      "recently_viewed": "Vus récemment",
+      "contact_title": "Nos coordonnées",
+      "form_title": "Envoyez-nous un message",
+      "form_btn": "Envoyer le message",
+      "form_success": "Message envoyé avec succès !",
+      "form_error": "Une erreur est survenue lors de l'envoi.",
+      "form_warning": "Veuillez remplir tous les champs obligatoires",
+      "form_sending": "Envoi...",
+      "results_count_prefix": "Affichage de",
+      "engagement_title": "Engagements",
+      "engagement_subtitle": "Valeurs et vision de KIRAM PHARMA pour une santé accessible en Côte d'Ivoire.",
+      "expertise_title": "Promotion Médicale & Distribution",
+      "stat_expertise": "Années d'expertise",
+      "stat_labs": "Laboratoires",
+      "stat_products": "Produits",
+      "stat_partners": "Partenaires"
+    },
+    "en": {
+      "nav_home": "Home",
+      "nav_expertise": "Activities",
+      "nav_engagement": "Commitment",
+      "nav_contact": "Contact",
+      "hero_cta": "Discover",
+      "catalogue_title": "Product Catalogue",
+      "catalogue_subtitle": "Discover our selection of premium pharmaceutical solutions.",
+      "filter_all": "All laboratories",
+      "search_placeholder": "Search for a product or active ingredient...",
+      "results_count": "products",
+      "no_results": "No results found",
+      "view_details": "View details",
+      "recently_viewed": "Recently viewed",
+      "contact_title": "Our Details",
+      "form_title": "Send us a message",
+      "form_btn": "Send Message",
+      "form_success": "Message sent successfully!",
+      "form_error": "An error occurred during submission.",
+      "form_warning": "Please fill in all required fields",
+      "form_sending": "Sending...",
+      "results_count_prefix": "Showing",
+      "engagement_title": "Commitments",
+      "engagement_subtitle": "KIRAM PHARMA's values and vision for accessible healthcare in Côte d'Ivoire.",
+      "expertise_title": "Medical Promotion & Distribution",
+      "stat_expertise": "Years of Expertise",
+      "stat_labs": "Laboratories",
+      "stat_products": "Products",
+      "stat_partners": "Partners"
+    }
+  }
 }
