@@ -10,7 +10,7 @@
 
 **Plateforme institutionnelle haut de gamme pour la promotion médicale et pharmaceutique en Côte d'Ivoire.**
 
-[Consulter le site](https://roaring-palmier-eaf993.netlify.app/) • [Rapport d'Audit](reports/a11y_audit.md) • [Documentation API](config.schema.json)
+[Consulter le site](https://labo-kiram.netlify.app/) • [Rapport d'Audit](reports/a11y_audit.md) • [Documentation API](config.schema.json)
 
 </div>
 

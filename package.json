@@ -2,6 +2,7 @@
     "name": "kiram-pharma",
     "version": "1.1.0",
     "description": "Site vitrine pour KIRAM PHARMA - Distribution pharmaceutique Abidjan",
+    "homepage": "https://labo-kiram.netlify.app/",
     "main": "index.html",
     "scripts": {
         "dev": "vite",

@@ -12,8 +12,8 @@ const SEO = {
         const metaData = {
             'og:title': `${config.company.name} | Excellence Pharmaceutique`,
             'og:description': 'Représentation et promotion médicale de pointe en Côte d\'Ivoire.',
-            'og:image': 'https://kirampharma.ci/assets/og-image.jpg',
-            'og:url': 'https://kirampharma.ci',
+            'og:image': 'https://labo-kiram.netlify.app/assets/og-image.jpg',
+            'og:url': 'https://labo-kiram.netlify.app',
             'og:type': 'website',
             'twitter:card': 'summary_large_image',
             'twitter:title': `${config.company.name}`,
@@ -42,12 +42,12 @@ const SEO = {
             "@graph": [
                 {
                     "@type": "Organization",
-                    "@id": "https://kirampharma.com/#organization",
+                    "@id": "https://labo-kiram.netlify.app/#organization",
                     "name": config.company.name,
-                    "url": "https://kirampharma.com/",
+                    "url": "https://labo-kiram.netlify.app/",
                     "logo": {
                         "@type": "ImageObject",
-                        "url": "https://kirampharma.com/logo.png"
+                        "url": "https://labo-kiram.netlify.app/logo.png"
                     },
                     "description": "Excellence Pharmaceutique en Côte d'Ivoire. Distribution et promotion médicale.",
                     "address": {
@@ -65,7 +65,7 @@ const SEO = {
                 {
                     "@type": "LocalBusiness",
                     "name": config.company.name,
-                    "image": "https://kirampharma.com/logo.png",
+                    "image": "https://labo-kiram.netlify.app/logo.png",
                     "address": {
                         "@type": "PostalAddress",
                         "streetAddress": config.company.address,

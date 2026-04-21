@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin.html
 Disallow: /js/admin.js
 
-Sitemap: https://kirampharma.com/sitemap.xml
+Sitemap: https://labo-kiram.netlify.app/sitemap.xml
