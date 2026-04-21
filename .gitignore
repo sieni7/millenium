@@ -27,3 +27,5 @@ temp/
 .cache/
 dist/
 build/
+node_modules/
+*.zip
