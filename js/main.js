@@ -189,9 +189,7 @@ async function init() {
     if (footerContainer) {
         const recentlyViewedDiv = document.createElement('div');
         recentlyViewedDiv.id = 'recently-viewed-container';
-        recentlyViewedDiv.className = 'container reveal';
-        recentlyViewedDiv.style.paddingTop = '60px';
-        recentlyViewedDiv.style.paddingBottom = '100px';
+        recentlyViewedDiv.className = 'container reveal recently-viewed-section';
         footerContainer.parentNode.insertBefore(recentlyViewedDiv, footerContainer);
         RecentlyViewed.render('#recently-viewed-container');
     }

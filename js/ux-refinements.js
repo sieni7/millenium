@@ -9,18 +9,22 @@ const UXRefinements = {
     },
 
     addBackToTop() {
-        const btn = document.createElement('button');
-        btn.id = 'back-to-top';
-        btn.className = 'back-to-top';
-        btn.innerHTML = '<i class="fas fa-chevron-up"></i>';
-        btn.setAttribute('aria-label', 'Retour en haut');
-        document.body.appendChild(btn);
+        const existingBtn = document.querySelector('#back-to-top');
+        const btn = existingBtn || document.createElement('button');
+
+        if (!existingBtn) {
+            btn.id = 'back-to-top';
+            btn.className = 'back-to-top';
+            btn.innerHTML = '<i class="fas fa-chevron-up"></i>';
+            btn.setAttribute('aria-label', 'Retour en haut');
+            document.body.appendChild(btn);
+        }
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > 400) {
-                btn.classList.add('visible');
+                btn.classList.add('visible', 'active');
             } else {
-                btn.classList.remove('visible');
+                btn.classList.remove('visible', 'active');
             }
         });
 

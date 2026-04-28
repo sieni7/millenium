@@ -7,9 +7,13 @@ const RecentlyViewed = {
         const products = JSON.parse(localStorage.getItem('kiram_viewed') || '[]');
         if (products.length === 0) {
             container.innerHTML = '';
+            container.hidden = true;
+            container.classList.add('is-empty');
             return;
         }
 
+        container.hidden = false;
+        container.classList.remove('is-empty');
         container.innerHTML = `
             <div class="section-title" style="margin-bottom: 30px; text-align: left;">
                 <h3 style="font-size: 1.8rem; color: var(--secondary);">${window.kiram_i18n?.recently_viewed || 'Vus récemment'}</h3>

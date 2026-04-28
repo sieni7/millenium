@@ -11,17 +11,22 @@
 
     // 3. Back-to-top button
     function initBackToTop() {
-        const btn = document.createElement('button');
-        btn.className = 'back-to-top';
-        btn.innerHTML = '↑';
-        btn.setAttribute('aria-label', 'Retour en haut');
-        document.body.appendChild(btn);
+        const existingBtn = document.querySelector('#back-to-top');
+        const btn = existingBtn || document.createElement('button');
+
+        if (!existingBtn) {
+            btn.id = 'back-to-top';
+            btn.className = 'back-to-top';
+            btn.innerHTML = '↑';
+            btn.setAttribute('aria-label', 'Retour en haut');
+            document.body.appendChild(btn);
+        }
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
-                btn.classList.add('visible');
+                btn.classList.add('visible', 'active');
             } else {
-                btn.classList.remove('visible');
+                btn.classList.remove('visible', 'active');
             }
         });
 

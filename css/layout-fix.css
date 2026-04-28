@@ -9,6 +9,21 @@
   background: linear-gradient(135deg, #f9fafb 0%, #f0f4f2 100%);
 }
 
+main {
+  display: block;
+}
+
+.recently-viewed-section {
+  padding-top: 60px;
+  padding-bottom: 100px;
+}
+
+.recently-viewed-section.is-empty,
+.recently-viewed-section[hidden] {
+  display: none !important;
+  padding: 0 !important;
+}
+
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -327,6 +342,11 @@
 }
 
 @media (max-width: 600px) {
+  .recently-viewed-section {
+    padding-top: 40px;
+    padding-bottom: 72px;
+  }
+
   .footer-grid {
     grid-template-columns: 1fr;
     text-align: center;
