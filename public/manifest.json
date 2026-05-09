@@ -1,11 +1,11 @@
 {
   "name": "Millenium Côte d'Ivoire",
   "short_name": "Millenium",
-  "description": "Excellence Pharmaceutique en Côte d'Ivoire",
+  "description": "Partenaire Patrimonial Immobilier en Côte d'Ivoire",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#1e7f6e",
+  "theme_color": "#175E30",
   "icons": [
     {
       "src": "./assets/icons/icon-512.png",

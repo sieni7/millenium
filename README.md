@@ -1,4 +1,4 @@
-# 🧪 Millenium Côte d'Ivoire — Excellence Pharmaceutique
+# 🏰 Millenium Côte d'Ivoire — Partenaire Patrimonial
 
 <div align="center">
 
@@ -8,9 +8,8 @@
 ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7)
 ![A11y](https://img.shields.io/badge/WCAG_2.1-AA-green?style=for-the-badge)
 ![PWA](https://img.shields.io/badge/PWA-Installable-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white)
-![Lighthouse](https://img.shields.io/badge/Lighthouse-100%25-4B32C3?style=for-the-badge&logo=lighthouse&logoColor=white)
 
-**Site web institutionnel haut de gamme du cabinet médical et pharmaceutique Millenium Côte d'Ivoire en Côte d'Ivoire.**
+**Plateforme institutionnelle haut de gamme de Millenium Côte d'Ivoire, votre partenaire de confiance pour la sécurisation foncière et la construction premium en Côte d'Ivoire.**
 
 [Consulter le site](https://milleniumci.netlify.app/) • [Rapport d'Audit](reports/a11y_audit.md) • [Documentation API](config.schema.json)
 
@@ -20,25 +19,24 @@
 
 ## 📖 À propos
 
-**Millenium Côte d'Ivoire** est une Société à Responsabilité Limitée (SARL) basée à **Abidjan, Cocody Angré Djibi**, dédiée à l'excellence dans le secteur de la santé. Dirigée par **Madame Fofana Geneviève**, l'entreprise réunit expertise locale et rigueur internationale pour la distribution, la représentation et la promotion médicale.
+**Millenium Côte d'Ivoire** est une Société à Responsabilité Label (SARL) basée à **Abidjan**, spécialisée dans l'accompagnement des investisseurs immobiliers et de la diaspora. Nous offrons une expertise unique pour transformer vos ambitions patrimoniales en réalités tangibles et sécurisées.
 
-### 🎯 Nos activités principales
+### 🎯 Nos domaines d'expertise
 
 | Activité | Description |
 |----------|-------------|
-| **Représentation** | Agent officiel pour laboratoires pharmaceutiques étrangers et locaux |
-| **Promotion médicale** | Visibilité des produits auprès des professionnels de santé |
-| **Commercialisation** | Vente et négociation de produits pharmaceutiques et parapharmaceutiques |
+| **Sécurisation Foncière** | Audit de terrain, vérification légale et structuration de projet pour garantir votre investissement. |
+| **Construction Premium** | Pilotage de chantier de A à Z avec une exécution cadrée et des finitions de haut standing. |
+| **Accompagnement Diaspora** | Une relation de confiance pour gérer vos projets à distance en toute transparence. |
 
 ### 📊 Identité juridique
 
 | Champ | Information |
 |-------|-------------|
 | **Dénomination** | Millenium Côte d'Ivoire SARL |
-| **Date de création** | Juin 2018 (enregistrée au CEPICI le 8 juin 2018) |
 | **RCCM** | CI-ABJ-2018-B-15115 |
 | **BP** | 06 BP 6649 Abidjan 06 |
-| **Siège social** | Abidjan, Cocody, Angré Djibi (proximité agence SIB) |
+| **Siège social** | Abidjan, Cocody, Angré Djibi |
 
 ---
 

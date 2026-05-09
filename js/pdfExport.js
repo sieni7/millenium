@@ -28,7 +28,7 @@ const PDFExport = {
 
         // Header
         // Header with premium styling
-        doc.setFillColor(30, 127, 110); // --primary
+        doc.setFillColor(23, 94, 48); // --secondary (#175E30)
         doc.rect(0, 0, 210, 40, 'F');
         
         doc.setFont('helvetica', 'bold');
@@ -38,15 +38,15 @@ const PDFExport = {
 
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(10);
-        doc.setTextColor(200, 200, 200);
-        doc.text('CATALOGUE OFFICIEL DES PRODUITS', 14, 33);
+        doc.setTextColor(230, 230, 230);
+        doc.text('PORTFOLIO DES PROJETS IMMOBILIERS', 14, 33);
 
         doc.setTextColor(100);
         doc.setFontSize(9);
         doc.text(`Généré le : ${new Date().toLocaleDateString('fr-FR')}`, 14, 48);
 
-        // Product Table
-        const head = [['Produit', 'Indication', 'Laboratoire', 'Principe Actif', 'Format']];
+        // Product Table (Real Estate Focus)
+        const head = [['Projet', 'Description', 'Zone', 'Standing', 'Type']];
         const data = config.products.map(p => [
             p.name,
             p.indication || '-',
@@ -61,7 +61,7 @@ const PDFExport = {
             body: data,
             theme: 'striped',
             headStyles: { 
-                fillColor: [30, 127, 110], 
+                fillColor: [23, 94, 48], 
                 textColor: 255,
                 fontSize: 10,
                 fontStyle: 'bold',
@@ -72,7 +72,7 @@ const PDFExport = {
                 cellPadding: 5
             },
             columnStyles: { 
-                0: { fontStyle: 'bold', textColor: [30, 127, 110] },
+                0: { fontStyle: 'bold', textColor: [240, 90, 34] }, // #F05A22 (Primary)
                 1: { cellWidth: 50 }
             }
         });
@@ -83,7 +83,7 @@ const PDFExport = {
         doc.setTextColor(150);
         doc.text(`${config.company.address} | ${config.contact.phone}`, 14, finalY);
 
-        doc.save(`MILLENIUM_PHARMA_Catalogue_${new Date().toISOString().split('T')[0]}.pdf`);
+        doc.save(`MILLENIUM_PATRIMOINE_Portfolio_${new Date().toISOString().split('T')[0]}.pdf`);
     }
 };
 

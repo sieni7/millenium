@@ -132,7 +132,7 @@
         const counter = document.querySelector('.results-counter');
         if (counter) {
             const count = products.length;
-            counter.innerHTML = `📦 ${count} produit${count > 1 ? 's' : ''} trouvé${count > 1 ? 's' : ''}`;
+            counter.innerHTML = `🏠 ${count} projet${count > 1 ? 's' : ''} trouvé${count > 1 ? 's' : ''}`;
         }
     }
 
@@ -155,9 +155,9 @@
                         emptyState.className = 'empty-state';
                         emptyState.innerHTML = `
               <div class="empty-state-icon">🔍</div>
-              <h3>Aucun produit trouvé</h3>
+              <h3>Aucun projet trouvé</h3>
               <p>Essayez de modifier vos critères de recherche</p>
-              <div class="suggestion">💡 Suggestions : PharmaCI, EuroPharm, Antibiotique</div>
+              <div class="suggestion">💡 Suggestions : Villa, Terrain, Cocody, Bingerville</div>
             `;
                         gridContainer.appendChild(emptyState);
                     }

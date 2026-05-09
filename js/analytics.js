@@ -95,7 +95,7 @@ const Analytics = {
 
         // 3. Filter Change (N3-009)
         window.addEventListener('filter:change', (e) => {
-            this.trackEvent('Catalogue', 'Filter Lab', e.detail.lab);
+            this.trackEvent('Catalogue', 'Filter Zone', e.detail.lab);
         });
 
         // 4. Contact Form Submit (N3-005)

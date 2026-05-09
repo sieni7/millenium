@@ -10,14 +10,14 @@ const SEO = {
 
     injectOpenGraph(config) {
         const metaData = {
-            'og:title': `${config.company.name} | Excellence Pharmaceutique`,
-            'og:description': 'Représentation et promotion médicale de pointe en Côte d\'Ivoire.',
+            'og:title': `${config.company.name} | Partenaire Patrimonial`,
+            'og:description': 'Sécurisation foncière et construction premium en Côte d\'Ivoire.',
             'og:image': 'https://milleniumci.netlify.app/assets/og-image.jpg',
             'og:url': 'https://milleniumci.netlify.app',
             'og:type': 'website',
             'twitter:card': 'summary_large_image',
             'twitter:title': `${config.company.name}`,
-            'twitter:description': 'Promotion médicale et commercialisation pharmaceutique à Abidjan.'
+            'twitter:description': 'Expertise immobilière et construction haut de gamme à Abidjan.'
         };
 
         Object.keys(metaData).forEach(key => {
@@ -49,7 +49,7 @@ const SEO = {
                         "@type": "ImageObject",
                         "url": "https://milleniumci.netlify.app/logo.png"
                     },
-                    "description": "Excellence Pharmaceutique en Côte d'Ivoire. Distribution et promotion médicale.",
+                    "description": "Expertise en sécurisation foncière et construction premium en Côte d'Ivoire. Partenaire de confiance pour la diaspora.",
                     "address": {
                         "@type": "PostalAddress",
                         "streetAddress": config.company.address,
@@ -77,32 +77,32 @@ const SEO = {
                         "latitude": 5.3484,
                         "longitude": -4.0305
                     },
-                    "openingHours": "Mo-Fr 08:00-18:00"
+                    "openingHours": "Mo-Fr 08:30-17:30"
                 }
             ]
         };
 
-        // Add Products (N3-015)
+        // Add Projects (Real Estate Products)
         if (config.products) {
             config.products.forEach(p => {
                 schema["@graph"].push({
-                    "@type": "Product",
+                    "@type": "RealEstateListing",
                     "name": p.name,
                     "description": p.indication,
-                    "manufacturer": {
-                        "@type": "Organization",
-                        "name": p.laboratory
+                    "address": {
+                        "@type": "PostalAddress",
+                        "addressLocality": p.laboratory
                     },
-                    "category": "Pharmaceuticals",
+                    "category": "Real Estate",
                     "additionalProperty": [
                         {
                             "@type": "PropertyValue",
-                            "name": "Principe Actif",
+                            "name": "Standing",
                             "value": p.active_ingredient
                         },
                         {
                             "@type": "PropertyValue",
-                            "name": "Format",
+                            "name": "Type",
                             "value": p.presentation
                         }
                     ]

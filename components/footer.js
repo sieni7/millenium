@@ -25,8 +25,8 @@ const Footer = {
             <div class="footer-col">
               <h4>${data.company.name}</h4>
               <p>${window.currentLang === 'fr' 
-                  ? "SARL basée à Abidjan, spécialisée dans la représentation, la promotion médicale et la commercialisation de produits pharmaceutiques en Côte d'Ivoire."
-                  : "SARL based in Abidjan, specialized in representation, medical promotion, and commercialization of pharmaceutical products in Côte d'Ivoire."}</p>
+                  ? "SARL basée à Abidjan, spécialisée dans la sécurisation foncière, le conseil patrimonial et la construction premium en Côte d'Ivoire."
+                  : "SARL based in Abidjan, specialized in land securing, wealth management advice, and premium construction in Côte d'Ivoire."}</p>
             </div>
             
             <div class="footer-col">
