@@ -44,9 +44,16 @@ async function init() {
   LoadingScreen.render();
 
   try {
-    const response = await fetch('config.json');
-    if (!response.ok) throw new Error('Could not load config.json');
-    const config = await response.json();
+    // Priority: localStorage (set by admin) > static config.json
+    let config;
+    const storedConfig = localStorage.getItem('millenium_config');
+    if (storedConfig) {
+        config = JSON.parse(storedConfig);
+    } else {
+        const response = await fetch('config.json');
+        if (!response.ok) throw new Error('Could not load config.json');
+        config = await response.json();
+    }
 
     // -- MAINTENANCE MODE CHECK --
     if (config.settings && config.settings.maintenanceMode) {

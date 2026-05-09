@@ -37,8 +37,15 @@ const logout = () => {
 
 async function loadConfig() {
     try {
-        const res = await fetch('config.json');
-        originalConfig = await res.json();
+        // Priority: localStorage > config.json (file on disk)
+        const stored = localStorage.getItem('millenium_config');
+        if (stored) {
+            originalConfig = JSON.parse(stored);
+            Toast.show("Configuration chargée depuis le stockage local", "success", 2000);
+        } else {
+            const res = await fetch('config.json');
+            originalConfig = await res.json();
+        }
         currentConfig = JSON.parse(JSON.stringify(originalConfig)); 
 
         renderProfile();
@@ -57,29 +64,21 @@ const discardChanges = () => {
     }
 };
 
-const saveConfig = async () => {
+const saveConfig = () => {
     try {
-        const response = await fetch('/api/save-config', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(currentConfig, null, 2)
-        });
-        
-        if (response.ok) {
-            Toast.show("Sauvegarde automatique réussie !", "success");
-            originalConfig = JSON.parse(JSON.stringify(currentConfig));
-            isDirty = false;
-            document.getElementById('save-bar').style.display = 'none';
-        } else {
-            triggerDownload();
-        }
-    } catch(e) {
-        // Mode Production (Netlify) : l'API locale n'existe pas, on télécharge.
-        triggerDownload();
+        localStorage.setItem('millenium_config', JSON.stringify(currentConfig));
+        Toast.show("✅ Configuration sauvegardée avec succès !", "success");
+        originalConfig = JSON.parse(JSON.stringify(currentConfig));
+        isDirty = false;
+        document.getElementById('save-bar').style.display = 'none';
+    } catch (e) {
+        console.error('Save failed:', e);
+        Toast.show("Erreur de sauvegarde", "error");
     }
 };
 
-const triggerDownload = () => {
+// Export JSON file (for backup / git commit purposes)
+const exportConfig = () => {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentConfig, null, 2));
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute("href", dataStr);
@@ -87,12 +86,27 @@ const triggerDownload = () => {
     document.body.appendChild(downloadAnchorNode);
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
+    Toast.show("📦 Fichier config.json exporté (backup)", "success", 3000);
+};
 
-    Toast.show("Export réussi ! Veuillez remplacer le fichier 'config.json' par celui téléchargé.", "success", 5000);
-    
-    originalConfig = JSON.parse(JSON.stringify(currentConfig));
-    isDirty = false;
-    document.getElementById('save-bar').style.display = 'none';
+// Reset to default config.json from server
+const resetToDefault = async () => {
+    if (!confirm('Réinitialiser la configuration aux valeurs par défaut du fichier config.json ?')) return;
+    try {
+        localStorage.removeItem('millenium_config');
+        const res = await fetch('config.json');
+        originalConfig = await res.json();
+        currentConfig = JSON.parse(JSON.stringify(originalConfig));
+        renderProfile();
+        renderHero();
+        renderActivities();
+        renderScenarios();
+        isDirty = false;
+        document.getElementById('save-bar').style.display = 'none';
+        Toast.show("🔄 Configuration réinitialisée", "success");
+    } catch (e) {
+        Toast.show("Erreur de réinitialisation", "error");
+    }
 };
 
 // --- RENDERERS ---
@@ -315,6 +329,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.getElementById('discard-btn').addEventListener('click', discardChanges);
     document.getElementById('save-config-btn').addEventListener('click', saveConfig);
+    document.getElementById('export-config-btn').addEventListener('click', exportConfig);
+    document.getElementById('reset-config-btn').addEventListener('click', resetToDefault);
     
     // Auto-save simple fields
     ['edit-company-name', 'edit-company-email', 'edit-company-phone', 'edit-webhook-url', 'edit-company-address'].forEach(id => {
