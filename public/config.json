@@ -1,6 +1,6 @@
 {
   "settings": {
-    "maintenanceMode": true,
+    "maintenanceMode": false,
     "defaultLanguage": "fr",
     "supportedLanguages": [
       "fr",

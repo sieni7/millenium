@@ -3,9 +3,10 @@
  */
 
 const UXRefinements = {
-    init() {
+    init(config) {
         this.addBackToTop();
         this.initScrollReveal();
+        if (config) this.addWhatsAppWidget(config);
     },
 
     addBackToTop() {
@@ -51,6 +52,22 @@ const UXRefinements = {
             const scrolled = (winScroll / height) * 100;
             progressBar.style.width = scrolled + "%";
         });
+    },
+
+    addWhatsAppWidget(config) {
+        if (!config.contact || !config.contact.social || !config.contact.social.whatsapp) return;
+
+        const whatsappNum = config.contact.social.whatsapp;
+        const waUrl = `https://wa.me/${whatsappNum}`;
+
+        const waBtn = document.createElement('a');
+        waBtn.href = waUrl;
+        waBtn.target = "_blank";
+        waBtn.className = 'whatsapp-widget';
+        waBtn.innerHTML = '<i class="fab fa-whatsapp"></i>';
+        waBtn.setAttribute('aria-label', 'Contactez-nous sur WhatsApp');
+
+        document.body.appendChild(waBtn);
     }
 };
 

@@ -86,7 +86,7 @@ async function init() {
     Analytics.init();
     SEO.init(config);
     DarkMode.init();
-    UXRefinements.init();
+    UXRefinements.init(config);
     CustomCursor.init();
 
     // 2. Render Hero & Content
