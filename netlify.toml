@@ -16,6 +16,20 @@
   [headers.values]
     Cache-Control = "no-store, must-revalidate"
 
+# ============================================================
+# MODE MAINTENANCE
+# Pour ACTIVER  : décommentez les 4 lignes ci-dessous
+# Pour DÉSACTIVER : recommentez les 4 lignes ci-dessous
+# ============================================================
+[[redirects]]
+  from = "/*"
+  to = "/maintenance.html"
+  status = 302
+  force = true
+
+# ============================================================
+# REDIRECTS NORMAUX (toujours actifs)
+# ============================================================
 [[redirects]]
   from = "/admin"
   to = "/admin.html"

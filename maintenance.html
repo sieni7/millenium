@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Millenium Côte d'Ivoire | Maintenance en cours</title>
+    <meta name="description" content="Le site Millenium Côte d'Ivoire est actuellement en maintenance. Nous serons de retour très bientôt.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="./assets/icons/icon-512.png">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-deep: #0A120E;
+            --bg-surface: #14241C;
+            --text-primary: #F5F3EE;
+            --text-muted: #8C857B;
+            --accent-gold: #E5A814;
+            --accent-orange: #F05A22;
+            --accent-green: #175E30;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font-family: var(--font-body);
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Animated background */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(23, 94, 48, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(23, 94, 48, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridDrift 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes gridDrift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
+        }
+
+        /* Ambient orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.15;
+            z-index: 0;
+            animation: orbFloat 12s ease-in-out infinite alternate;
+        }
+
+        .orb-1 {
+            width: 500px; height: 500px;
+            background: var(--accent-orange);
+            top: -200px; left: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px; height: 400px;
+            background: var(--accent-green);
+            bottom: -150px; right: -100px;
+            animation-delay: -4s;
+        }
+
+        .orb-3 {
+            width: 300px; height: 300px;
+            background: var(--accent-gold);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -8s;
+            opacity: 0.08;
+        }
+
+        @keyframes orbFloat {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -20px) scale(1.1); }
+            100% { transform: translate(-20px, 30px) scale(0.95); }
+        }
+
+        /* Main container */
+        .maintenance-wrapper {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 24px;
+        }
+
+        /* Logo */
+        .maintenance-logo {
+            width: 140px;
+            height: 140px;
+            border-radius: 24px;
+            object-fit: cover;
+            margin-bottom: 40px;
+            animation: logoFloat 4s ease-in-out infinite;
+            box-shadow:
+                0 0 30px rgba(240, 90, 34, 0.2),
+                0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0);
+                box-shadow: 0 0 20px rgba(240, 90, 34, 0.15), 0 20px 60px rgba(0, 0, 0, 0.4);
+            }
+            50% {
+                transform: translateY(-12px);
+                box-shadow: 0 0 50px rgba(240, 90, 34, 0.4), 0 30px 80px rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        /* Heading */
+        .maintenance-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Subheading */
+        .maintenance-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--text-muted);
+            max-width: 520px;
+            line-height: 1.8;
+            margin-bottom: 48px;
+        }
+
+        /* Progress bar */
+        .progress-track {
+            width: 280px;
+            height: 4px;
+            background: rgba(245, 243, 238, 0.06);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 30%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-gold));
+            animation: progressSweep 2.5s ease-in-out infinite;
+        }
+
+        @keyframes progressSweep {
+            0% { transform: translateX(-100%); width: 30%; }
+            50% { width: 60%; }
+            100% { transform: translateX(400%); width: 30%; }
+        }
+
+        /* Contact info */
+        .maintenance-contact {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .maintenance-contact a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .maintenance-contact a:hover {
+            color: var(--accent-orange);
+        }
+
+        .company-badge {
+            margin-top: 24px;
+            font-size: 0.8rem;
+            color: rgba(140, 133, 123, 0.5);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* Separator dots */
+        .dot-separator {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .dot-separator span {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            opacity: 0.4;
+        }
+
+        .dot-separator span:nth-child(2) {
+            opacity: 0.7;
+            width: 6px;
+            height: 6px;
+        }
+
+        /* Icon svg inline */
+        .icon-svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .maintenance-logo {
+                width: 100px;
+                height: 100px;
+                border-radius: 18px;
+                margin-bottom: 28px;
+            }
+
+            .progress-track {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Effects -->
+    <div class="bg-grid"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Main Content -->
+    <div class="maintenance-wrapper">
+        <img src="./assets/logo.jpg"
+             alt="Millenium Côte d'Ivoire"
+             class="maintenance-logo">
+
+        <h1 class="maintenance-title">Site en Maintenance</h1>
+
+        <p class="maintenance-subtitle">
+            Nous mettons à jour notre plateforme pour mieux vous accompagner
+            dans vos projets immobiliers. Nous serons de retour très bientôt.
+        </p>
+
+        <div class="progress-track">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="dot-separator">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="maintenance-contact">
+            <a href="tel:+2250506093561">
+                <svg class="icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                +225 05 06 09 35 61
+            </a>
+            <a href="mailto:kessehub@gmail.com">
+                <svg class="icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                kessehub@gmail.com
+            </a>
+        </div>
+
+        <div class="company-badge">Millenium Côte d'Ivoire</div>
+    </div>
+
+</body>
+</html>
