@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin.html
 Disallow: /js/admin.js
 
-Sitemap: https://labo-kiram.netlify.app/sitemap.xml
+Sitemap: https://milleniumci.netlify.app/sitemap.xml

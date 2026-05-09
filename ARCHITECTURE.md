@@ -1,4 +1,4 @@
-# ARCHITECTURE.md – KIRAM PHARMA
+# ARCHITECTURE.md – Millenium Côte d'Ivoire
 
 ## Vue d’ensemble
 ┌─────────────────────────────────────────────────────────────┐
@@ -45,7 +45,7 @@ text
 ---
 
 ## Structure de fichiers (après Sprint 1)
-kiram-pharma/
+millenium-ci/
 ├── index.html
 ├── config.json
 ├── config.schema.json

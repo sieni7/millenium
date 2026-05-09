@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIRAM PHARMA | Excellence Pharmaceutique</title>
+    <title>Millenium Côte d'Ivoire | Partenaire Patrimonial</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,20 +15,69 @@
     <!-- Styles bundled by Vite -->
     <style>
         :root {
-            --primary: #1e7f6e;
-            --secondary: #0b3b3c;
-            --accent: #f5c542;
-            --background: #fdfdfb;
-            --surface: #ffffff;
-            --text-dark: #1a2421;
-            --text-muted: #5c6c67;
-            --soft-green: #e9f2f0;
-            --glass: rgba(255, 255, 255, 0.85);
-            --font-heading: 'Cormorant Garamond', serif;
+            /* BASE (Theme Logo) */
+            --background: #FFFFFF;
+            --background-soft: #F9FAFB;
+            --surface: #FFFFFF;
+
+            /* TEXTES */
+            --text-primary: #175E30;
+            --text-secondary: #2C3E33;
+            --text-muted: #5C6C67;
+            --text-dark: #175E30;
+
+            /* ACCENTS PREMIUM */
+            --primary: #F05A22;
+            --secondary: #175E30;
+            --accent: #E5A814;
+
+            /* COMPATIBILITÉ */
+            --soft-green: #F0FAF3;
+            --glass: rgba(255, 255, 255, 0.9);
+
+            /* BORDURES */
+            --border-soft: rgba(23, 94, 48, 0.1);
+            --border-strong: rgba(23, 94, 48, 0.2);
+
+            /* OVERLAYS */
+            --overlay-dark: rgba(0, 0, 0, 0.55);
+            --overlay-soft: rgba(255, 255, 255, 0.85);
+
+            /* STATES */
+            --success: #175E30;
+            --warning: #F05A22;
+
+            /* TYPO & OMBRES */
+            --font-heading: 'Montserrat', sans-serif;
             --font-body: 'Montserrat', sans-serif;
-            --shadow-soft: 0 10px 30px rgba(30, 127, 110, 0.05);
-            --shadow-premium: 0 20px 40px rgba(11, 59, 60, 0.08);
+            --shadow-soft: 0 10px 30px rgba(23, 94, 48, 0.08);
+            --shadow-premium: 0 20px 40px rgba(23, 94, 48, 0.15);
             --transition: all 400ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        body.dark-mode {
+            /* THÈME FORÊT PROFONDE / OR */
+            --background: #0A120E;
+            --background-soft: #101B15;
+            --surface: #14241C;
+            
+            --text-primary: #F5F3EE;
+            --text-secondary: #D8C3A5;
+            --text-muted: #8C857B;
+            --text-dark: #F5F3EE;
+            
+            --primary: #F05A22;
+            --secondary: #F5F3EE;
+            --accent: #E5A814;
+            
+            --soft-green: #101B15;
+            --glass: rgba(10, 18, 14, 0.85);
+            
+            --border-soft: rgba(245, 243, 238, 0.05);
+            --border-strong: rgba(245, 243, 238, 0.1);
+            
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,11 +86,11 @@
         h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; line-height: 1.2; }
         .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
 
-        header { background: var(--glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(30, 127, 110, 0.1); position: fixed; width: 100%; top: 0; z-index: 5000; height: 90px; display: flex; align-items: center; }
+        header { background: var(--glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-soft); position: fixed; width: 100%; top: 0; z-index: 5000; height: 120px; display: flex; align-items: center; }
         nav { display: flex; justify-content: space-between; align-items: center; width: 100%; transition: var(--transition); }
-        .logo { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; color: var(--secondary); text-decoration: none; display: flex; align-items: center; gap: 12px; }
-        ul.nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
-        ul.nav-links a { text-decoration: none; color: var(--secondary); font-weight: 500; font-size: 1rem; transition: var(--transition); }
+        .logo { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; color: var(--secondary); text-decoration: none; display: flex; align-items: center; gap: 12px; margin-right: 60px; }
+        ul.nav-links { display: flex; gap: 50px; list-style: none; align-items: center; margin-left: auto; margin-right: 50px; }
+        ul.nav-links a { text-decoration: none; color: var(--secondary); font-weight: 700; font-size: 1.05rem; transition: var(--transition); text-transform: uppercase; letter-spacing: 1px; }
         ul.nav-links a:hover { color: var(--primary); }
         
         .btn { background: var(--primary); color: #fff; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: var(--transition); display: inline-flex; align-items: center; gap: 10px; box-shadow: var(--shadow-soft); border: none; cursor: pointer; }
@@ -62,9 +111,8 @@
     <header>
         <div class="container">
             <nav id="main-nav">
-                <a href="#" class="logo">
-                    <i class="fas fa-microscope"></i>
-                    <span>KIRAM</span> PHARMA
+                <a href="#" class="logo" style="text-decoration: none;">
+                    <img src="./assets/logo.jpg" alt="Millenium Côte d'Ivoire Logo" style="height: 100px; width: auto; border-radius: 16px; mix-blend-mode: multiply;">
                 </a>
                 
                 <ul class="nav-links">
@@ -73,11 +121,11 @@
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
 
-                <div class="nav-actions" style="display: flex; align-items: center; gap: 15px;">
-                    <button id="theme-toggle" class="theme-toggle" aria-label="Changer de thème">
+                <div class="nav-actions" style="display: flex; align-items: center; gap: 30px;">
+                    <button id="theme-toggle" class="theme-btn" aria-label="Basculer le thème" style="background: none; border: none; color: var(--secondary); font-size: 1.2rem; cursor: pointer; transition: var(--transition);">
                         <i class="fas fa-moon"></i>
                     </button>
-                    <a href="admin.html" class="btn btn-sm" style="color: #fff; border-radius: 12px; font-weight: 500;">Admin</a>
+                    <a href="admin.html" class="btn btn-sm" style="color: #fff; border-radius: 12px; font-weight: 700; padding: 12px 28px;">Admin</a>
                 </div>
 
                 <button class="burger" id="mobile-burger" aria-label="Menu Mobile">
@@ -122,9 +170,9 @@
         <section id="produits" class="product-section reveal">
             <div class="container">
                 <div class="section-title">
-                    <h2>Catalogue des Produits</h2>
+                    <h2>Catalogue des Projets</h2>
                     <span></span>
-                    <p style="margin-top: 20px;">Découvrez notre sélection de solutions pharmaceutiques d'excellence.</p>
+                    <p style="margin-top: 20px;">Découvrez notre sélection de solutions et d'investissements immobiliers premium.</p>
                 </div>
                 <div id="filter-bar-container"></div>
                 <div id="product-grid-container" style="margin-top: 40px;"></div>

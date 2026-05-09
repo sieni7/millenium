@@ -1,8 +1,8 @@
-# PRODUCT.md – KIRAM PHARMA
+# PRODUCT.md – Millenium Côte d'Ivoire
 
 ## Vision produit
 
-**Site vitrine évolutif** pour KIRAM PHARMA, SARL basée à Abidjan (Cocody Angré Djibi), spécialisée en représentation, promotion médicale et commercialisation pharmaceutique.
+**Site vitrine évolutif** pour Millenium Côte d'Ivoire, SARL basée à Abidjan (Cocody Angré Djibi), spécialisée en représentation, promotion médicale et commercialisation pharmaceutique.
 
 Le site doit :
 - Refléter le professionnalisme et la crédibilité d’un acteur clé de la santé en Côte d’Ivoire
@@ -66,7 +66,7 @@ Le site doit :
 ## User Personas
 
 ### Persona 1 – Prospect laboratoire
-> *Dr. Koné, Directeur commercial d’un labo européen*
+> *Dr. Koné, Directeur commercial d’un zone européen*
 > Cherche un partenaire de confiance pour distribuer en Côte d’Ivoire. Veut voir crédibilité, références, équipe.
 
 ### Persona 2 – Professionnel de santé
@@ -74,7 +74,7 @@ Le site doit :
 > Cherche un produit spécifique ou un contact pour commander. Veut catalogue et coordonnées claires.
 
 ### Persona 3 – Visiteur médical (futur)
-> *Collaborateur KIRAM PHARMA*
+> *Colzonerateur Millenium Côte d'Ivoire*
 > Veut accéder aux fiches produits et documents pour ses visites.
 
 ---

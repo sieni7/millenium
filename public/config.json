@@ -1,218 +1,242 @@
 {
   "settings": {
-    "maintenanceMode": false,
+    "maintenanceMode": true,
     "defaultLanguage": "fr",
-    "supportedLanguages": ["fr", "en"]
+    "supportedLanguages": [
+      "fr",
+      "en"
+    ]
   },
   "company": {
-    "name": "KIRAM PHARMA",
+    "name": "Millenium Côte d'Ivoire",
     "type": "SARL",
     "rccm": "CI-ABJ-2018-B-15115",
     "bp": "06 BP 6649 Abidjan 06",
-    "address": "Cocody, Angré Djibi (proximité agence SIB), Abidjan",
-    "manager": "Madame Fofana Geneviève",
+    "address": "Cocody, Angré Djibi, Abidjan",
+    "manager": "Direction Générale",
     "creation_date": "2018-06-08",
     "stats": [
-      { "key": "stat_expertise", "value": 8, "suffix": "+" },
-      { "key": "stat_labs", "value": 15, "suffix": "" },
-      { "key": "stat_products", "value": 120, "suffix": "+" },
-      { "key": "stat_partners", "value": 50, "suffix": "+" }
+      {
+        "key": "stat_expertise",
+        "value": 10,
+        "suffix": "+"
+      },
+      {
+        "key": "stat_projects",
+        "value": 45,
+        "suffix": "+"
+      },
+      {
+        "key": "stat_zones",
+        "value": 5,
+        "suffix": ""
+      },
+      {
+        "key": "stat_satisfaction",
+        "value": 100,
+        "suffix": "%"
+      }
     ]
   },
   "contact": {
-    "phone": "+225 27 22 51 45 45",
-    "email": "contact@kirampharma.ci",
+    "phone": "+225 05 06 09 35 61",
+    "email": "kessehub@gmail.com",
     "hours": "Lun-Ven : 8h30 – 17h30",
-    "webhook_url": "https://discord.com/api/webhooks/PLACEHOLDER",
+    "webhook_url": "https://formsubmit.co/ajax/kessehub@gmail.com",
+    "webhook_cc": "sieni7@gmail.com",
     "social": {
-      "facebook": "https://facebook.com/kirampharma",
-      "linkedin": "https://linkedin.com/company/kiram-pharma",
-      "whatsapp": "+2252722514545"
+      "facebook": "https://facebook.com/",
+      "linkedin": "https://linkedin.com/company/milleniumci",
+      "whatsapp": "+2250506093561"
     },
     "agreements": [
-      { "name": "Agrément Sanitaire", "icon": "fas fa-certificate" }
+      {
+        "name": "Expertise Immobilière",
+        "icon": "fas fa-hard-hat"
+      }
     ]
   },
   "design": {
     "colors": {
-      "primary": "#1e7f6e",
-      "secondary": "#0b3b3c",
-      "accent": "#f5c542",
-      "background": "#fdfdfb",
-      "surface": "#ffffff",
-      "text": "#1a1a1a",
-      "soft_green": "#e9f2f0",
-      "premium_charcoal": "#1a2421"
+      "background": "#0F0F10",
+      "background_soft": "#171717",
+      "surface": "#1E1E1E",
+      "text_primary": "#F5F3EE",
+      "text_secondary": "#C8C2B8",
+      "text_muted": "#8C857B",
+      "accent_gold": "#B89B72",
+      "accent_bronze": "#8F6B45",
+      "accent_sand": "#D8C3A5",
+      "success": "#8E9F84",
+      "warning": "#B08B57"
     },
     "typography": {
       "serif": "'Cormorant Garamond', serif",
       "sans": "'Montserrat', sans-serif"
     },
     "shadows": {
-      "soft": "0 10px 30px rgba(30, 127, 110, 0.05)",
-      "premium": "0 20px 40px rgba(11, 59, 60, 0.08)"
+      "soft": "0 10px 30px rgba(0, 0, 0, 0.5)",
+      "premium": "0 20px 40px rgba(0, 0, 0, 0.8)"
     }
   },
   "hero": {
     "slides": [
       {
-        "title": "L'Excellence Santé en Côte d'Ivoire",
-        "text": "KIRAM PHARMA redéfinit la représentation et la promotion médicale avec une exigence de qualité supérieure.",
-        "image": "https://images.unsplash.com/photo-1587854692152-cbe660dbbb88?auto=format&fit=crop&q=80&w=1200",
-        "cta": "Découvrir notre vision",
+        "title": "Investissez en toute sécurité",
+        "text": "Millenium coordonne l'audit du terrain, la structuration du projet et le suivi de chantier pour la diaspora.",
+        "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1200",
+        "cta": "Demander une étude",
         "link": "#contact"
       },
       {
-        "title": "Partenaire Stratégique des Laboratoires",
-        "text": "Une expertise de gérance par Mme Fofana Geneviève pour une commercialisation éthique et performante.",
-        "image": "https://images.unsplash.com/photo-1576091160550-217359f4ecf8?auto=format&fit=crop&q=80&w=1200",
-        "cta": "Nos Services",
-        "link": "#activites"
+        "title": "Construction Clé en Main",
+        "text": "Une exécution cadrée pour réduire les risques et garantir une qualité premium du foncier à la remise des clés.",
+        "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200",
+        "cta": "Nos Réalisations",
+        "link": "#produits"
       },
       {
-        "title": "Innovation & Engagement",
-        "text": "Basés à Cocody Angré Djibi, nous bâtissons des ponts entre l'innovation pharmaceutique et les patients.",
-        "image": "https://images.unsplash.com/photo-1631549916768-4119b295f1a1?auto=format&fit=crop&q=80&w=1200",
-        "cta": "Nous Rejoindre",
-        "link": "#identite"
+        "title": "Votre Partenaire Patrimonial",
+        "text": "Nous intervenons sur des zones ciblées pour la sécurité et la valorisation de votre investissement immobilier en Côte d'Ivoire.",
+        "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200",
+        "cta": "Nous Contacter",
+        "link": "#contact"
       }
     ]
   },
   "activities": [
     {
       "id": "act_001",
-      "title": "Représentation Exclusive",
-      "icon": "fas fa-shield-virus",
-      "description": "Nous agissons en tant qu'agent de confiance pour les laboratoires internationaux les plus exigeants."
+      "title": "Sécurisation Foncière",
+      "icon": "fas fa-shield-alt",
+      "description": "Audit du terrain et structuration du projet pour éviter toute incertitude ou litige durable."
     },
     {
       "id": "act_002",
-      "title": "Promotion Médicale",
-      "icon": "fas fa-stethoscope",
-      "description": "Une force de vente experte pour valoriser vos produits auprès des professionnels de santé."
+      "title": "Construction & Suivi",
+      "icon": "fas fa-hard-hat",
+      "description": "Pilotage unique de votre chantier avec une exécution cadrée pour réduire les risques."
     },
     {
       "id": "act_003",
-      "title": "Commercialisation AGILE",
-      "icon": "fas fa-chart-line",
-      "description": "Optimisation des flux de vente et négociation stratégique sur le marché local."
+      "title": "Accompagnement Diaspora",
+      "icon": "fas fa-globe-africa",
+      "description": "Une relation pensée pour la confiance et la visibilité, sans avoir à vous déplacer."
     }
   ],
   "products": [
     {
-      "id": "prod_001",
-      "name": "Antalgique X",
-      "laboratory": "PharmaCI",
-      "active_ingredient": "Paracétamol",
-      "presentation": "Boîte de 20 comprimés",
-      "indication": "Douleurs et fièvre",
-      "badge": "Top Ventes",
-      "image_placeholder": "https://placehold.co/400x300/1e7f6e/white?text=Antalgique+X"
+      "id": "proj_001",
+      "name": "Villa Signature",
+      "laboratory": "Abidjan Nord",
+      "active_ingredient": "Haut standing",
+      "presentation": "Résidence 5 pièces",
+      "indication": "Projet premium clés en main",
+      "badge": "Recherché",
+      "image_placeholder": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=600"
     },
     {
-      "id": "prod_002",
-      "name": "Antibiotique Y",
-      "laboratory": "EuroPharm",
-      "active_ingredient": "Amoxicilline",
-      "presentation": "Boîte de 12 gélules",
-      "indication": "Infections bactériennes",
-      "image_placeholder": "https://placehold.co/400x300/0b3b3c/white?text=Antibiotique+Y"
+      "id": "proj_002",
+      "name": "Résidence Familiale",
+      "laboratory": "Bingerville",
+      "active_ingredient": "Espace & Confort",
+      "presentation": "Maison avec jardin",
+      "indication": "Cadre de vie paisible",
+      "image_placeholder": "https://images.unsplash.com/photo-1512915922686-57c11dde9b6b?auto=format&fit=crop&q=80&w=600"
     },
     {
-      "id": "prod_003",
-      "name": "Antihypertenseur Z",
-      "laboratory": "LaboPlus",
-      "active_ingredient": "Lisinopril",
-      "presentation": "Boîte de 30 comprimés",
-      "indication": "Hypertension artérielle",
-      "image_placeholder": "https://placehold.co/400x300/f5c542/white?text=Antihypertenseur+Z"
+      "id": "proj_003",
+      "name": "Immeuble de Rapport",
+      "laboratory": "Cocody Angré",
+      "active_ingredient": "Investissement",
+      "presentation": "Appartements locatifs",
+      "indication": "Rendement optimisé",
+      "image_placeholder": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=600"
     },
     {
-      "id": "prod_004",
-      "name": "Antidiabétique D",
-      "laboratory": "PharmaCI",
-      "active_ingredient": "Metformine",
-      "presentation": "Boîte de 60 comprimés",
-      "indication": "Diabète de type 2",
-      "image_placeholder": "https://placehold.co/400x300/1e7f6e/white?text=Antidiabétique+D"
-    },
-    {
-      "id": "prod_005",
-      "name": "Antifongique F",
-      "laboratory": "EuroPharm",
-      "active_ingredient": "Fluconazole",
-      "presentation": "Boîte de 7 gélules",
-      "indication": "Candidoses",
-      "badge": "Nouveau",
-      "image_placeholder": "https://placehold.co/400x300/0b3b3c/white?text=Antifongique+F"
+      "id": "proj_004",
+      "name": "Sécurisation Foncier",
+      "laboratory": "Assinie",
+      "active_ingredient": "Audit légal",
+      "presentation": "Terrain clôturé",
+      "indication": "Investissement sécurisé",
+      "image_placeholder": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=600"
     }
   ],
   "partners": [
-    { "name": "PharmaCI", "icon": "fas fa-flask" },
-    { "name": "EuroPharm", "icon": "fas fa-microscope" },
-    { "name": "LaboPlus", "icon": "fas fa-vial" },
-    { "name": "MedikAzur", "icon": "fas fa-dna" }
+    {
+      "name": "Notaires Associés",
+      "icon": "fas fa-file-signature"
+    },
+    {
+      "name": "Banque de l'Habitat",
+      "icon": "fas fa-university"
+    },
+    {
+      "name": "Ordre des Architectes",
+      "icon": "fas fa-drafting-compass"
+    }
   ],
   "i18n": {
     "fr": {
       "nav_home": "Accueil",
-      "nav_expertise": "Activités",
-      "nav_engagement": "Engagement",
+      "nav_expertise": "Expertise",
+      "nav_engagement": "Méthode",
       "nav_contact": "Contact",
       "hero_cta": "Découvrir",
-      "catalogue_title": "Catalogue des Produits",
-      "catalogue_subtitle": "Découvrez notre sélection de solutions pharmaceutiques d'excellence.",
-      "filter_all": "Tous les laboratoires",
-      "search_placeholder": "Rechercher un produit ou un actif...",
-      "results_count": "produits",
+      "catalogue_title": "Scénarios Premium",
+      "catalogue_subtitle": "Des scénarios concrets pour aider à vous projeter et clarifier budget et prestation.",
+      "filter_all": "Toutes les zones",
+      "search_placeholder": "Rechercher un projet ou une zone...",
+      "results_count": "projets",
       "no_results": "Aucun résultat trouvé",
       "view_details": "Voir détails",
       "recently_viewed": "Vus récemment",
-      "contact_title": "Nos coordonnées",
-      "form_title": "Envoyez-nous un message",
-      "form_btn": "Envoyer le message",
-      "form_success": "Message envoyé avec succès !",
+      "contact_title": "Consultation",
+      "form_title": "Demander une étude patrimoniale",
+      "form_btn": "Envoyer la demande",
+      "form_success": "Demande envoyée avec succès !",
       "form_error": "Une erreur est survenue lors de l'envoi.",
       "form_warning": "Veuillez remplir tous les champs obligatoires",
       "form_sending": "Envoi...",
       "results_count_prefix": "Affichage de",
-      "engagement_title": "Engagements",
-      "engagement_subtitle": "Valeurs et vision de KIRAM PHARMA pour une santé accessible en Côte d'Ivoire.",
-      "expertise_title": "Promotion Médicale & Distribution",
+      "engagement_title": "Notre Méthode",
+      "engagement_subtitle": "Une exécution cadrée pour réduire les risques de votre projet immobilier.",
+      "expertise_title": "Sécurisation & Construction",
       "stat_expertise": "Années d'expertise",
-      "stat_labs": "Laboratoires",
-      "stat_products": "Produits",
-      "stat_partners": "Partenaires"
+      "stat_projects": "Projets Livrés",
+      "stat_zones": "Zones Ciblées",
+      "stat_satisfaction": "Satisfaction Client"
     },
     "en": {
       "nav_home": "Home",
-      "nav_expertise": "Activities",
-      "nav_engagement": "Commitment",
+      "nav_expertise": "Expertise",
+      "nav_engagement": "Methodology",
       "nav_contact": "Contact",
       "hero_cta": "Discover",
-      "catalogue_title": "Product Catalogue",
-      "catalogue_subtitle": "Discover our selection of premium pharmaceutical solutions.",
-      "filter_all": "All laboratories",
-      "search_placeholder": "Search for a product or active ingredient...",
-      "results_count": "products",
+      "catalogue_title": "Premium Scenarios",
+      "catalogue_subtitle": "Concrete scenarios to help you visualize budget and services.",
+      "filter_all": "All zones",
+      "search_placeholder": "Search a project or zone...",
+      "results_count": "projects",
       "no_results": "No results found",
       "view_details": "View details",
       "recently_viewed": "Recently viewed",
-      "contact_title": "Our Details",
-      "form_title": "Send us a message",
-      "form_btn": "Send Message",
-      "form_success": "Message sent successfully!",
+      "contact_title": "Consultation",
+      "form_title": "Request a study",
+      "form_btn": "Send Request",
+      "form_success": "Request sent successfully!",
       "form_error": "An error occurred during submission.",
       "form_warning": "Please fill in all required fields",
       "form_sending": "Sending...",
       "results_count_prefix": "Showing",
-      "engagement_title": "Commitments",
-      "engagement_subtitle": "KIRAM PHARMA's values and vision for accessible healthcare in Côte d'Ivoire.",
-      "expertise_title": "Medical Promotion & Distribution",
+      "engagement_title": "Our Method",
+      "engagement_subtitle": "A structured execution to reduce risks in your real estate project.",
+      "expertise_title": "Securing & Construction",
       "stat_expertise": "Years of Expertise",
-      "stat_labs": "Laboratories",
-      "stat_products": "Products",
-      "stat_partners": "Partners"
+      "stat_projects": "Delivered Projects",
+      "stat_zones": "Targeted Zones",
+      "stat_satisfaction": "Client Satisfaction"
     }
   }
 }

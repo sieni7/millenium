@@ -83,7 +83,7 @@ const PDFExport = {
         doc.setTextColor(150);
         doc.text(`${config.company.address} | ${config.contact.phone}`, 14, finalY);
 
-        doc.save(`KIRAM_PHARMA_Catalogue_${new Date().toISOString().split('T')[0]}.pdf`);
+        doc.save(`MILLENIUM_PHARMA_Catalogue_${new Date().toISOString().split('T')[0]}.pdf`);
     }
 };
 

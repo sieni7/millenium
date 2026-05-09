@@ -31,7 +31,7 @@ const ProductGrid = {
     // Clear and prepare grid
     container.innerHTML = `
         <div id="results-count" class="results-counter">
-            ${window.kiram_i18n?.results_count_prefix || 'Affichage de'} ${products.length} ${window.kiram_i18n?.results_count || 'produits'}
+            ${window.millenium_i18n?.results_count_prefix || 'Affichage de'} ${products.length} ${window.millenium_i18n?.results_count || 'produits'}
         </div>
         <div class="product-grid" id="product-grid-inner"></div>
     `;
@@ -80,7 +80,7 @@ const ProductGrid = {
             gridDiv.innerHTML = `
                 <div class="empty-state" style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
                     <i class="fas fa-search-minus" style="font-size: 3rem; color: var(--primary); opacity: 0.3; margin-bottom: 20px;"></i>
-                    <h3 style="color: var(--secondary);">${window.kiram_i18n?.no_results || 'Aucun résultat trouvé'}</h3>
+                    <h3 style="color: var(--secondary);">${window.millenium_i18n?.no_results || 'Aucun résultat trouvé'}</h3>
                     <p style="color: var(--text-muted);">${window.currentLang === 'fr' ? 'Essayez de réinitialiser vos filtres.' : 'Try resetting your filters.'}</p>
                 </div>
             `;
@@ -104,7 +104,7 @@ const ProductGrid = {
               </div>
               <div class="product-actions">
                   <button class="btn show-details" data-id="${product.id}">
-                    ${window.kiram_i18n?.view_details || 'Voir détails'}
+                    ${window.millenium_i18n?.view_details || 'Voir détails'}
                   </button>
               </div>
           </div>

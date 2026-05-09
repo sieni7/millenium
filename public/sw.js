@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kiram-pharma-v1';
+const CACHE_NAME = 'millenium-ci-v1';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

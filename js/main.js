@@ -20,6 +20,7 @@ import Analytics from './analytics.js';
 import SEO from './seo.js';
 import DarkMode from './darkMode.js';
 import UXRefinements from './ux-refinements.js';
+import CustomCursor from './cursor.js';
 
 // Global access for Toast & Analytics
 window.Toast = Toast;
@@ -50,10 +51,23 @@ async function init() {
     // -- MAINTENANCE MODE CHECK --
     if (config.settings && config.settings.maintenanceMode) {
         document.body.innerHTML = `
+            <style>
+                @keyframes floatHalo {
+                    0% { transform: translateY(0px); box-shadow: 0 0 20px rgba(240, 90, 34, 0.2); }
+                    50% { transform: translateY(-15px); box-shadow: 0 0 60px rgba(240, 90, 34, 0.8); }
+                    100% { transform: translateY(0px); box-shadow: 0 0 20px rgba(240, 90, 34, 0.2); }
+                }
+                .maintenance-logo {
+                    height: 140px;
+                    border-radius: 20px;
+                    margin-bottom: 40px;
+                    animation: floatHalo 4s ease-in-out infinite;
+                }
+            </style>
             <div style="height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--background); text-align: center; padding: 40px;">
-                <i class="fas fa-tools" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
+                <img src="./assets/logo.jpg" alt="Millenium Côte d'Ivoire Logo" class="maintenance-logo">
                 <h1 style="font-family: var(--font-heading); font-size: 3rem;">Site en Maintenance</h1>
-                <p style="font-family: var(--font-body); max-width: 500px; color: var(--text-muted);">Nous mettons à jour notre plateforme pour mieux vous servir. Nous serons de retour très bientôt !</p>
+                <p style="font-family: var(--font-body); max-width: 500px; color: var(--text-muted); margin-top: 15px;">Nous mettons à jour notre plateforme d'investissement pour mieux vous servir. Nous serons de retour très bientôt.</p>
                 <div style="margin-top: 30px; font-weight: 600; color: var(--secondary);">${config.company.name}</div>
             </div>
         `;
@@ -62,8 +76,8 @@ async function init() {
     }
 
     // -- I18N INITIALIZATION --
-    const lang = localStorage.getItem('kiram_lang') || config.settings.defaultLanguage || 'fr';
-    window.kiram_i18n = config.i18n[lang];
+    const lang = localStorage.getItem('millenium_lang') || config.settings.defaultLanguage || 'fr';
+    window.millenium_i18n = config.i18n[lang];
     window.currentLang = lang;
 
     // 1. Initialize Global UI & Infrastructure
@@ -73,6 +87,7 @@ async function init() {
     SEO.init(config);
     DarkMode.init();
     UXRefinements.init();
+    CustomCursor.init();
 
     // 2. Render Hero & Content
     if (document.querySelector('#hero-slider-container')) {
@@ -85,9 +100,9 @@ async function init() {
 
     if (document.querySelector('#engagement-cards-container')) {
         const engagementData = [
-            { title: "Expertise Durable", icon: "fas fa-award", description: "Madame Fofana Geneviève, Gérante, pilote KIRAM PHARMA depui 2018 avec une rigueur éthique et scientifique." },
-            { title: "Proximité Stratégique", icon: "fas fa-map-marked-alt", description: "Basés à Abidjan (Cocody Angré Djibi), nous assurons une disponibilité totale pour nos partenaires et patients." },
-            { title: "Vision Pharmaceutique", icon: "fas fa-lightbulb", description: "Représenter les meilleurs laboratoires internationaux pour offrir l'excellence pharmaceutique en Côte d'Ivoire." }
+            { title: "Expertise Durable", icon: "fas fa-award", description: "Une exécution cadrée pour réduire les risques de votre projet immobilier et garantir sa pérennité." },
+            { title: "Proximité Stratégique", icon: "fas fa-map-marked-alt", description: "Basés à Abidjan (Cocody Angré Djibi), nous assurons une disponibilité totale pour nos partenaires et investisseurs." },
+            { title: "Vision Patrimoniale", icon: "fas fa-lightbulb", description: "Sécuriser et valoriser vos investissements pour offrir l'excellence immobilière en Côte d'Ivoire." }
         ];
         EngagementCard.render('#engagement-cards-container', engagementData);
     }
@@ -142,16 +157,16 @@ async function init() {
     // -- STATIC TITLES I18N --
     const catalogueTitle = document.querySelector('#produits h2');
     const catalogueSubtitle = document.querySelector('#produits p');
-    if (catalogueTitle) catalogueTitle.textContent = window.kiram_i18n?.catalogue_title || catalogueTitle.textContent;
-    if (catalogueSubtitle) catalogueSubtitle.textContent = window.kiram_i18n?.catalogue_subtitle || catalogueSubtitle.textContent;
+    if (catalogueTitle) catalogueTitle.textContent = window.millenium_i18n?.catalogue_title || catalogueTitle.textContent;
+    if (catalogueSubtitle) catalogueSubtitle.textContent = window.millenium_i18n?.catalogue_subtitle || catalogueSubtitle.textContent;
 
     const engagementTitle = document.querySelector('#identite h2');
     const engagementSubtitle = document.querySelector('#identite p');
-    if (engagementTitle) engagementTitle.textContent = window.kiram_i18n?.engagement_title || engagementTitle.textContent;
-    if (engagementSubtitle) engagementSubtitle.textContent = window.kiram_i18n?.engagement_subtitle || engagementSubtitle.textContent;
+    if (engagementTitle) engagementTitle.textContent = window.millenium_i18n?.engagement_title || engagementTitle.textContent;
+    if (engagementSubtitle) engagementSubtitle.textContent = window.millenium_i18n?.engagement_subtitle || engagementSubtitle.textContent;
 
     const expertiseTitle = document.querySelector('#activites h2');
-    if (expertiseTitle) expertiseTitle.textContent = window.kiram_i18n?.expertise_title || expertiseTitle.textContent;
+    if (expertiseTitle) expertiseTitle.textContent = window.millenium_i18n?.expertise_title || expertiseTitle.textContent;
 
     if (document.querySelector('#footer-container')) {
         Footer.render('#footer-container', config);
@@ -205,7 +220,7 @@ async function init() {
     }, 500);
 
   } catch (error) {
-    console.error('KIRAM Init Error:', error);
+    console.error('MILLENIUM Init Error:', error);
     if (window.Toast) Toast.show("Erreur de chargement des données", "error");
   }
 }

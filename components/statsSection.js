@@ -11,7 +11,7 @@ const StatsSection = {
               <div class="stat-item">
                 <div class="stat-value" data-target="${stat.value}">0</div>
                 <div class="stat-suffix">${stat.suffix}</div>
-                <div class="stat-label">${window.kiram_i18n?.[stat.key] || stat.key}</div>
+                <div class="stat-label">${window.millenium_i18n?.[stat.key] || stat.key}</div>
               </div>
             `).join('')}
           </div>

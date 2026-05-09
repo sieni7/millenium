@@ -1,4 +1,4 @@
-# Accessibility Audit Report - KIRAM PHARMA
+# Accessibility Audit Report - Millenium Côte d'Ivoire
 
 ## Audit Summary
 - **Compliance Level**: Targeting WCAG 2.1 AA

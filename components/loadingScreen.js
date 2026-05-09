@@ -8,9 +8,9 @@ const LoadingScreen = {
         loader.id = 'loading-screen';
         loader.innerHTML = `
             <div class="loader-content">
-                <div class="loader-logo">KIRAM</div>
+                <div class="loader-logo">MILLENIUM</div>
                 <div class="loader-spinner"></div>
-                <p>Excellence Pharmaceutique</p>
+                <p>Votre Partenaire Patrimonial</p>
             </div>
         `;
         document.body.appendChild(loader);

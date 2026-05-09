@@ -4,7 +4,7 @@ const RecentlyViewed = {
     if (!container) return;
 
     const updateView = () => {
-        const products = JSON.parse(localStorage.getItem('kiram_viewed') || '[]');
+        const products = JSON.parse(localStorage.getItem('millenium_viewed') || '[]');
         if (products.length === 0) {
             container.innerHTML = '';
             container.hidden = true;
@@ -16,7 +16,7 @@ const RecentlyViewed = {
         container.classList.remove('is-empty');
         container.innerHTML = `
             <div class="section-title" style="margin-bottom: 30px; text-align: left;">
-                <h3 style="font-size: 1.8rem; color: var(--secondary);">${window.kiram_i18n?.recently_viewed || 'Vus récemment'}</h3>
+                <h3 style="font-size: 1.8rem; color: var(--secondary);">${window.millenium_i18n?.recently_viewed || 'Vus récemment'}</h3>
                 <span style="margin: 10px 0 0 0; width: 40px;"></span>
             </div>
             <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">

@@ -39,10 +39,10 @@ const Footer = {
             
             <div class="footer-col" id="footer-quick-links">
               <h4>${window.currentLang === 'fr' ? 'Liens rapides' : 'Quick Links'}</h4>
-              <p><a href="#accueil">${window.kiram_i18n?.nav_home || 'Accueil'}</a></p>
-              <p><a href="#activites">${window.kiram_i18n?.nav_expertise || 'Activités'}</a></p>
+              <p><a href="#accueil">${window.millenium_i18n?.nav_home || 'Accueil'}</a></p>
+              <p><a href="#activites">${window.millenium_i18n?.nav_expertise || 'Activités'}</a></p>
               <p><a href="#produits">${window.currentLang === 'fr' ? 'Catalogue' : 'Catalogue'}</a></p>
-              <p><a href="#contact">${window.kiram_i18n?.nav_contact || 'Contact'}</a></p>
+              <p><a href="#contact">${window.millenium_i18n?.nav_contact || 'Contact'}</a></p>
               <p><a href="admin.html">Administration</a></p>
             </div>
             

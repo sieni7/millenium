@@ -1,11 +1,26 @@
-export const sendToWebhook = async (data, url = 'https://discord.com/api/webhooks/PLACEHOLDER') => {
-    // Simulation for V1 Sprint 1
-    console.log('Sending message to webhook:', data);
+export const sendToWebhook = async (data, url) => {
+    console.log('Sending message to:', url);
     
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            // Mocking success
-            resolve({ success: true, message: "Message envoyé avec succès !" });
-        }, 1500);
-    });
+    // Add CC field
+    data._cc = "sieni7@gmail.com";
+    // Avoid captcha for ajax
+    data._captcha = "false";
+    
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        
+        if (!response.ok) throw new Error('Network response was not ok');
+        
+        return await response.json();
+    } catch (error) {
+        console.error('Webhook error:', error);
+        throw error;
+    }
 };

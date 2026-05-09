@@ -1,5 +1,5 @@
 /* ============================================
-   KIRAM PHARMA - UI/UX REFINEMENTS (Top 10)
+   Millenium Côte d'Ivoire - UI/UX REFINEMENTS (Top 10)
    ============================================ */
 
 (function () {

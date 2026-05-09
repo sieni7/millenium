@@ -33,11 +33,11 @@ const ProductModal = {
         overlay.setAttribute('data-last-id', id);
 
         // -- RECENTLY VIEWED LOGIC --
-        let viewed = JSON.parse(localStorage.getItem('kiram_viewed') || '[]');
+        let viewed = JSON.parse(localStorage.getItem('millenium_viewed') || '[]');
         viewed = viewed.filter(v => v.id !== id); // Remove if exists
         viewed.unshift(product); // Add to top
         if (viewed.length > 4) viewed.pop(); // Keep only 4
-        localStorage.setItem('kiram_viewed', JSON.stringify(viewed));
+        localStorage.setItem('millenium_viewed', JSON.stringify(viewed));
         window.dispatchEvent(new CustomEvent('product:viewed_refresh'));
 
         contentInner.innerHTML = `

@@ -1,4 +1,4 @@
-# 🧪 KIRAM PHARMA — Excellence Pharmaceutique
+# 🧪 Millenium Côte d'Ivoire — Excellence Pharmaceutique
 
 <div align="center">
 
@@ -10,9 +10,9 @@
 ![PWA](https://img.shields.io/badge/PWA-Installable-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white)
 ![Lighthouse](https://img.shields.io/badge/Lighthouse-100%25-4B32C3?style=for-the-badge&logo=lighthouse&logoColor=white)
 
-**Site web institutionnel haut de gamme du cabinet médical et pharmaceutique KIRAM PHARMA en Côte d'Ivoire.**
+**Site web institutionnel haut de gamme du cabinet médical et pharmaceutique Millenium Côte d'Ivoire en Côte d'Ivoire.**
 
-[Consulter le site](https://labo-kiram.netlify.app/) • [Rapport d'Audit](reports/a11y_audit.md) • [Documentation API](config.schema.json)
+[Consulter le site](https://milleniumci.netlify.app/) • [Rapport d'Audit](reports/a11y_audit.md) • [Documentation API](config.schema.json)
 
 </div>
 
@@ -20,7 +20,7 @@
 
 ## 📖 À propos
 
-**KIRAM PHARMA** est une Société à Responsabilité Limitée (SARL) basée à **Abidjan, Cocody Angré Djibi**, dédiée à l'excellence dans le secteur de la santé. Dirigée par **Madame Fofana Geneviève**, l'entreprise réunit expertise locale et rigueur internationale pour la distribution, la représentation et la promotion médicale.
+**Millenium Côte d'Ivoire** est une Société à Responsabilité Limitée (SARL) basée à **Abidjan, Cocody Angré Djibi**, dédiée à l'excellence dans le secteur de la santé. Dirigée par **Madame Fofana Geneviève**, l'entreprise réunit expertise locale et rigueur internationale pour la distribution, la représentation et la promotion médicale.
 
 ### 🎯 Nos activités principales
 
@@ -34,7 +34,7 @@
 
 | Champ | Information |
 |-------|-------------|
-| **Dénomination** | KIRAM PHARMA SARL |
+| **Dénomination** | Millenium Côte d'Ivoire SARL |
 | **Date de création** | Juin 2018 (enregistrée au CEPICI le 8 juin 2018) |
 | **RCCM** | CI-ABJ-2018-B-15115 |
 | **BP** | 06 BP 6649 Abidjan 06 |
@@ -134,7 +134,7 @@ npm run deploy:vercel
 ## 📂 Structure du Projet
 
 ```text
-kiram-pharma/
+millenium-ci/
 ├── index.html          # Point d'entrée principal
 ├── admin.html          # Interface d'administration
 ├── vite.config.js      # Configuration Vite (Multi-page)
@@ -194,7 +194,7 @@ netlify deploy --prod --dir=dist
 
 | Action | Instruction |
 |--------|-------------|
-| **Domaine personnalisé** | Configurer `labo-kiram.netlify.app` dans Netlify |
+| **Domaine personnalisé** | Configurer `milleniumci.netlify.app` dans Netlify |
 | **SSL** | Automatique sur Netlify |
 | **Mot de passe admin** | Défini dans `js/admin.js` |
 
@@ -204,8 +204,8 @@ netlify deploy --prod --dir=dist
 
 | Champ | Valeur |
 |-------|--------|
-| **URL** | `https://labo-kiram.netlify.app/admin` |
-| **Mot de passe** | `KiramAdmin2026` |
+| **URL** | `https://milleniumci.netlify.app/admin` |
+| **Mot de passe** | `MilleniumAdmin2026` |
 
 ---
 
@@ -234,7 +234,7 @@ Les contributions sont les bienvenues ! Merci de suivre ces étapes :
 
 ## 📄 Licence
 
-Ce projet est la propriété exclusive de **KIRAM PHARMA SARL**.  
+Ce projet est la propriété exclusive de **Millenium Côte d'Ivoire SARL**.  
 Toute reproduction, distribution ou modification sans autorisation écrite est interdite.
 
 ---
@@ -249,7 +249,7 @@ Toute reproduction, distribution ou modification sans autorisation écrite est i
 ---
 
 <div align="center">
-  <sub>© 2026 KIRAM PHARMA. Tous droits réservés.</sub><br>
+  <sub>© 2026 Millenium Côte d'Ivoire. Tous droits réservés.</sub><br>
   <sub>RCCM : CI-ABJ-2018-B-15115 | BP : 06 BP 6649 Abidjan 06</sub><br>
   <sub>Site conforme WCAG 2.1 AA | PWA Installable | Lighthouse 100/100</sub>
 </div>

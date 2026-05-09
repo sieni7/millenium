@@ -12,7 +12,7 @@ const ContactForm = {
       
         const submitBtn = form.querySelector('.submit-btn');
         const originalContent = submitBtn.innerHTML;
-        const i18n = window.kiram_i18n;
+        const i18n = window.millenium_i18n;
 
         const formData = {
           name: form.name.value,
@@ -52,7 +52,7 @@ const ContactForm = {
         <div class="contact-info-card">
           <h3>
             <i class="fas fa-map-marker-alt" style="color: #1e7f6e;"></i>
-            ${window.kiram_i18n?.contact_title || 'Nos coordonnées'}
+            ${window.millenium_i18n?.contact_title || 'Nos coordonnées'}
           </h3>
           <div class="contact-details">
             <div class="contact-item">
@@ -83,7 +83,7 @@ const ContactForm = {
         <div class="contact-form-card">
           <h3>
             <i class="fas fa-paper-plane" style="color: #1e7f6e;"></i>
-            ${window.kiram_i18n?.form_title || 'Envoyez-nous un message'}
+            ${window.millenium_i18n?.form_title || 'Envoyez-nous un message'}
           </h3>
           <form id="contact-form" class="contact-form">
             <div class="form-group">
@@ -100,7 +100,7 @@ const ContactForm = {
             </div>
             <button type="submit" class="submit-btn">
               <i class="fas fa-paper-plane"></i>
-              ${window.kiram_i18n?.form_btn || 'Envoyer le message'}
+              ${window.millenium_i18n?.form_btn || 'Envoyer le message'}
             </button>
           </form>
         </div>

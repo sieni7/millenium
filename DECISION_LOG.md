@@ -1,4 +1,4 @@
-# DECISION_LOG.md – KIRAM PHARMA
+# DECISION_LOG.md – Millenium Côte d'Ivoire
 
 ## Format d’enregistrement
 

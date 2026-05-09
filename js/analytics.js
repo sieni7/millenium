@@ -28,7 +28,7 @@ const Analytics = {
                 border-top: 1px solid rgba(30,127,110,0.1);
             ">
                 <p style="font-size: 0.9rem; color: var(--text-muted); margin-right: 20px;">
-                    🍪 Nous utilisons des cookies pour optimiser votre expérience. En acceptant, vous nous aidez à améliorer KIRAM PHARMA.
+                    🍪 Nous utilisons des cookies pour optimiser votre expérience. En acceptant, vous nous aidez à améliorer Millenium Côte d'Ivoire.
                 </p>
                 <div style="display: flex; gap: 10px;">
                     <button id="analytics-deny" class="btn btn-sm btn-outline">Refuser</button>
@@ -62,7 +62,7 @@ const Analytics = {
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function() {
-          var u="//kirampharma.matomo.cloud/";
+          var u="//milleniumpharma.matomo.cloud/";
           _paq.push(['setTrackerUrl', u+'matomo.php']);
           _paq.push(['setSiteId', '1']);
           var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
