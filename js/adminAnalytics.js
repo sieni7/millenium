@@ -121,6 +121,7 @@ const AdminAnalytics = {
 
     // ── RENDER ────────────────────────────────────────────────
     render(containerId) {
+        const self = this;
         const container = document.getElementById(containerId);
         if (!container) return;
 
@@ -271,10 +272,14 @@ const AdminAnalytics = {
             </div>
         `;
 
-        // Bind actions
-        document.getElementById('analytics-purge-btn')?.addEventListener('click', () => this.purge(containerId));
-        document.getElementById('analytics-export-btn')?.addEventListener('click', () => this.exportCSV());
-        document.getElementById('analytics-refresh-btn')?.addEventListener('click', () => this.render(containerId));
+        // Bind actions using captured self reference
+        const purgeBtn = document.getElementById('analytics-purge-btn');
+        const exportBtn = document.getElementById('analytics-export-btn');
+        const refreshBtn = document.getElementById('analytics-refresh-btn');
+
+        if (purgeBtn) purgeBtn.onclick = function() { self.purge(containerId); };
+        if (exportBtn) exportBtn.onclick = function() { self.exportCSV(); };
+        if (refreshBtn) refreshBtn.onclick = function() { self.render(containerId); };
     },
 
     // ── BREAKDOWN RENDERER ────────────────────────────────────
