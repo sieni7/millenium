@@ -96,6 +96,9 @@ async function init() {
     UXRefinements.init(config);
     CustomCursor.init();
 
+    // Expose products for analytics product view tracking
+    if (config.products) window._millenium_products = config.products;
+
     // 2. Render Hero & Content
     if (document.querySelector('#hero-slider-container')) {
         Hero.render('#hero-slider-container', config.hero);

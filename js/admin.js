@@ -1,4 +1,5 @@
 import Toast from './toast.js';
+import AdminAnalytics from './adminAnalytics.js';
 
 Toast.init();
 
@@ -17,6 +18,8 @@ const checkAuth = () => {
         document.getElementById('login-overlay').classList.remove('active');
         document.getElementById('admin-dashboard').style.display = 'block';
         loadConfig();
+        // Render analytics KPI dashboard
+        AdminAnalytics.render('analytics-dashboard-container');
     }
 };
 
@@ -32,7 +35,7 @@ const login = () => {
 
 const logout = () => {
     sessionStorage.removeItem('admin_auth');
-    location.reload();
+    window.location.href = '/';
 };
 
 async function loadConfig() {
