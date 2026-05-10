@@ -256,7 +256,7 @@ button:disabled,
 }
 
 .loader-logo {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 3.5rem;
     font-weight: 700;
     color: #1e7f6e;
