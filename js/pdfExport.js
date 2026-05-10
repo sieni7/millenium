@@ -49,10 +49,10 @@ const PDFExport = {
         const head = [['Projet', 'Description', 'Zone', 'Standing', 'Type']];
         const data = config.products.map(p => [
             p.name,
-            p.indication || '-',
-            p.laboratory,
-            p.active_ingredient,
-            p.presentation
+            p.description || '-',
+            p.zone,
+            p.standing,
+            p.type
         ]);
 
         doc.autoTable({

@@ -3,7 +3,7 @@ const FilterBar = {
     const container = document.querySelector(containerSelector);
     if (!container) return;
 
-    const labs = [...new Set(products.map(p => p.laboratory))];
+    const zones = [...new Set(products.map(p => p.zone))];
     
     container.innerHTML = `
       <div class="filter-bar" id="product-filter-bar">
@@ -16,15 +16,15 @@ const FilterBar = {
                   box-shadow: var(--shadow-soft);
               ">
           </div>
-          <button class="filter-btn active" data-lab="all">${window.millenium_i18n?.filter_all || 'Tous'}</button>
-          ${labs.map(lab => `<button class="filter-btn" data-lab="${lab}">${lab}</button>`).join('')}
+          <button class="filter-btn active" data-zone="all">${window.millenium_i18n?.filter_all || 'Tous'}</button>
+          ${zones.map(zone => `<button class="filter-btn" data-zone="${zone}">${zone}</button>`).join('')}
       </div>
     `;
 
     const searchInput = container.querySelector('#product-search');
     const buttons = container.querySelectorAll('.filter-btn');
 
-    // Simple local debounce (N3-021)
+    // Simple local debounce
     const debounce = (func, wait) => {
         let timeout;
         return function executedFunction(...args) {
@@ -41,8 +41,8 @@ const FilterBar = {
         window.dispatchEvent(new CustomEvent('filter:search', { detail: { query } }));
     }, 300);
 
-    const dispatchLab = (lab) => {
-        window.dispatchEvent(new CustomEvent('filter:laboratory', { detail: { lab } }));
+    const dispatchZone = (zone) => {
+        window.dispatchEvent(new CustomEvent('filter:zone', { detail: { zone } }));
     };
 
     searchInput.addEventListener('input', (e) => dispatchSearch(e.target.value));
@@ -52,12 +52,12 @@ const FilterBar = {
         buttons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         
-        const lab = btn.getAttribute('data-lab');
-        dispatchLab(lab);
+        const zone = btn.getAttribute('data-zone');
+        dispatchZone(zone);
 
-        // Add Active Filter Badge (N3-022)
-        if (window.addActiveFilterBadge && lab !== 'all') {
-            window.addActiveFilterBadge('Laboratoire', lab);
+        // Add Active Filter Badge
+        if (window.addActiveFilterBadge && zone !== 'all') {
+            window.addActiveFilterBadge('Zone', zone);
         }
       });
     });

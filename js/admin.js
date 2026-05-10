@@ -187,9 +187,9 @@ const renderScenarios = () => {
     const tbody = document.getElementById('scenarios-body');
     tbody.innerHTML = currentConfig.products.map(p => `
         <tr>
-            <td><strong>${p.name}</strong><br><small>${p.presentation}</small></td>
-            <td>${p.laboratory}</td>
-            <td>${p.active_ingredient}</td>
+            <td><strong>${p.name}</strong><br><small>${p.type}</small></td>
+            <td>${p.zone}</td>
+            <td>${p.standing}</td>
             <td>
                 <div class="actions">
                     <button class="action-btn edit-btn" onclick="openScenarioForm('${p.id}')"><i class="fas fa-edit"></i></button>
@@ -258,11 +258,11 @@ window.openScenarioForm = (id) => {
         document.getElementById('scenario-form-title').textContent = "Modifier le scénario";
         document.getElementById('form-scenario-id').value = p.id;
         document.getElementById('form-scenario-name').value = p.name;
-        document.getElementById('form-scenario-lab').value = p.laboratory;
-        document.getElementById('form-scenario-active').value = p.active_ingredient;
-        document.getElementById('form-scenario-presentation').value = p.presentation;
-        document.getElementById('form-scenario-image').value = p.image_placeholder;
-        document.getElementById('form-scenario-indication').value = p.indication;
+        document.getElementById('form-scenario-lab').value = p.zone;
+        document.getElementById('form-scenario-active').value = p.standing;
+        document.getElementById('form-scenario-presentation').value = p.type;
+        document.getElementById('form-scenario-image').value = p.image;
+        document.getElementById('form-scenario-indication').value = p.description;
     } else {
         document.getElementById('scenario-form-title').textContent = "Nouveau Scénario";
         document.getElementById('scenario-form').reset();
@@ -284,11 +284,11 @@ const handleScenarioSubmit = (e) => {
     const data = {
         id: id || 'proj_' + Date.now(),
         name: document.getElementById('form-scenario-name').value,
-        laboratory: document.getElementById('form-scenario-lab').value,
-        active_ingredient: document.getElementById('form-scenario-active').value,
-        presentation: document.getElementById('form-scenario-presentation').value,
-        image_placeholder: document.getElementById('form-scenario-image').value,
-        indication: document.getElementById('form-scenario-indication').value
+        zone: document.getElementById('form-scenario-lab').value,
+        standing: document.getElementById('form-scenario-active').value,
+        type: document.getElementById('form-scenario-presentation').value,
+        image: document.getElementById('form-scenario-image').value,
+        description: document.getElementById('form-scenario-indication').value
     };
 
     if (id) {

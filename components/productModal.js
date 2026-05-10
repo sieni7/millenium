@@ -6,7 +6,7 @@ const ProductModal = {
     container.innerHTML = `
       <div class="product-modal-overlay" id="product-modal-overlay" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
           <div class="product-modal">
-              <button class="modal-close" id="modal-close" aria-label="Fermer la fiche produit">
+              <button class="modal-close" id="modal-close" aria-label="Fermer la fiche projet">
                   <i class="fas fa-times"></i>
               </button>
               <div id="modal-content-inner"></div>
@@ -22,7 +22,7 @@ const ProductModal = {
         overlay.classList.remove('active');
         overlay.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
-        // Return focus to the grid (N3-008 criterion)
+        // Return focus to the grid
         const lastId = overlay.getAttribute('data-last-id');
         const lastBtn = document.querySelector(`.show-details[data-id="${lastId}"]`);
         if (lastBtn) lastBtn.focus();
@@ -42,23 +42,23 @@ const ProductModal = {
 
         contentInner.innerHTML = `
             <div class="modal-header">
-                <img src="${product.image_placeholder}" alt="${product.name}">
+                <img src="${product.image}" alt="${product.name}">
             </div>
             <div class="modal-body">
-                <div class="modal-lab">${product.laboratory}</div>
+                <div class="modal-zone">${product.zone}</div>
                 <h2>${product.name}</h2>
                 <div class="modal-details-grid">
                     <div class="detail-item">
-                        <h4>Principe Actif</h4>
-                        <p>${product.active_ingredient}</p>
+                        <h4>Standing</h4>
+                        <p>${product.standing}</p>
                     </div>
                     <div class="detail-item">
-                        <h4>Format</h4>
-                        <p>${product.presentation}</p>
+                        <h4>Type de bien</h4>
+                        <p>${product.type}</p>
                     </div>
                     <div class="detail-item" style="grid-column: 1 / -1;">
-                        <h4>Indication Thérapeutique</h4>
-                        <p>${product.indication}</p>
+                        <h4>Atout Principal</h4>
+                        <p>${product.description}</p>
                     </div>
                 </div>
             </div>
@@ -92,7 +92,7 @@ const ProductModal = {
     window.removeEventListener('keydown', handleEsc);
     window.addEventListener('keydown', handleEsc);
 
-    // Listen for custom event from ProductGrid (N3-007)
+    // Listen for custom event from ProductGrid
     window.addEventListener('product:show', (e) => {
         const product = products.find(p => p.id === e.detail.id);
         if (product) openModal(product);

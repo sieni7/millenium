@@ -128,39 +128,39 @@
     {
       "id": "proj_001",
       "name": "Villa Signature",
-      "laboratory": "Abidjan Nord",
-      "active_ingredient": "Haut standing",
-      "presentation": "Résidence 5 pièces",
-      "indication": "Projet premium clés en main",
+      "zone": "Abidjan Nord",
+      "standing": "Haut standing",
+      "type": "Résidence 5 pièces",
+      "description": "Projet premium clés en main",
       "badge": "Recherché",
-      "image_placeholder": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=600"
+      "image": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=600"
     },
     {
       "id": "proj_002",
       "name": "Résidence Familiale",
-      "laboratory": "Bingerville",
-      "active_ingredient": "Espace & Confort",
-      "presentation": "Maison avec jardin",
-      "indication": "Cadre de vie paisible",
-      "image_placeholder": "https://images.unsplash.com/photo-1512915922686-57c11dde9b6b?auto=format&fit=crop&q=80&w=600"
+      "zone": "Bingerville",
+      "standing": "Espace & Confort",
+      "type": "Maison avec jardin",
+      "description": "Cadre de vie paisible",
+      "image": "https://images.unsplash.com/photo-1512915922686-57c11dde9b6b?auto=format&fit=crop&q=80&w=600"
     },
     {
       "id": "proj_003",
       "name": "Immeuble de Rapport",
-      "laboratory": "Cocody Angré",
-      "active_ingredient": "Investissement",
-      "presentation": "Appartements locatifs",
-      "indication": "Rendement optimisé",
-      "image_placeholder": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=600"
+      "zone": "Cocody Angré",
+      "standing": "Investissement",
+      "type": "Appartements locatifs",
+      "description": "Rendement optimisé",
+      "image": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=600"
     },
     {
       "id": "proj_004",
       "name": "Sécurisation Foncier",
-      "laboratory": "Assinie",
-      "active_ingredient": "Audit légal",
-      "presentation": "Terrain clôturé",
-      "indication": "Investissement sécurisé",
-      "image_placeholder": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=600"
+      "zone": "Assinie",
+      "standing": "Audit légal",
+      "type": "Terrain clôturé",
+      "description": "Investissement sécurisé",
+      "image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=600"
     }
   ],
   "partners": [

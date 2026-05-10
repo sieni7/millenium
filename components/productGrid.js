@@ -1,6 +1,6 @@
 const ProductGrid = {
   allProducts: [],
-  filters: { lab: 'all', search: '' },
+  filters: { zone: 'all', search: '' },
 
   showSkeleton: (containerSelector) => {
     const container = document.querySelector(containerSelector);
@@ -31,7 +31,7 @@ const ProductGrid = {
     // Clear and prepare grid
     container.innerHTML = `
         <div id="results-count" class="results-counter">
-            ${window.millenium_i18n?.results_count_prefix || 'Affichage de'} ${products.length} ${window.millenium_i18n?.results_count || 'produits'}
+            ${window.millenium_i18n?.results_count_prefix || 'Affichage de'} ${products.length} ${window.millenium_i18n?.results_count || 'projets'}
         </div>
         <div class="product-grid" id="product-grid-inner"></div>
     `;
@@ -40,15 +40,15 @@ const ProductGrid = {
     ProductGrid.update(gridDiv, products);
 
     // Listen for filtering events (remove old ones if any to avoid stacking)
-    window.removeEventListener('filter:laboratory', ProductGrid.handleLabFilter);
+    window.removeEventListener('filter:zone', ProductGrid.handleZoneFilter);
     window.removeEventListener('filter:search', ProductGrid.handleSearchFilter);
     
-    window.addEventListener('filter:laboratory', ProductGrid.handleLabFilter);
+    window.addEventListener('filter:zone', ProductGrid.handleZoneFilter);
     window.addEventListener('filter:search', ProductGrid.handleSearchFilter);
   },
 
-  handleLabFilter: (e) => {
-    ProductGrid.filters.lab = e.detail.lab;
+  handleZoneFilter: (e) => {
+    ProductGrid.filters.zone = e.detail.zone;
     ProductGrid.applyFilters();
   },
 
@@ -59,10 +59,10 @@ const ProductGrid = {
 
   applyFilters: () => {
     const filtered = ProductGrid.allProducts.filter(p => {
-        const matchesLab = ProductGrid.filters.lab === 'all' || p.laboratory === ProductGrid.filters.lab;
+        const matchesZone = ProductGrid.filters.zone === 'all' || p.zone === ProductGrid.filters.zone;
         const matchesSearch = p.name.toLowerCase().includes(ProductGrid.filters.search) || 
-                              p.active_ingredient.toLowerCase().includes(ProductGrid.filters.search);
-        return matchesLab && matchesSearch;
+                              p.standing.toLowerCase().includes(ProductGrid.filters.search);
+        return matchesZone && matchesSearch;
     });
 
     const gridDiv = document.querySelector('#product-grid-inner');
@@ -72,7 +72,7 @@ const ProductGrid = {
         // Update Counter
         const counter = document.querySelector('#results-count');
         if (counter) {
-            counter.textContent = `Affichage de ${filtered.length} produit${filtered.length > 1 ? 's' : ''}`;
+            counter.textContent = `${window.millenium_i18n?.results_count_prefix || 'Affichage de'} ${filtered.length} ${window.millenium_i18n?.results_count || 'projet'}${filtered.length > 1 ? 's' : ''}`;
         }
 
         // Toggle Empty State
@@ -90,17 +90,17 @@ const ProductGrid = {
 
   update: (gridElement, products) => {
     gridElement.innerHTML = products.map(product => `
-      <div class="product-card fade-in" data-id="${product.id}" data-lab="${product.laboratory}">
+      <div class="product-card fade-in" data-id="${product.id}" data-zone="${product.zone}">
           ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
           <div class="product-image">
-              <img src="${product.image_placeholder}" alt="${product.name}" loading="lazy">
+              <img src="${product.image}" alt="${product.name}" loading="lazy">
           </div>
           <div class="product-body">
-              <div class="product-lab">${product.laboratory}</div>
+              <div class="product-zone">${product.zone}</div>
               <h3>${product.name}</h3>
               <div class="product-info">
-                  <strong>${window.currentLang === 'fr' ? 'Actif' : 'Active'} :</strong> ${product.active_ingredient}<br>
-                  <strong>Format :</strong> ${product.presentation}
+                  <strong>Standing :</strong> ${product.standing}<br>
+                  <strong>Type :</strong> ${product.type}
               </div>
               <div class="product-actions">
                   <button class="btn show-details" data-id="${product.id}">

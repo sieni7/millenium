@@ -88,22 +88,22 @@ const SEO = {
                 schema["@graph"].push({
                     "@type": "RealEstateListing",
                     "name": p.name,
-                    "description": p.indication,
+                    "description": p.description,
                     "address": {
                         "@type": "PostalAddress",
-                        "addressLocality": p.laboratory
+                        "addressLocality": p.zone
                     },
                     "category": "Real Estate",
                     "additionalProperty": [
                         {
                             "@type": "PropertyValue",
                             "name": "Standing",
-                            "value": p.active_ingredient
+                            "value": p.standing
                         },
                         {
                             "@type": "PropertyValue",
                             "name": "Type",
-                            "value": p.presentation
+                            "value": p.type
                         }
                     ]
                 });
