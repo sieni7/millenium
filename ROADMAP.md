@@ -69,3 +69,50 @@ Le socle actuel du projet est propre, modulaire et très fonctionnel. Cependant,
 
 10. **Monitoring d'Erreurs (Sentry)**  
     Installer un tracker d'erreurs front-end (Sentry). Si un client n'arrive pas à envoyer le formulaire à cause de son navigateur ou d'une erreur JS, vous recevez une alerte silencieuse en temps réel sur Discord ou par mail pour corriger le bug avant de perdre le prospect.
+
+---
+
+## ✅ Améliorations Backoffice — Implémentées (Mai 2026)
+
+> Ces fonctionnalités ont été déployées avec succès pour moderniser l'administration et améliorer la productivité.
+
+1. **📋 Journal d'activité complet** — 🗄️ Backend Agent  
+   Système de logging automatique pour chaque création, modification ou suppression. Badge de notification quotidien et export CSV des logs.
+   
+2. **📐 Sidebar & Layout Responsive** — 🎨 UX Architect  
+   Interface à deux volets (Sidebar/Main) avec navigation par onglets (Audience, Profil, Hero, Activités, Projets, Journal). Menu mobile "drawer" et mode réduit (collapsed) sur desktop.
+   
+3. **⚙️ Drag & Drop (Réordonnancement)** — ⚙️ Interaction Agent  
+   Possibilité de changer l'ordre d'affichage des slides hero, des activités et des projets immobiliers directement à la souris. Sauvegarde instantanée de la hiérarchie.
+   
+4. **🖼️ Upload d'images local** — 🖼️ Media Agent  
+   Zone de glisser-déposer pour les photos de projets avec conversion automatique en Base64. Prévisualisation instantanée et suppression facilitée.
+   
+5. **🌙 Mode Sombre (Dark Mode)** — 🎨 Theme Agent  
+   Thème sombre haute fidélité mémorisé via `localStorage` et aligné sur les préférences système de l'administrateur.
+
+---
+
+## 🛡️ Améliorations Backoffice — Phase 2 (Planifiées)
+
+> Les 5 améliorations suivantes ont été identifiées lors de l'audit du backoffice de mai 2026. Elles sont classées par priorité décroissante et prêtes à être implémentées dans un prochain sprint.
+
+1. **🔒 Authentification Sécurisée (Hash + Expiration)** — 🛡️ SecOps Agent  
+   Remplacer le mot de passe en clair par un hash SHA-256 comparé via `crypto.subtle.digest`. Ajouter une expiration de session (4h) et un verrouillage après 5 tentatives échouées (cooldown 60s). Stocker le hash dans `config.json` sous `settings.adminPasswordHash`.  
+   **Priorité :** 🔴 Critique | **Complexité :** Moyenne
+
+2. **👁️ Prévisualisation Live (Split-Screen)** — 🖥️ Preview Agent  
+   Bouton « Prévisualiser » ouvrant un panneau latéral avec un iframe du site public. Les modifications en cours sont injectées via `postMessage`. Toggle Desktop / Tablette / Mobile avec breakpoints simulés. Badge « Non sauvegardé » si modifications en attente.  
+   **Priorité :** 🟠 Haute | **Complexité :** Élevée
+
+3. **📄 Rapports PDF Analytics** — 📊 Data Export Agent  
+   Nouveau bouton « Rapport Analytics PDF » dans l'onglet Audience. Contenu : couverture avec logo, KPIs en grille, graphique 7 jours rendu en canvas, tableau des top pages/projets, répartition géographique. Sélecteur de période 7j / 30j / Tout.  
+   **Priorité :** 🟡 Moyenne | **Complexité :** Moyenne
+
+4. **📊 Filtres Temporels & Comparaisons Analytics** — 📈 Analytics Agent  
+   Barre de filtres au-dessus des KPI cards (Aujourd'hui / 7j / 30j / 90j / Tout) avec date picker HTML natif. KPIs de tendance (flèches ↑↓ avec % de variation). Graphique étendu à la période sélectionnée. Filtre mémorisé en `sessionStorage`.  
+   **Priorité :** 🟡 Moyenne | **Complexité :** Moyenne
+
+5. **🔍 Gestion SEO depuis le Backoffice** — 🔍 SEO Agent  
+   Nouvel onglet « SEO & Réglages » avec champs éditables (`<title>`, `<meta description>`, `<meta keywords>`), preview Google (snippet simulator), configuration Open Graph, et score SEO simplifié. Valeurs stockées dans `config.json` sous `seo: {}`.  
+   **Priorité :** 🟢 Moyenne | **Complexité :** Moyenne

@@ -1,5 +1,9 @@
 import Toast from './toast.js';
 import AdminAnalytics from './adminAnalytics.js';
+import ActivityLog from './activityLog.js';
+import DragDrop from './dragDrop.js';
+import ImageUpload from './imageUpload.js';
+import AdminDarkMode from './darkMode.admin.js';
 
 Toast.init();
 
@@ -7,19 +11,30 @@ let currentConfig = null;
 let originalConfig = null;
 let isDirty = false;
 
+// ── BREADCRUMB LABELS ────────────────────────────────────
+const tabLabels = {
+    audience: { icon: 'fas fa-chart-line', label: 'Audience' },
+    profile: { icon: 'fas fa-building', label: 'Profil & Stats' },
+    hero: { icon: 'fas fa-images', label: 'Hero & Accroches' },
+    activities: { icon: 'fas fa-tasks', label: 'Activités' },
+    scenarios: { icon: 'fas fa-home', label: 'Projets' },
+    journal: { icon: 'fas fa-clipboard-list', label: 'Journal' }
+};
+
 window.markDirty = () => {
     isDirty = true;
     document.getElementById('save-bar').style.display = 'flex';
 };
 
+// ── AUTH ──────────────────────────────────────────────────
 const checkAuth = () => {
     const auth = sessionStorage.getItem('admin_auth');
     if (auth === 'true') {
         document.getElementById('login-overlay').classList.remove('active');
-        document.getElementById('admin-dashboard').style.display = 'block';
+        document.getElementById('admin-dashboard').style.display = 'flex';
         loadConfig();
-        // Render analytics KPI dashboard
         AdminAnalytics.render('analytics-dashboard-container');
+        ActivityLog.updateBadge();
     }
 };
 
@@ -27,6 +42,7 @@ const login = () => {
     const password = document.getElementById('admin-password').value;
     if (password === 'MilleniumAdmin2026' || password === 'Millenium2026') {
         sessionStorage.setItem('admin_auth', 'true');
+        ActivityLog.add('config', 'Connexion au backoffice', 'Auth');
         checkAuth();
     } else {
         document.getElementById('login-error').style.display = 'block';
@@ -34,27 +50,28 @@ const login = () => {
 };
 
 const logout = () => {
+    ActivityLog.add('config', 'Déconnexion du backoffice', 'Auth');
     sessionStorage.removeItem('admin_auth');
     window.location.href = '/';
 };
 
+// ── CONFIG ───────────────────────────────────────────────
 async function loadConfig() {
     try {
-        // Priority: localStorage > config.json (file on disk)
         const stored = localStorage.getItem('millenium_config');
         if (stored) {
             originalConfig = JSON.parse(stored);
-            Toast.show("Configuration chargée depuis le stockage local", "success", 2000);
+            Toast.show("Configuration chargée", "success", 2000);
         } else {
             const res = await fetch('config.json');
             originalConfig = await res.json();
         }
-        currentConfig = JSON.parse(JSON.stringify(originalConfig)); 
-
+        currentConfig = JSON.parse(JSON.stringify(originalConfig));
         renderProfile();
         renderHero();
         renderActivities();
         renderScenarios();
+        ActivityLog.render();
     } catch (e) {
         console.error('Failed to load config:', e);
         Toast.show("Erreur de chargement", "error");
@@ -62,58 +79,51 @@ async function loadConfig() {
 }
 
 const discardChanges = () => {
-    if (confirm('Annuler toutes les modifications ?')) {
-        location.reload(); 
-    }
+    if (confirm('Annuler toutes les modifications ?')) location.reload();
 };
 
 const saveConfig = () => {
     try {
         localStorage.setItem('millenium_config', JSON.stringify(currentConfig));
-        Toast.show("✅ Configuration sauvegardée avec succès !", "success");
+        Toast.show("✅ Configuration sauvegardée !", "success");
+        ActivityLog.add('config', 'Configuration sauvegardée', 'Système');
         originalConfig = JSON.parse(JSON.stringify(currentConfig));
         isDirty = false;
         document.getElementById('save-bar').style.display = 'none';
     } catch (e) {
-        console.error('Save failed:', e);
         Toast.show("Erreur de sauvegarde", "error");
     }
 };
 
-// Export JSON file (for backup / git commit purposes)
 const exportConfig = () => {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentConfig, null, 2));
-    const downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href", dataStr);
-    downloadAnchorNode.setAttribute("download", "config.json");
-    document.body.appendChild(downloadAnchorNode);
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
-    Toast.show("📦 Fichier config.json exporté (backup)", "success", 3000);
+    const a = document.createElement('a');
+    a.href = dataStr;
+    a.download = "config.json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    Toast.show("📦 config.json exporté", "success", 3000);
 };
 
-// Reset to default config.json from server
 const resetToDefault = async () => {
-    if (!confirm('Réinitialiser la configuration aux valeurs par défaut du fichier config.json ?')) return;
+    if (!confirm('Réinitialiser aux valeurs par défaut ?')) return;
     try {
         localStorage.removeItem('millenium_config');
         const res = await fetch('config.json');
         originalConfig = await res.json();
         currentConfig = JSON.parse(JSON.stringify(originalConfig));
-        renderProfile();
-        renderHero();
-        renderActivities();
-        renderScenarios();
+        renderProfile(); renderHero(); renderActivities(); renderScenarios();
         isDirty = false;
         document.getElementById('save-bar').style.display = 'none';
-        Toast.show("🔄 Configuration réinitialisée", "success");
+        ActivityLog.add('config', 'Configuration réinitialisée', 'Système');
+        Toast.show("🔄 Réinitialisé", "success");
     } catch (e) {
         Toast.show("Erreur de réinitialisation", "error");
     }
 };
 
-// --- RENDERERS ---
-
+// ── RENDERERS ────────────────────────────────────────────
 const renderProfile = () => {
     document.getElementById('edit-company-name').value = currentConfig.company.name;
     document.getElementById('edit-company-email').value = currentConfig.contact.email;
@@ -133,16 +143,19 @@ const renderProfile = () => {
 };
 
 window.updateStat = (idx, field, value) => {
-    if(field === 'value') currentConfig.company.stats[idx].value = parseInt(value) || value;
-    if(field === 'suffix') currentConfig.company.stats[idx].suffix = value;
+    if (field === 'value') currentConfig.company.stats[idx].value = parseInt(value) || value;
+    if (field === 'suffix') currentConfig.company.stats[idx].suffix = value;
     window.markDirty();
 };
 
 const renderHero = () => {
     const container = document.getElementById('hero-slides-container');
     container.innerHTML = currentConfig.hero.slides.map((slide, idx) => `
-        <div class="slide-group">
-            <h4>Slide ${idx + 1}</h4>
+        <div class="slide-group" draggable="true" data-index="${idx}">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                <span class="drag-handle"><i class="fas fa-grip-vertical"></i></span>
+                <h4 style="margin:0;">Slide ${idx + 1}</h4>
+            </div>
             <div class="form-group">
                 <label>Titre</label>
                 <input type="text" value="${slide.title}" oninput="updateSlide(${idx}, 'title', this.value)">
@@ -157,12 +170,20 @@ const renderHero = () => {
                     <input type="text" value="${slide.cta}" oninput="updateSlide(${idx}, 'cta', this.value)">
                 </div>
                 <div class="form-group">
-                    <label>URL Image (Unsplash ou locale)</label>
+                    <label>URL Image</label>
                     <input type="text" value="${slide.image}" oninput="updateSlide(${idx}, 'image', this.value)">
                 </div>
             </div>
         </div>
     `).join('');
+
+    // Init drag & drop on hero slides
+    DragDrop.init(container, (from, to) => {
+        DragDrop.reorderArray(currentConfig.hero.slides, from, to);
+        ActivityLog.add('update', `Slide réordonnée: ${from + 1} → ${to + 1}`, 'Hero');
+        window.markDirty();
+        renderHero();
+    });
 };
 
 window.updateSlide = (idx, field, value) => {
@@ -172,8 +193,9 @@ window.updateSlide = (idx, field, value) => {
 
 const renderActivities = () => {
     const tbody = document.getElementById('activities-body');
-    tbody.innerHTML = currentConfig.activities.map(act => `
-        <tr>
+    tbody.innerHTML = currentConfig.activities.map((act, idx) => `
+        <tr draggable="true" data-index="${idx}">
+            <td><span class="drag-handle"><i class="fas fa-grip-vertical"></i></span></td>
             <td><strong><i class="${act.icon}"></i> ${act.title}</strong></td>
             <td>${act.description.substring(0, 50)}...</td>
             <td>
@@ -184,12 +206,20 @@ const renderActivities = () => {
             </td>
         </tr>
     `).join('');
+
+    DragDrop.init(tbody, (from, to) => {
+        DragDrop.reorderArray(currentConfig.activities, from, to);
+        ActivityLog.add('update', `Activité réordonnée: ${from + 1} → ${to + 1}`, 'Activités');
+        window.markDirty();
+        renderActivities();
+    });
 };
 
 const renderScenarios = () => {
     const tbody = document.getElementById('scenarios-body');
-    tbody.innerHTML = currentConfig.products.map(p => `
-        <tr>
+    tbody.innerHTML = currentConfig.products.map((p, idx) => `
+        <tr draggable="true" data-index="${idx}">
+            <td><span class="drag-handle"><i class="fas fa-grip-vertical"></i></span></td>
             <td><strong>${p.name}</strong><br><small>${p.type}</small></td>
             <td>${p.zone}</td>
             <td>${p.standing}</td>
@@ -201,13 +231,19 @@ const renderScenarios = () => {
             </td>
         </tr>
     `).join('');
+
+    DragDrop.init(tbody, (from, to) => {
+        DragDrop.reorderArray(currentConfig.products, from, to);
+        ActivityLog.add('update', `Projet réordonné: ${from + 1} → ${to + 1}`, 'Projets');
+        window.markDirty();
+        renderScenarios();
+    });
 };
 
-// --- CRUD ACTIVITIES ---
+// ── CRUD ACTIVITIES ──────────────────────────────────────
 window.openActivityForm = (id) => {
     const modal = document.getElementById('activity-form-modal');
     modal.classList.add('active');
-    
     if (id) {
         const act = currentConfig.activities.find(a => a.id === id);
         document.getElementById('activity-form-title').textContent = "Modifier l'activité";
@@ -223,8 +259,10 @@ window.openActivityForm = (id) => {
 };
 
 window.deleteActivity = (id) => {
-    if (confirm('Voulez-vous vraiment supprimer cette activité ?')) {
+    if (confirm('Supprimer cette activité ?')) {
+        const act = currentConfig.activities.find(a => a.id === id);
         currentConfig.activities = currentConfig.activities.filter(a => a.id !== id);
+        ActivityLog.add('delete', `Activité supprimée: ${act?.title || id}`, 'Activités');
         window.markDirty();
         renderActivities();
     }
@@ -239,23 +277,23 @@ const handleActivitySubmit = (e) => {
         icon: document.getElementById('form-activity-icon').value,
         description: document.getElementById('form-activity-desc').value
     };
-
     if (id) {
         const index = currentConfig.activities.findIndex(a => a.id === id);
         currentConfig.activities[index] = data;
+        ActivityLog.add('update', `Activité modifiée: ${data.title}`, 'Activités');
     } else {
         currentConfig.activities.push(data);
+        ActivityLog.add('create', `Activité créée: ${data.title}`, 'Activités');
     }
     window.markDirty();
     renderActivities();
     document.getElementById('activity-form-modal').classList.remove('active');
 };
 
-// --- CRUD SCENARIOS ---
+// ── CRUD SCENARIOS ───────────────────────────────────────
 window.openScenarioForm = (id) => {
     const modal = document.getElementById('scenario-form-modal');
     modal.classList.add('active');
-    
     if (id) {
         const p = currentConfig.products.find(prod => prod.id === id);
         document.getElementById('scenario-form-title').textContent = "Modifier le scénario";
@@ -271,11 +309,23 @@ window.openScenarioForm = (id) => {
         document.getElementById('scenario-form').reset();
         document.getElementById('form-scenario-id').value = '';
     }
+    // Init image preview for existing value
+    const imgVal = document.getElementById('form-scenario-image').value;
+    const prev = document.getElementById('scenario-preview');
+    const prevImg = document.getElementById('scenario-preview-img');
+    if (imgVal && (imgVal.startsWith('http') || imgVal.startsWith('data:'))) {
+        if (prevImg) prevImg.src = imgVal;
+        if (prev) prev.style.display = 'inline-block';
+    } else {
+        if (prev) prev.style.display = 'none';
+    }
 };
 
 window.deleteScenario = (id) => {
-    if (confirm('Voulez-vous vraiment supprimer ce scénario ?')) {
-        currentConfig.products = currentConfig.products.filter(p => p.id !== id);
+    if (confirm('Supprimer ce scénario ?')) {
+        const p = currentConfig.products.find(prod => prod.id === id);
+        currentConfig.products = currentConfig.products.filter(prod => prod.id !== id);
+        ActivityLog.add('delete', `Projet supprimé: ${p?.name || id}`, 'Projets');
         window.markDirty();
         renderScenarios();
     }
@@ -293,48 +343,105 @@ const handleScenarioSubmit = (e) => {
         image: document.getElementById('form-scenario-image').value,
         description: document.getElementById('form-scenario-indication').value
     };
-
     if (id) {
         const index = currentConfig.products.findIndex(p => p.id === id);
         currentConfig.products[index] = data;
+        ActivityLog.add('update', `Projet modifié: ${data.name}`, 'Projets');
     } else {
         currentConfig.products.push(data);
+        ActivityLog.add('create', `Projet créé: ${data.name}`, 'Projets');
     }
     window.markDirty();
     renderScenarios();
     document.getElementById('scenario-form-modal').classList.remove('active');
 };
 
-// --- TABS & INIT ---
-const setupTabs = () => {
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+// ── SIDEBAR & TABS (#3 — UX Architect) ───────────────────
+const setupSidebar = () => {
+    const sidebar = document.getElementById('admin-sidebar');
+    const collapseBtn = document.getElementById('sidebar-collapse-btn');
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const overlay = document.getElementById('sidebar-overlay');
+
+    // Collapse toggle (desktop)
+    if (collapseBtn) {
+        collapseBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            localStorage.setItem('sidebar_collapsed', sidebar.classList.contains('collapsed'));
+        });
+        // Restore state
+        if (localStorage.getItem('sidebar_collapsed') === 'true') {
+            sidebar.classList.add('collapsed');
+        }
+    }
+
+    // Mobile drawer
+    if (mobileBtn) {
+        mobileBtn.addEventListener('click', () => {
+            sidebar.classList.add('mobile-open');
+            overlay.classList.add('active');
+        });
+    }
+    if (overlay) {
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('mobile-open');
+            overlay.classList.remove('active');
+        });
+    }
+
+    // Tab switching via sidebar links
+    document.querySelectorAll('.sidebar-link[data-tab]').forEach(link => {
+        link.addEventListener('click', () => {
+            const tab = link.getAttribute('data-tab');
+            // Update active states
+            document.querySelectorAll('.sidebar-link[data-tab]').forEach(l => l.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            btn.classList.add('active');
-            document.getElementById('tab-' + btn.getAttribute('data-tab')).classList.add('active');
+            link.classList.add('active');
+            document.getElementById('tab-' + tab).classList.add('active');
+            // Update breadcrumb
+            const info = tabLabels[tab] || { icon: 'fas fa-circle', label: tab };
+            document.getElementById('breadcrumb-label').innerHTML = `<i class="${info.icon}"></i> ${info.label}`;
+            // Refresh journal when switching to it
+            if (tab === 'journal') ActivityLog.render();
+            // Close mobile drawer
+            sidebar.classList.remove('mobile-open');
+            document.getElementById('sidebar-overlay').classList.remove('active');
         });
     });
 };
 
+// ── INIT ─────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+    AdminDarkMode.init();
     checkAuth();
-    setupTabs();
+    setupSidebar();
 
     document.getElementById('login-btn').addEventListener('click', login);
+    document.getElementById('admin-password').addEventListener('keydown', (e) => { if (e.key === 'Enter') login(); });
     document.getElementById('logout-btn').addEventListener('click', logout);
-    
+
     document.getElementById('add-activity-btn').addEventListener('click', () => window.openActivityForm());
     document.getElementById('activity-form').addEventListener('submit', handleActivitySubmit);
-    
+
     document.getElementById('add-scenario-btn').addEventListener('click', () => window.openScenarioForm());
     document.getElementById('scenario-form').addEventListener('submit', handleScenarioSubmit);
-    
+
     document.getElementById('discard-btn').addEventListener('click', discardChanges);
     document.getElementById('save-config-btn').addEventListener('click', saveConfig);
     document.getElementById('export-config-btn').addEventListener('click', exportConfig);
     document.getElementById('reset-config-btn').addEventListener('click', resetToDefault);
-    
+
+    // Image upload for scenarios (#8)
+    ImageUpload.init('scenario-dropzone', 'scenario-file-input', 'scenario-preview', 'scenario-preview-img', 'scenario-remove-preview', 'form-scenario-image');
+
+    // Journal controls (#2)
+    const journalFilter = document.getElementById('journal-filter');
+    if (journalFilter) journalFilter.addEventListener('change', () => ActivityLog.render(journalFilter.value));
+    const journalExport = document.getElementById('journal-export-btn');
+    if (journalExport) journalExport.addEventListener('click', () => ActivityLog.exportCSV());
+    const journalClear = document.getElementById('journal-clear-btn');
+    if (journalClear) journalClear.addEventListener('click', () => { if (ActivityLog.clear()) ActivityLog.render(); });
+
     // Auto-save simple fields
     ['edit-company-name', 'edit-company-email', 'edit-company-phone', 'edit-webhook-url', 'edit-company-address'].forEach(id => {
         document.getElementById(id).addEventListener('input', (e) => {
@@ -350,6 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('edit-maintenance-mode').addEventListener('change', (e) => {
         if (!currentConfig.settings) currentConfig.settings = {};
         currentConfig.settings.maintenanceMode = e.target.checked;
+        ActivityLog.add('config', `Mode maintenance ${e.target.checked ? 'activé' : 'désactivé'}`, 'Paramètres');
         window.markDirty();
     });
 });

@@ -75,12 +75,14 @@
 - 🎯 **Focus visible** : Indicateurs de navigation clairs
 - 🔤 **Contrastes optimisés** : Lisibilité maximale pour tous
 
-### 🛠️ Back-office & Administration
-- 🔐 **Admin sécurisé** : Interface d'administration protégée par mot de passe
-- 📦 **CRUD produits** : Ajout, modification, suppression des produits
-- ✏️ **Éditeur WYSIWYG** : Modification des textes institutionnels (Quill.js)
-- 📄 **Export PDF** : Génération automatique du catalogue produits
-- 💾 **Sauvegarde JSON** : Téléchargement du fichier de configuration
+### 🛠️ Back-office & Administration "ProMax"
+- 🔐 **Interface Premium** : Sidebar responsive avec navigation par onglets (Audience, Profil, Hero, Activités, Projets, Journal).
+- 🗄️ **Journal d'activité** : Historique complet des actions d'administration avec filtrage par type et export CSV.
+- ⚙️ **Drag & Drop** : Réordonnancement intuitif des slides hero, des activités et des projets immobiliers.
+- 🖼️ **Gestion Media** : Upload d'images local avec conversion Base64, prévisualisation et drag-and-drop.
+- 🌙 **Dark Mode Admin** : Thème sombre dédié mémorisé indépendamment pour le confort de gestion.
+- 📊 **Analytics Client-Side** : Dashboard complet (KPIs, graphiques, top pages, pays) sans dépendance externe.
+- 💾 **Persistance Hybride** : Sauvegarde en `localStorage` avec export/import vers `config.json`.
 
 ---
 
@@ -89,13 +91,13 @@
 | Technologie | Version | Usage |
 | :--- | :--- | :--- |
 | **Vite** | 5.x | Build system & Server HMR |
-| **Vanilla JS** | ES2022 | Logique métier & Modules |
-| **CSS3 Custom** | — | Design System & Animations |
-| **Quill.js** | 1.3.6 | Éditeur WYSIWYG (admin) |
-| **jsPDF** | 2.5.1 | Export catalogue PDF |
-| **Matomo** | — | Analytics & Tracking |
+| **Vanilla JS** | ES2022 | Logique métier & Architecture modulaire |
+| **CSS3 Custom** | — | Design System (Glassmorphism & Dark Mode) |
+| **Quill.js** | 1.3.6 | Éditeur WYSIWYG pour le contenu |
+| **jsPDF** | 2.5.1 | Exportation du catalogue en PDF |
+| **Analytics Engine** | Custom | Moteur de tracking anonyme (0-dep) |
 | **GitHub Actions** | — | CI/CD (Configuration prête) |
-| **Netlify** | — | Hébergement haute disponibilité |
+| **Netlify** | — | Hébergement & Redirects |
 
 ---
 
@@ -151,13 +153,18 @@ millenium-ci/
 │   ├── animations.css  # Animations et transitions
 │   └── mobile.css/dark-mode.css
 │
-├── js/                 # Orchestrateurs et services
-│   ├── main.js/admin.js
-│   ├── adminEditor.js
-│   ├── pdfExport.js
-│   ├── animations.js/toast.js
-│   ├── analytics.js/seo.js
-│   └── darkMode.js/mobileMenu.js
+├── js/                 # Orchestrateurs et services (ES Modules)
+│   ├── main.js/admin.js  # Points d'entrée
+│   ├── activityLog.js    # Journal d'activité (Audit Trail)
+│   ├── adminAnalytics.js # Dashboard de statistiques (KPIs)
+│   ├── adminEditor.js    # Service d'édition WYSIWYG
+│   ├── dragDrop.js       # Moteur de réordonnancement
+│   ├── imageUpload.js    # Service d'upload/preview local
+│   ├── darkMode.admin.js # Gestionnaire de thème backoffice
+│   ├── pdfExport.js      # Générateur de catalogue PDF
+│   ├── animations.js     # Moteur d'animations globales
+│   ├── seo.js            # Injection JSON-LD & Meta tags
+│   └── toast.js          # Système de notifications UI
 │
 ├── public/             # Assets statiques (Copiés tels quels dans dist/)
 │   ├── config.json/manifest.json
@@ -203,7 +210,7 @@ netlify deploy --prod --dir=dist
 | Champ | Valeur |
 |-------|--------|
 | **URL** | `https://milleniumci.netlify.app/admin` |
-| **Mot de passe** | `MilleniumAdmin2026` |
+| **Mot de passe** | `MilleniumAdmin2026` (ou `Millenium2026`) |
 
 ---
 

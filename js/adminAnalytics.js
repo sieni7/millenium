@@ -174,9 +174,9 @@ const AdminAnalytics = {
                     <h4><i class="fas fa-globe-africa"></i> Répartition géographique</h4>
                     <div class="geo-list">
                         ${m.topCountries.length === 0 ? '<p class="analytics-empty">Aucune donnée</p>' :
-                          m.topCountries.slice(0, 8).map(c => {
-                            const pct = m.total > 0 ? Math.round((c.count / m.total) * 100) : 0;
-                            return `
+                m.topCountries.slice(0, 8).map(c => {
+                    const pct = m.total > 0 ? Math.round((c.count / m.total) * 100) : 0;
+                    return `
                                 <div class="geo-row">
                                     <span class="geo-flag">${this.flag(c.code)}</span>
                                     <span class="geo-name">${c.name}</span>
@@ -186,7 +186,7 @@ const AdminAnalytics = {
                                     <span class="geo-pct">${pct}%</span>
                                 </div>
                             `;
-                          }).join('')}
+                }).join('')}
                     </div>
                 </div>
             </div>
@@ -197,10 +197,10 @@ const AdminAnalytics = {
                     <h4><i class="fas fa-mobile-alt"></i> Appareils</h4>
                     <div class="breakdown-list">
                         ${this.renderBreakdown(m.devices, m.total, {
-                            desktop: { icon: 'fas fa-desktop', label: 'Desktop' },
-                            mobile: { icon: 'fas fa-mobile-alt', label: 'Mobile' },
-                            tablet: { icon: 'fas fa-tablet-alt', label: 'Tablette' }
-                        })}
+                    desktop: { icon: 'fas fa-desktop', label: 'Desktop' },
+                    mobile: { icon: 'fas fa-mobile-alt', label: 'Mobile' },
+                    tablet: { icon: 'fas fa-tablet-alt', label: 'Tablette' }
+                })}
                     </div>
                 </div>
                 <div class="analytics-card analytics-card-sm">
@@ -213,7 +213,7 @@ const AdminAnalytics = {
                     <h4><i class="fas fa-fire"></i> Projets les plus vus</h4>
                     <div class="top-products-list">
                         ${m.topProducts.length === 0 ? '<p class="analytics-empty">Aucun clic enregistré</p>' :
-                          m.topProducts.map((p, i) => `
+                m.topProducts.map((p, i) => `
                             <div class="top-product-row">
                                 <span class="top-product-rank">${i + 1}</span>
                                 <span class="top-product-name">${p.name}</span>
@@ -242,7 +242,7 @@ const AdminAnalytics = {
                         </thead>
                         <tbody>
                             ${m.recentVisits.length === 0 ? '<tr><td colspan="7" style="text-align:center; color: var(--text-muted);">Aucune visite enregistrée</td></tr>' :
-                              m.recentVisits.map(v => `
+                m.recentVisits.map(v => `
                                 <tr>
                                     <td><span class="visit-flag">${this.flag(v.countryCode)}</span> ${v.countryCode || '—'}</td>
                                     <td>${v.city || '—'}</td>
@@ -277,9 +277,9 @@ const AdminAnalytics = {
         const exportBtn = document.getElementById('analytics-export-btn');
         const refreshBtn = document.getElementById('analytics-refresh-btn');
 
-        if (purgeBtn) purgeBtn.onclick = function() { self.purge(containerId); };
-        if (exportBtn) exportBtn.onclick = function() { self.exportCSV(); };
-        if (refreshBtn) refreshBtn.onclick = function() { self.render(containerId); };
+        if (purgeBtn) purgeBtn.onclick = function () { self.purge(containerId); };
+        if (exportBtn) exportBtn.onclick = function () { self.exportCSV(); };
+        if (refreshBtn) refreshBtn.onclick = function () { self.render(containerId); };
     },
 
     // ── BREAKDOWN RENDERER ────────────────────────────────────
