@@ -295,7 +295,6 @@ tr.drag-over { border-top: 2px solid var(--primary) !important; }
     .mobile-header { display: flex; }
     .main-content { margin-left: 0; padding: 16px; padding-top: calc(var(--topbar-height) + 16px); }
     .sidebar.collapsed ~ .main-content { margin-left: 0; }
-@media (max-width: 768px) {
     .save-bar { left: 16px; right: 16px; transform: none; }
     .save-bar-inner { flex-direction: column; gap: 12px; }
     .save-bar-inner p { display: none; }
