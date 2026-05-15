@@ -89,11 +89,13 @@ const ProductGrid = {
   },
 
   update: (gridElement, products) => {
-    gridElement.innerHTML = products.map(product => `
+    gridElement.innerHTML = products.map(product => {
+      const displayImage = (product.images && product.images.length > 0) ? product.images[0] : (product.image || '');
+      return `
       <div class="product-card fade-in" data-id="${product.id}" data-zone="${product.zone}">
           ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
           <div class="product-image">
-              <img src="${product.image}" alt="${product.name}" loading="lazy">
+              <img src="${displayImage}" alt="${product.name}" loading="lazy">
           </div>
           <div class="product-body">
               <div class="product-zone">${product.zone}</div>
@@ -109,7 +111,8 @@ const ProductGrid = {
               </div>
           </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
 
     // Attach event listeners for details button
     gridElement.querySelectorAll('.show-details').forEach(button => {

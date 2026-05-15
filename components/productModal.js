@@ -34,15 +34,30 @@ const ProductModal = {
 
         // -- RECENTLY VIEWED LOGIC --
         let viewed = JSON.parse(localStorage.getItem('millenium_viewed') || '[]');
-        viewed = viewed.filter(v => v.id !== id); // Remove if exists
-        viewed.unshift(product); // Add to top
-        if (viewed.length > 4) viewed.pop(); // Keep only 4
+        // We now store only IDs to save space and ensure data consistency
+        viewed = viewed.filter(v => (typeof v === 'object' ? v.id : v) !== id); 
+        viewed.unshift(id); // Add ID to top
+        if (viewed.length > 4) viewed.pop(); 
         localStorage.setItem('millenium_viewed', JSON.stringify(viewed));
         window.dispatchEvent(new CustomEvent('product:viewed_refresh'));
 
+        const images = product.images && product.images.length > 0 ? product.images : [product.image];
+        const galleryHtml = images.map((img, idx) => `
+            <div class="modal-gallery-item">
+                <img src="${img}" alt="${product.name} - Image ${idx + 1}" class="gallery-trigger">
+            </div>
+        `).join('');
+
         contentInner.innerHTML = `
-            <div class="modal-header">
-                <img src="${product.image}" alt="${product.name}">
+            <div class="modal-header ${images.length > 1 ? 'has-gallery' : ''}">
+                <div class="modal-gallery-container">
+                    ${galleryHtml}
+                </div>
+                ${images.length > 1 ? `
+                    <div class="gallery-nav">
+                        <span class="gallery-hint"><i class="fas fa-arrows-alt-h"></i> Faites défiler pour voir plus</span>
+                    </div>
+                ` : ''}
             </div>
             <div class="modal-body">
                 <div class="modal-zone">${product.zone}</div>

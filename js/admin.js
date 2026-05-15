@@ -67,6 +67,13 @@ async function loadConfig() {
             originalConfig = await res.json();
         }
         currentConfig = JSON.parse(JSON.stringify(originalConfig));
+        
+        // -- DATA NORMALIZATION --
+        currentConfig.products.forEach(p => {
+            if (p.image && (!p.images || p.images.length === 0)) p.images = [p.image];
+            if (!p.images) p.images = [];
+        });
+
         renderProfile();
         renderHero();
         renderActivities();
@@ -91,7 +98,12 @@ const saveConfig = () => {
         isDirty = false;
         document.getElementById('save-bar').style.display = 'none';
     } catch (e) {
-        Toast.show("Erreur de sauvegarde", "error");
+        console.error('Save failed:', e);
+        if (e.name === 'QuotaExceededError' || e.code === 22) {
+            Toast.show("❌ Mémoire saturée ! Réduisez la taille des images.", "error", 5000);
+        } else {
+            Toast.show("Erreur de sauvegarde", "error");
+        }
     }
 };
 
@@ -328,6 +340,10 @@ const handleActivitySubmit = (e) => {
 window.openScenarioForm = (id) => {
     const modal = document.getElementById('scenario-form-modal');
     modal.classList.add('active');
+    
+    // Global temp array for the form
+    window._tempScenarioImages = [];
+
     if (id) {
         const p = currentConfig.products.find(prod => prod.id === id);
         document.getElementById('scenario-form-title').textContent = "Modifier le scénario";
@@ -336,23 +352,46 @@ window.openScenarioForm = (id) => {
         document.getElementById('form-scenario-lab').value = p.zone;
         document.getElementById('form-scenario-active').value = p.standing;
         document.getElementById('form-scenario-presentation').value = p.type;
-        document.getElementById('form-scenario-image').value = p.image;
         document.getElementById('form-scenario-indication').value = p.description;
+        
+        // Load existing images
+        window._tempScenarioImages = p.images ? [...p.images] : (p.image ? [p.image] : []);
     } else {
         document.getElementById('scenario-form-title').textContent = "Nouveau Scénario";
         document.getElementById('scenario-form').reset();
         document.getElementById('form-scenario-id').value = '';
+        window._tempScenarioImages = [];
     }
-    // Init image preview for existing value
-    const imgVal = document.getElementById('form-scenario-image').value;
-    const prev = document.getElementById('scenario-preview');
-    const prevImg = document.getElementById('scenario-preview-img');
-    if (imgVal && (imgVal.startsWith('http') || imgVal.startsWith('data:'))) {
-        if (prevImg) prevImg.src = imgVal;
-        if (prev) prev.style.display = 'inline-block';
-    } else {
-        if (prev) prev.style.display = 'none';
-    }
+    
+    renderScenarioGallery();
+};
+
+const renderScenarioGallery = () => {
+    const container = document.getElementById('scenario-gallery-previews');
+    if (!container) return;
+    
+    container.innerHTML = window._tempScenarioImages.map((img, idx) => `
+        <div class="gallery-item">
+            <img src="${img}" alt="Preview">
+            <button type="button" class="remove-btn" onclick="removeScenarioImage(${idx})">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `).join('');
+};
+
+window.removeScenarioImage = (idx) => {
+    window._tempScenarioImages.splice(idx, 1);
+    renderScenarioGallery();
+};
+
+window.addScenarioImage = (url) => {
+    if (!url) return;
+    window._tempScenarioImages.push(url);
+    renderScenarioGallery();
+    // Clear URL input if it was used
+    const urlInput = document.getElementById('form-scenario-image-url');
+    if (urlInput) urlInput.value = '';
 };
 
 window.deleteScenario = (id) => {
@@ -368,22 +407,25 @@ window.deleteScenario = (id) => {
 const handleScenarioSubmit = (e) => {
     e.preventDefault();
     const id = document.getElementById('form-scenario-id').value;
+    const images = window._tempScenarioImages || [];
+    
     const data = {
         id: id || 'proj_' + Date.now(),
         name: document.getElementById('form-scenario-name').value,
         zone: document.getElementById('form-scenario-lab').value,
         standing: document.getElementById('form-scenario-active').value,
         type: document.getElementById('form-scenario-presentation').value,
-        image: document.getElementById('form-scenario-image').value,
+        images: images,
+        image: images[0] || '', // Backward compatibility
         description: document.getElementById('form-scenario-indication').value
     };
     if (id) {
         const index = currentConfig.products.findIndex(p => p.id === id);
         currentConfig.products[index] = data;
-        ActivityLog.add('update', `Projet modifié: ${data.name}`, 'Projets');
+        ActivityLog.add('update', `Projet modifié: ${data.name} (${images.length} images)`, 'Projets');
     } else {
         currentConfig.products.push(data);
-        ActivityLog.add('create', `Projet créé: ${data.name}`, 'Projets');
+        ActivityLog.add('create', `Projet créé: ${data.name} (${images.length} images)`, 'Projets');
     }
     window.markDirty();
     renderScenarios();
@@ -465,14 +507,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('export-config-btn').addEventListener('click', exportConfig);
     document.getElementById('reset-config-btn').addEventListener('click', resetToDefault);
 
-    // Image upload for scenarios (#8)
+    // Gallery image upload for scenarios
     ImageUpload.init({
         dropzone: 'scenario-dropzone',
         fileInput: 'scenario-file-input',
-        preview: 'scenario-preview',
-        previewImg: 'scenario-preview-img',
-        removeBtn: 'scenario-remove-preview',
-        textInput: 'form-scenario-image'
+        textInput: 'form-scenario-image-url',
+        onImageChange: (val) => {
+            if (val) window.addScenarioImage(val);
+        }
     });
 
     // Journal controls (#2)

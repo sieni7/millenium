@@ -216,7 +216,7 @@ async function init() {
         recentlyViewedDiv.id = 'recently-viewed-container';
         recentlyViewedDiv.className = 'container reveal recently-viewed-section';
         footerContainer.parentNode.insertBefore(recentlyViewedDiv, footerContainer);
-        RecentlyViewed.render('#recently-viewed-container');
+        RecentlyViewed.render('#recently-viewed-container', config.products);
     }
 
     // -- BOTTOM NAV FOR MOBILE --
