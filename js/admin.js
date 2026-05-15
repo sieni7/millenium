@@ -170,12 +170,25 @@ const renderHero = () => {
                     <input type="text" value="${slide.cta}" oninput="updateSlide(${idx}, 'cta', this.value)">
                 </div>
                 <div class="form-group">
-                    <label>URL Image</label>
-                    <input type="text" value="${slide.image}" oninput="updateSlide(${idx}, 'image', this.value)">
+                    <label>Image (URL ou Import)</label>
+                    <div class="image-upload-zone">
+                        <input type="text" id="hero-image-${idx}" value="${slide.image}" oninput="updateSlide(${idx}, 'image', this.value)" placeholder="URL de l'image">
+                        <div class="image-dropzone" id="hero-dropzone-${idx}">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Glissez ou <label for="hero-file-${idx}" class="upload-link">parcourez</label></span>
+                            <input type="file" id="hero-file-${idx}" accept="image/jpeg,image/png,image/webp" style="display:none;">
+                        </div>
+                        <div class="image-preview-mini" id="hero-preview-${idx}" style="display:${slide.image ? 'inline-block' : 'none'};">
+                            <img id="hero-preview-img-${idx}" src="${slide.image || ''}" alt="Preview">
+                            <button type="button" class="remove-preview" onclick="removeHeroImage(${idx})"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     `).join('');
+
+    initHeroUploads();
 
     // Init drag & drop on hero slides
     DragDrop.init(container, (from, to) => {
@@ -183,6 +196,27 @@ const renderHero = () => {
         ActivityLog.add('update', `Slide réordonnée: ${from + 1} → ${to + 1}`, 'Hero');
         window.markDirty();
         renderHero();
+    });
+};
+
+window.removeHeroImage = (idx) => {
+    updateSlide(idx, 'image', '');
+    renderHero();
+};
+
+const initHeroUploads = () => {
+    currentConfig.hero.slides.forEach((slide, idx) => {
+        ImageUpload.init({
+            dropzone: `hero-dropzone-${idx}`,
+            fileInput: `hero-file-${idx}`,
+            preview: `hero-preview-${idx}`,
+            previewImg: `hero-preview-img-${idx}`,
+            textInput: `hero-image-${idx}`,
+            onImageChange: (val) => {
+                currentConfig.hero.slides[idx].image = val;
+                window.markDirty();
+            }
+        });
     });
 };
 
@@ -432,7 +466,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('reset-config-btn').addEventListener('click', resetToDefault);
 
     // Image upload for scenarios (#8)
-    ImageUpload.init('scenario-dropzone', 'scenario-file-input', 'scenario-preview', 'scenario-preview-img', 'scenario-remove-preview', 'form-scenario-image');
+    ImageUpload.init({
+        dropzone: 'scenario-dropzone',
+        fileInput: 'scenario-file-input',
+        preview: 'scenario-preview',
+        previewImg: 'scenario-preview-img',
+        removeBtn: 'scenario-remove-preview',
+        textInput: 'form-scenario-image'
+    });
 
     // Journal controls (#2)
     const journalFilter = document.getElementById('journal-filter');

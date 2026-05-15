@@ -1,66 +1,78 @@
-/**
- * Image Upload — #8
- * 🖼️ Media Agent — FileReader, Base64, drag-drop zone
- */
 const ImageUpload = {
     MAX_SIZE: 2 * 1024 * 1024, // 2MB
     ALLOWED: ['image/jpeg', 'image/png', 'image/webp'],
 
-    init(dropzoneId, fileInputId, previewId, previewImgId, removeId, textInputId) {
-        const dropzone = document.getElementById(dropzoneId);
-        const fileInput = document.getElementById(fileInputId);
-        const preview = document.getElementById(previewId);
-        const previewImg = document.getElementById(previewImgId);
-        const removeBtn = document.getElementById(removeId);
-        const textInput = document.getElementById(textInputId);
+    /**
+     * Initialize an image upload zone
+     * @param {Object} config - Configuration object
+     */
+    init({ dropzone, fileInput, preview, previewImg, removeBtn, textInput, onImageChange }) {
+        const elements = {
+            dropzone: typeof dropzone === 'string' ? document.getElementById(dropzone) : dropzone,
+            fileInput: typeof fileInput === 'string' ? document.getElementById(fileInput) : fileInput,
+            preview: typeof preview === 'string' ? document.getElementById(preview) : preview,
+            previewImg: typeof previewImg === 'string' ? document.getElementById(previewImg) : previewImg,
+            removeBtn: typeof removeBtn === 'string' ? document.getElementById(removeBtn) : removeBtn,
+            textInput: typeof textInput === 'string' ? document.getElementById(textInput) : textInput
+        };
 
-        if (!dropzone || !fileInput) return;
+        if (!elements.dropzone || !elements.fileInput) return;
 
-        // Drag events on dropzone
+        // Drag events
         ['dragenter', 'dragover'].forEach(evt => {
-            dropzone.addEventListener(evt, (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+            elements.dropzone.addEventListener(evt, (e) => { 
+                e.preventDefault(); 
+                elements.dropzone.classList.add('dragover'); 
+            });
         });
         ['dragleave', 'drop'].forEach(evt => {
-            dropzone.addEventListener(evt, (e) => { e.preventDefault(); dropzone.classList.remove('dragover'); });
+            elements.dropzone.addEventListener(evt, (e) => { 
+                e.preventDefault(); 
+                elements.dropzone.classList.remove('dragover'); 
+            });
         });
 
-        dropzone.addEventListener('drop', (e) => {
+        elements.dropzone.addEventListener('drop', (e) => {
             const file = e.dataTransfer.files[0];
-            if (file) this.processFile(file, textInput, preview, previewImg);
+            if (file) this.processFile(file, elements, onImageChange);
         });
 
-        fileInput.addEventListener('change', (e) => {
+        elements.fileInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
-            if (file) this.processFile(file, textInput, preview, previewImg);
+            if (file) this.processFile(file, elements, onImageChange);
         });
 
-        // URL input also shows preview
-        if (textInput) {
-            textInput.addEventListener('change', () => {
-                const url = textInput.value.trim();
+        if (elements.textInput) {
+            elements.textInput.addEventListener('input', () => {
+                const url = elements.textInput.value.trim();
                 if (url && (url.startsWith('http') || url.startsWith('data:'))) {
-                    this.showPreview(url, preview, previewImg);
+                    this.showPreview(url, elements.preview, elements.previewImg);
+                    if (onImageChange) onImageChange(url);
+                } else if (!url) {
+                    if (elements.preview) elements.preview.style.display = 'none';
+                    if (onImageChange) onImageChange('');
                 }
             });
         }
 
-        if (removeBtn) {
-            removeBtn.addEventListener('click', () => {
-                if (textInput) textInput.value = '';
-                if (preview) preview.style.display = 'none';
+        if (elements.removeBtn) {
+            elements.removeBtn.addEventListener('click', () => {
+                if (elements.textInput) elements.textInput.value = '';
+                if (elements.preview) elements.preview.style.display = 'none';
+                if (onImageChange) onImageChange('');
             });
         }
 
-        // Show preview if URL already set
-        if (textInput && textInput.value) {
-            const url = textInput.value.trim();
+        // Initial preview if value exists
+        if (elements.textInput && elements.textInput.value) {
+            const url = elements.textInput.value.trim();
             if (url && (url.startsWith('http') || url.startsWith('data:'))) {
-                this.showPreview(url, preview, previewImg);
+                this.showPreview(url, elements.preview, elements.previewImg);
             }
         }
     },
 
-    processFile(file, textInput, preview, previewImg) {
+    processFile(file, elements, callback) {
         if (!this.ALLOWED.includes(file.type)) {
             alert('Format non supporté. Utilisez JPG, PNG ou WebP.');
             return;
@@ -72,8 +84,12 @@ const ImageUpload = {
         const reader = new FileReader();
         reader.onload = (e) => {
             const base64 = e.target.result;
-            if (textInput) { textInput.value = base64; textInput.dispatchEvent(new Event('input')); }
-            this.showPreview(base64, preview, previewImg);
+            if (elements.textInput) { 
+                elements.textInput.value = base64; 
+                elements.textInput.dispatchEvent(new Event('input')); 
+            }
+            this.showPreview(base64, elements.preview, elements.previewImg);
+            if (callback) callback(base64);
         };
         reader.readAsDataURL(file);
     },
