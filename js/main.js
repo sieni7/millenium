@@ -66,7 +66,7 @@ async function init() {
                 }
             </style>
             <div style="height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--background); text-align: center; padding: 40px;">
-                <span class="logo-placeholder" style="font-size: 3rem; margin-bottom: 20px;">MCI</span>
+                <img src="./assets/logo_millenium.png" alt="Millénium Consulting Innovation" style="height: 120px; width: auto; margin-bottom: 24px;">
                 <h1 style="font-family: var(--font-heading); font-size: 3rem;">Site en Maintenance</h1>
                 <p style="font-family: var(--font-body); max-width: 500px; color: var(--text-muted); margin-top: 15px;">Nous mettons à jour notre plateforme pour mieux vous servir. Nous serons de retour très bientôt.</p>
                 <div style="margin-top: 30px; font-weight: 600; color: var(--secondary);">${config.company.name}</div>

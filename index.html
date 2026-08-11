@@ -14,71 +14,116 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="assets/icons/icon-512.png">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1A237E">
+    <meta name="theme-color" content="#174C32">
     <!-- Styles bundled by Vite -->
     <style>
+        /* ==========================================
+           MCI GREEN / GOLD / IVORY — Design Tokens
+           ========================================== */
         :root {
-            /* BASE (Theme Logo) */
-            --background: #FFFFFF;
-            --background-soft: #F5F7FA;
-            --surface: #FFFFFF;
+            /* Verts */
+            --mci-green-900: #10261B;
+            --mci-green-800: #174C32;
+            --mci-green-700: #1D6241;
+            --mci-green-600: #087A52;
+            --mci-green-500: #159A6B;
+            --mci-green-400: #43B889;
 
-            /* TEXTES */
-            --text-primary: #0A192F;
-            --text-secondary: #37474F;
-            --text-muted: #78909C;
-            --text-dark: #0A192F;
+            /* Ors */
+            --mci-gold-900: #75420F;
+            --mci-gold-800: #9A5A18;
+            --mci-gold-700: #A97520;
+            --mci-gold-600: #C9902E;
+            --mci-gold-500: #D7A447;
+            --mci-gold-400: #E7B968;
 
-            /* ACCENTS MCI */
-            --primary: #1A237E;      /* Bleu nuit */
-            --secondary: #D4AF37;    /* Or */
-            --accent: #00897B;       /* Teal */
+            /* Ivoire & Neutres */
+            --mci-ivory-100: #FFFFFF;
+            --mci-ivory-200: #FDFCFA;
+            --mci-ivory-300: #F7F3EC;
+            --mci-ivory-400: #EEE8DD;
+            --mci-neutral-500: #78857D;
+            --mci-neutral-600: #596961;
+            --mci-neutral-700: #496056;
 
-            /* COMPATIBILITÉ */
-            --soft-green: #E0F2F1;
-            --glass: rgba(255, 255, 255, 0.9);
+            /* ===== MODE CLAIR ===== */
+            --color-bg: var(--mci-ivory-300);
+            --color-bg-surface: var(--mci-ivory-100);
+            --color-bg-muted: var(--mci-ivory-400);
 
-            /* BORDURES */
-            --border-soft: #E0E0E0;
-            --border-strong: #BDBDBD;
+            --color-text: var(--mci-green-900);
+            --color-text-secondary: var(--mci-neutral-700);
+            --color-text-muted: var(--mci-neutral-500);
 
-            /* OVERLAYS */
-            --overlay-dark: rgba(10, 25, 47, 0.55);
-            --overlay-soft: rgba(255, 255, 255, 0.85);
+            --color-primary: var(--mci-green-800);
+            --color-primary-hover: var(--mci-green-900);
 
-            /* STATES */
-            --success: #00897B;
-            --warning: #D4AF37;
+            --color-accent: var(--mci-gold-600);
+            --color-accent-hover: var(--mci-gold-700);
 
-            /* TYPO & OMBRES */
+            --color-border: #DCD5C8;
+            --color-border-light: #E9E4DA;
+
+            --color-success: var(--mci-green-600);
+            --color-warning: var(--mci-gold-600);
+
+            /* ===== ALIAS (Compatibilité composants) ===== */
+            --background: var(--color-bg);
+            --background-soft: var(--color-bg-muted);
+            --surface: var(--color-bg-surface);
+            --text-dark: var(--color-text);
+            --text-primary: var(--color-text);
+            --text-secondary: var(--color-text-secondary);
+            --text-muted: var(--color-text-muted);
+            --primary: var(--color-primary);
+            --primary-hover: var(--color-primary-hover);
+            --secondary: var(--color-accent);
+            --secondary-hover: var(--color-accent-hover);
+            --accent: var(--color-accent);
+            --soft-green: var(--mci-green-400);
+            --glass: rgba(253, 252, 250, 0.9);
+            --border-soft: var(--color-border-light);
+            --border-strong: var(--color-border);
+            --overlay-dark: rgba(16, 38, 27, 0.55);
+            --overlay-soft: rgba(253, 252, 250, 0.85);
+            --success: var(--color-success);
+            --warning: var(--color-warning);
             --font-heading: 'Inter', sans-serif;
             --font-body: 'Montserrat', sans-serif;
-            --shadow-soft: 0 10px 30px rgba(26, 35, 126, 0.08);
-            --shadow-premium: 0 20px 40px rgba(26, 35, 126, 0.15);
+            --shadow-soft: 0 10px 30px rgba(23, 76, 50, 0.08);
+            --shadow-premium: 0 20px 40px rgba(23, 76, 50, 0.15);
             --transition: all 400ms cubic-bezier(0.23, 1, 0.32, 1);
+
+            /* COULEURS DES COMPOSANTS (Accents & Stats) */
+            --color-stat-number: var(--mci-gold-600);
+            --color-card-border-hover: var(--mci-gold-600);
+            --color-service-icon-bg: var(--mci-ivory-200);
+            --color-nav-active-border: var(--mci-gold-600);
         }
 
         body.dark-mode {
-            /* THÈME SOMBRE MCI */
-            --background: #0A192F;
-            --background-soft: #112240;
-            --surface: #1A2A4A;
-            
-            --text-primary: #CCD6F6;
-            --text-secondary: #8892B0;
-            --text-muted: #62748C;
-            --text-dark: #CCD6F6;
-            
-            --primary: #D4AF37;      /* Or en mode sombre */
-            --secondary: #CCD6F6;
-            --accent: #64FFDA;       /* Teal clair */
-            
-            --soft-green: #112240;
-            --glass: rgba(10, 25, 47, 0.85);
-            
-            --border-soft: rgba(204, 214, 246, 0.1);
-            --border-strong: rgba(204, 214, 246, 0.2);
-            
+            /* ===== MODE SOMBRE ===== */
+            --background: #0B1711;
+            --background-soft: #163124;
+            --surface: #10231A;
+
+            --text-dark: #F5F1E8;
+            --text-primary: #F5F1E8;
+            --text-secondary: #C5D0C9;
+            --text-muted: #899991;
+
+            --primary: #2A8A61;
+            --primary-hover: #36A978;
+            --secondary: #D7A447;
+            --secondary-hover: #E7B968;
+            --accent: #D7A447;
+
+            --soft-green: #163124;
+            --glass: rgba(11, 23, 17, 0.85);
+
+            --border-soft: rgba(245, 241, 232, 0.08);
+            --border-strong: rgba(245, 241, 232, 0.15);
+
             --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
             --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
@@ -93,7 +138,7 @@
         nav { display: flex; justify-content: space-between; align-items: center; width: 100%; transition: var(--transition); }
         .logo { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; color: var(--secondary); text-decoration: none; display: flex; align-items: center; gap: 12px; margin-right: 60px; }
         ul.nav-links { display: flex; gap: 50px; list-style: none; align-items: center; margin-left: auto; margin-right: 50px; }
-        ul.nav-links a { text-decoration: none; color: var(--secondary); font-weight: 700; font-size: 1.05rem; transition: var(--transition); text-transform: uppercase; letter-spacing: 1px; }
+        ul.nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 700; font-size: 1.05rem; transition: var(--transition); text-transform: uppercase; letter-spacing: 1px; }
         ul.nav-links a:hover { color: var(--primary); }
         
         .btn { background: var(--primary); color: #fff; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: var(--transition); display: inline-flex; align-items: center; gap: 10px; box-shadow: var(--shadow-soft); border: none; cursor: pointer; }
@@ -103,7 +148,7 @@
         .btn-outline:hover { background: var(--primary); color: #fff; }
 
         .section-title { text-align: center; margin-bottom: 60px; }
-        .section-title h2 { font-size: 3rem; color: var(--secondary); margin-bottom: 15px; }
+        .section-title h2 { font-size: 3rem; color: var(--primary); margin-bottom: 15px; }
         .section-title span { display: block; width: 80px; height: 3px; background: var(--accent); margin: 0 auto; }
 
         /* Sections spacing */
@@ -153,7 +198,7 @@
         <div class="container">
             <nav id="main-nav">
                 <a href="#" class="logo" style="text-decoration: none;">
-                    <span class="logo-placeholder">MCI</span>
+                    <img src="./assets/logo_millenium.png" alt="Millénium Consulting Innovation" class="logo-img" style="height: 56px; width: auto; display: block;">
                 </a>
                 
                 <ul class="nav-links">
