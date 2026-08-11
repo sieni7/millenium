@@ -26,11 +26,22 @@ const ContactForm = {
           return;
         }
 
+        // Pas de webhook configuré → basculer vers WhatsApp
+        const webhookUrl = data.contact && data.contact.webhook_url;
+        if (!webhookUrl && data.company && data.company.social && data.company.social.whatsapp) {
+          const message = `Bonjour MCI, je suis ${formData.name} (${formData.email}). ${formData.message}`;
+          const waUrl = `${data.company.social.whatsapp.startsWith('https://wa.me/') ? data.company.social.whatsapp : 'https://wa.me/' + data.company.social.whatsapp.replace(/\+/g, '')}?text=${encodeURIComponent(message)}`;
+          window.open(waUrl, '_blank');
+          if (window.Toast) window.Toast.show(i18n?.form_success || "Message préparé, continuez sur WhatsApp.", "success");
+          form.reset();
+          return;
+        }
+
         submitBtn.disabled = true;
         submitBtn.innerHTML = `<div class="spinner"></div><span>${i18n?.form_sending || 'Envoi...'}</span>`;
         
         try {
-          const response = await sendToWebhook(formData, data.contact.webhook_url);
+          const response = await sendToWebhook(formData, webhookUrl);
           if (window.Toast) window.Toast.show(i18n?.form_success || "Message envoyé avec succès !", "success");
           form.reset();
         } catch (err) {
@@ -46,12 +57,13 @@ const ContactForm = {
     const container = document.querySelector(containerSelector);
     if (!container) return;
 
+    const company = data.company;
     container.innerHTML = `
       <div class="contact-grid">
         <!-- Carte coordonnées -->
         <div class="contact-info-card">
           <h3>
-            <i class="fas fa-map-marker-alt" style="color: #1e7f6e;"></i>
+            <i class="fas fa-map-marker-alt" style="color: var(--primary);"></i>
             ${window.millenium_i18n?.contact_title || 'Nos coordonnées'}
           </h3>
           <div class="contact-details">
@@ -59,30 +71,39 @@ const ContactForm = {
               <div class="contact-icon"><i class="fas fa-map-pin"></i></div>
               <div class="contact-text">
                 <strong>${window.currentLang === 'fr' ? 'Adresse' : 'Address'}</strong>
-                <span>${data.company.address}</span>
+                <span>${company.address}</span>
               </div>
             </div>
             <div class="contact-item">
               <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
               <div class="contact-text">
                 <strong>${window.currentLang === 'fr' ? 'Téléphone' : 'Phone'}</strong>
-                <span>${data.contact.phone}</span>
+                <span>${company.phone}</span>
               </div>
             </div>
+            ${company.email ? `
             <div class="contact-item">
-              <div class="contact-icon"><i class="fas fa-clock"></i></div>
+              <div class="contact-icon"><i class="fas fa-envelope"></i></div>
               <div class="contact-text">
-                <strong>${window.currentLang === 'fr' ? 'Horaires' : 'Opening Hours'}</strong>
-                <span>${data.contact.hours}</span>
+                <strong>${window.currentLang === 'fr' ? 'Email' : 'Email'}</strong>
+                <span>${company.email}</span>
               </div>
-            </div>
+            </div>` : ''}
+            ${company.social && company.social.whatsapp ? `
+            <div class="contact-item">
+              <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+              <div class="contact-text">
+                <strong>${window.currentLang === 'fr' ? 'WhatsApp' : 'WhatsApp'}</strong>
+                <span><a href="${company.social.whatsapp}" target="_blank" style="color: var(--accent);">${company.whatsapp || company.phone}</a></span>
+              </div>
+            </div>` : ''}
           </div>
         </div>
         
         <!-- Formulaire -->
         <div class="contact-form-card">
           <h3>
-            <i class="fas fa-paper-plane" style="color: #1e7f6e;"></i>
+            <i class="fas fa-paper-plane" style="color: var(--primary);"></i>
             ${window.millenium_i18n?.form_title || 'Envoyez-nous un message'}
           </h3>
           <form id="contact-form" class="contact-form">

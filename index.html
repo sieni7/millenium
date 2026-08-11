@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Millenium Côte d'Ivoire | Partenaire Patrimonial</title>
+    <title>Millénium Consulting Innovation (MCI) — Conseil en Transformation Digitale</title>
+    <meta name="description" content="Cabinet de conseil en innovation numérique au service des coopératives, PME et institutions locales en Côte d'Ivoire.">
+    <meta property="og:title" content="Millénium Consulting Innovation — Transformation Digitale">
+    <meta property="og:description" content="Accompagnement sur mesure pour votre projet numérique.">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,70 +14,70 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="assets/icons/icon-512.png">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1e7f6e">
+    <meta name="theme-color" content="#1A237E">
     <!-- Styles bundled by Vite -->
     <style>
         :root {
             /* BASE (Theme Logo) */
             --background: #FFFFFF;
-            --background-soft: #F9FAFB;
+            --background-soft: #F5F7FA;
             --surface: #FFFFFF;
 
             /* TEXTES */
-            --text-primary: #175E30;
-            --text-secondary: #2C3E33;
-            --text-muted: #5C6C67;
-            --text-dark: #175E30;
+            --text-primary: #0A192F;
+            --text-secondary: #37474F;
+            --text-muted: #78909C;
+            --text-dark: #0A192F;
 
-            /* ACCENTS PREMIUM */
-            --primary: #F05A22;
-            --secondary: #175E30;
-            --accent: #E5A814;
+            /* ACCENTS MCI */
+            --primary: #1A237E;      /* Bleu nuit */
+            --secondary: #D4AF37;    /* Or */
+            --accent: #00897B;       /* Teal */
 
             /* COMPATIBILITÉ */
-            --soft-green: #F0FAF3;
+            --soft-green: #E0F2F1;
             --glass: rgba(255, 255, 255, 0.9);
 
             /* BORDURES */
-            --border-soft: rgba(23, 94, 48, 0.1);
-            --border-strong: rgba(23, 94, 48, 0.2);
+            --border-soft: #E0E0E0;
+            --border-strong: #BDBDBD;
 
             /* OVERLAYS */
-            --overlay-dark: rgba(0, 0, 0, 0.55);
+            --overlay-dark: rgba(10, 25, 47, 0.55);
             --overlay-soft: rgba(255, 255, 255, 0.85);
 
             /* STATES */
-            --success: #175E30;
-            --warning: #F05A22;
+            --success: #00897B;
+            --warning: #D4AF37;
 
             /* TYPO & OMBRES */
             --font-heading: 'Inter', sans-serif;
             --font-body: 'Montserrat', sans-serif;
-            --shadow-soft: 0 10px 30px rgba(23, 94, 48, 0.08);
-            --shadow-premium: 0 20px 40px rgba(23, 94, 48, 0.15);
+            --shadow-soft: 0 10px 30px rgba(26, 35, 126, 0.08);
+            --shadow-premium: 0 20px 40px rgba(26, 35, 126, 0.15);
             --transition: all 400ms cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         body.dark-mode {
-            /* THÈME FORÊT PROFONDE / OR */
-            --background: #0A120E;
-            --background-soft: #101B15;
-            --surface: #14241C;
+            /* THÈME SOMBRE MCI */
+            --background: #0A192F;
+            --background-soft: #112240;
+            --surface: #1A2A4A;
             
-            --text-primary: #F5F3EE;
-            --text-secondary: #D8C3A5;
-            --text-muted: #8C857B;
-            --text-dark: #F5F3EE;
+            --text-primary: #CCD6F6;
+            --text-secondary: #8892B0;
+            --text-muted: #62748C;
+            --text-dark: #CCD6F6;
             
-            --primary: #F05A22;
-            --secondary: #F5F3EE;
-            --accent: #E5A814;
+            --primary: #D4AF37;      /* Or en mode sombre */
+            --secondary: #CCD6F6;
+            --accent: #64FFDA;       /* Teal clair */
             
-            --soft-green: #101B15;
-            --glass: rgba(10, 18, 14, 0.85);
+            --soft-green: #112240;
+            --glass: rgba(10, 25, 47, 0.85);
             
-            --border-soft: rgba(245, 243, 238, 0.05);
-            --border-strong: rgba(245, 243, 238, 0.1);
+            --border-soft: rgba(204, 214, 246, 0.1);
+            --border-strong: rgba(204, 214, 246, 0.2);
             
             --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
             --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.5);
@@ -150,12 +153,14 @@
         <div class="container">
             <nav id="main-nav">
                 <a href="#" class="logo" style="text-decoration: none;">
-                    <img src="./assets/logo.jpg" alt="Millenium Côte d'Ivoire Logo" style="height: 100px; width: auto; border-radius: 16px; mix-blend-mode: multiply;">
+                    <span class="logo-placeholder">MCI</span>
                 </a>
                 
                 <ul class="nav-links">
-                    <li><a href="#activites" class="nav-link">Activités</a></li>
-                    <li><a href="#produits" class="nav-link">Produits</a></li>
+                    <li><a href="#about" class="nav-link">Accueil</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#realisations" class="nav-link">Réalisations</a></li>
+                    <li><a href="#equipe" class="nav-link">Équipe</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
 
@@ -163,7 +168,6 @@
                     <button id="theme-toggle" class="theme-btn" aria-label="Basculer le thème" style="background: none; border: none; color: var(--secondary); font-size: 1.2rem; cursor: pointer; transition: var(--transition);">
                         <i class="fas fa-moon"></i>
                     </button>
-                    <a href="admin.html" class="btn btn-sm" style="color: #fff; border-radius: 12px; font-weight: 700; padding: 12px 28px;">Admin</a>
                 </div>
 
                 <button class="burger" id="mobile-burger" aria-label="Menu Mobile">
@@ -176,13 +180,10 @@
     </header>
 
     <main>
-        <!-- Hero Section ([Sprint 1] Hydrated via config.json) -->
+        <!-- Hero Section -->
         <div id="hero-slider-container"></div>
 
-        <!-- Numbers Section ([Sprint 1] Counter section) -->
-        <div id="numbers-section-container"></div>
-
-        <!-- About Section ([Sprint 1]) -->
+        <!-- About Section -->
         <section id="about" class="about-section reveal">
             <div class="container">
                 <div class="about-grid">
@@ -193,47 +194,43 @@
             </div>
         </section>
 
-        <!-- Activites Section ([Sprint 1]) -->
-        <section id="activites" class="activites-section reveal">
+        <!-- Services Section -->
+        <section id="services" class="services-section reveal">
             <div class="container">
                 <div class="section-title">
-                    <h2>Nos Activités Stratégiques</h2>
+                    <h2>Nos expertises</h2>
                     <span></span>
                 </div>
-                <div id="activities-container"></div>
+                <div id="services-container"></div>
             </div>
         </section>
 
-        <!-- Products Section ([Sprint 2]) -->
-        <section id="produits" class="product-section reveal">
+        <!-- Projects / Case Study Section -->
+        <section id="realisations" class="projects-section reveal">
             <div class="container">
                 <div class="section-title">
-                    <h2>Catalogue des Projets</h2>
+                    <h2>Réalisations</h2>
                     <span></span>
-                    <p style="margin-top: 20px;">Découvrez notre sélection de solutions et d'investissements immobiliers premium.</p>
                 </div>
-                <div id="filter-bar-container"></div>
-                <div id="product-grid-container" style="margin-top: 40px;"></div>
+                <div id="projects-container"></div>
             </div>
         </section>
 
-        <!-- Partners Section ([Sprint 1]) -->
+        <!-- Team Section -->
+        <section id="equipe" class="team-section reveal">
+            <div class="container">
+                <div class="section-title">
+                    <h2>L'équipe</h2>
+                    <span></span>
+                </div>
+                <div id="team-container"></div>
+            </div>
+        </section>
+
+        <!-- Partners Section (conditional) -->
         <div id="partners-section-container" class="reveal"></div>
 
-        <section id="identite" class="identity reveal">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Notre Engagement</h2>
-                    <span></span>
-                </div>
-                <div id="engagement-cards-container"></div>
-            </div>
-        </section>
-
-        <!-- Section Statistiques (ProMax Phase 2) -->
-        <div id="stats-section-container"></div>
-
-        <!-- SECTION CONTACT CORRIGÉE -->
+        <!-- SECTION CONTACT -->
         <section id="contact" class="contact-section reveal">
           <div class="container" id="contact-container">
             <!-- Dynamisé par ContactForm.render() -->
@@ -241,21 +238,19 @@
         </section>
     </main>
 
-    <!-- Footer ([Sprint 1]) -->
-    <!-- FOOTER CORRIGÉ -->
-    <!-- Footer ([Sprint 1] Dynamisé) -->
+    <!-- Footer -->
     <div id="footer-container"></div>
 
-    <!-- Product Modal ([Sprint 2]) -->
+    <!-- Product Modal (legacy, kept for compatibility) -->
     <div id="product-modal-container"></div>
 
-    <!-- Sticky CTA ([Sprint 2]) -->
+    <!-- Sticky CTA (legacy) -->
     <div id="sticky-cta-container"></div>
 
     <!-- Toast Container (N3-013) -->
     <div id="toast-root"></div>
 
-    <!-- Mobile Bottom Navigation (Sprint 4 ProMax) -->
+    <!-- Mobile Bottom Navigation -->
     <div id="bottom-nav-container"></div>
 
     <!-- Back to Top Button -->

@@ -1,36 +1,27 @@
 {
-    "name": "millenium-patrimoine",
-    "version": "1.2.0",
-    "description": "Plateforme institutionnelle haut de gamme pour Millenium Côte d'Ivoire - Partenaire Patrimonial Immobilier",
-    "homepage": "https://milleniumci.netlify.app/",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/sieni7/millenium.git"
-    },
-    "main": "index.html",
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "preview": "vite preview",
-        "start": "vite",
-        "deploy:netlify": "netlify deploy --prod --dir=dist",
-        "deploy:vercel": "vercel --prod",
-        "test": "echo \"✅ Build check\" && vite build"
-    },
-    "keywords": [
-        "immobilier",
-        "patrimoine",
-        "abidjan",
-        "construction",
-        "cotedivoire",
-        "premium"
-    ],
-    "author": "Millenium Côte d'Ivoire",
-    "license": "UNLICENSED",
-    "devDependencies": {
-        "serve": "^14.2.0",
-        "terser": "^5.30.0",
-        "uglifycss": "^0.0.29",
-        "vite": "^8.0.9"
-    }
+  "name": "mci-consulting",
+  "version": "1.0.0",
+  "description": "Site institutionnel de Millénium Consulting Innovation - Conseil en Transformation Digitale",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "conseil",
+    "transformation-digitale",
+    "innovation",
+    "cooperatives",
+    "pme",
+    "cote-divoire",
+    "abidjan"
+  ],
+  "author": "Millénium Consulting Innovation",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.0",
+    "terser": "^5.30.0",
+    "uglifycss": "^0.0.29",
+    "vite": "^8.0.9"
+  }
 }

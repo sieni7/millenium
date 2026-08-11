@@ -5,7 +5,13 @@
 const Partners = {
     render: (containerSelector, partners) => {
         const container = document.querySelector(containerSelector);
-        if (!container || !partners) return;
+        if (!container) return;
+
+        if (!partners || partners.length === 0) {
+            // Masquer la section si pas de partenaires
+            container.style.display = 'none';
+            return;
+        }
 
         container.innerHTML = partners.map(partner => `
             <div class="partner-item reveal ripple">

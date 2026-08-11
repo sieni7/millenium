@@ -37,7 +37,7 @@ const Analytics = {
                 border-top: 1px solid rgba(30,127,110,0.1);
             ">
                 <p style="font-size: 0.9rem; color: var(--text-muted); margin-right: 20px;">
-                    🍪 Nous utilisons des cookies pour optimiser votre expérience. En acceptant, vous nous aidez à améliorer Millenium Côte d'Ivoire.
+                    🍪 Nous utilisons des cookies pour optimiser votre expérience. En acceptant, vous nous aidez à améliorer Millénium Consulting Innovation.
                 </p>
                 <div style="display: flex; gap: 10px;">
                     <button id="analytics-deny" class="btn btn-sm btn-outline">Refuser</button>

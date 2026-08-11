@@ -1,16 +1,13 @@
 import Hero from '../components/hero.js';
-import ActivityCard from '../components/activityCard.js';
-import EngagementCard from '../components/engagementCard.js';
-import ProductGrid from '../components/productGrid.js';
-import ProductModal from '../components/productModal.js';
-import FilterBar from '../components/filterBar.js';
+import Services from '../components/services.js';
+import Projects from '../components/projects.js';
+import About from '../components/about.js';
+import Team from '../components/team.js';
 import ContactForm from '../components/contactForm.js';
 import Footer from '../components/footer.js';
 import Partners from '../components/partners.js';
 import LoadingScreen from '../components/loadingScreen.js';
 import BottomNav from '../components/bottomNav.js';
-import RecentlyViewed from '../components/recentlyViewed.js';
-import StatsSection from '../components/statsSection.js';
 
 // Sprint 4 Modules
 import Animations from './animations.js';
@@ -34,10 +31,7 @@ import '../css/refinements.css';
 import '../css/layout-fix.css';
 import '../css/hero.css';
 import '../css/partenaires.css';
-import '../css/productGrid.css';
-import '../css/productModal.css';
-import '../css/filterBar.css';
-import '../css/productList.css';
+import '../css/mci-components.css';
 
 async function init() {
   // 0. Afficher l'écran de chargement immédiatement
@@ -72,9 +66,9 @@ async function init() {
                 }
             </style>
             <div style="height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--background); text-align: center; padding: 40px;">
-                <img src="./assets/logo.jpg" alt="Millenium Côte d'Ivoire Logo" class="maintenance-logo">
+                <span class="logo-placeholder" style="font-size: 3rem; margin-bottom: 20px;">MCI</span>
                 <h1 style="font-family: var(--font-heading); font-size: 3rem;">Site en Maintenance</h1>
-                <p style="font-family: var(--font-body); max-width: 500px; color: var(--text-muted); margin-top: 15px;">Nous mettons à jour notre plateforme d'investissement pour mieux vous servir. Nous serons de retour très bientôt.</p>
+                <p style="font-family: var(--font-body); max-width: 500px; color: var(--text-muted); margin-top: 15px;">Nous mettons à jour notre plateforme pour mieux vous servir. Nous serons de retour très bientôt.</p>
                 <div style="margin-top: 30px; font-weight: 600; color: var(--secondary);">${config.company.name}</div>
             </div>
         `;
@@ -96,53 +90,32 @@ async function init() {
     UXRefinements.init(config);
     CustomCursor.init();
 
-    // Expose products for analytics product view tracking
-    if (config.products) window._millenium_products = config.products;
-
     // 2. Render Hero & Content
     if (document.querySelector('#hero-slider-container')) {
         Hero.render('#hero-slider-container', config.hero);
     }
-    
-    if (document.querySelector('#activities-container')) {
-        ActivityCard.render('#activities-container', config.activities);
+
+    // About Section
+    if (document.querySelector('#about-text-container')) {
+        About.render('#about-text-container', config);
     }
 
-    if (document.querySelector('#engagement-cards-container')) {
-        const engagementData = [
-            { title: "Expertise Durable", icon: "fas fa-award", description: "Une exécution cadrée pour réduire les risques de votre projet immobilier et garantir sa pérennité." },
-            { title: "Proximité Stratégique", icon: "fas fa-map-marked-alt", description: "Basés à Abidjan (Cocody Angré Djibi), nous assurons une disponibilité totale pour nos partenaires et investisseurs." },
-            { title: "Vision Patrimoniale", icon: "fas fa-lightbulb", description: "Sécuriser et valoriser vos investissements pour offrir l'excellence immobilière en Côte d'Ivoire." }
-        ];
-        EngagementCard.render('#engagement-cards-container', engagementData);
+    // Services Section
+    if (document.querySelector('#services-container')) {
+        Services.render('#services-container', config.services);
     }
 
-    // 2.5 Render Stats Section (ProMax Phase 2)
-    if (document.querySelector('#stats-section-container') && config.company.stats) {
-        StatsSection.render('#stats-section-container', config.company.stats);
+    // Projects / Case Study Section
+    if (document.querySelector('#projects-container')) {
+        Projects.render('#projects-container', config.projects);
     }
 
-    // 3. Product Grid with Skeleton
-    const gridContainer = document.querySelector('#product-grid-container');
-    if (gridContainer && config.products) {
-        ProductGrid.showSkeleton('#product-grid-container');
-        
-        setTimeout(() => {
-            ProductGrid.render('#product-grid-container', config.products);
-            Animations.refresh();
-            Animations.initMicroInteractions();
-        }, 800);
+    // Team Section
+    if (document.querySelector('#team-container')) {
+        Team.render('#team-container', config.team);
     }
 
-    // 4. Modal & Filter Bar
-    if (document.querySelector('#product-modal-container') && config.products) {
-        ProductModal.render('#product-modal-container', config.products);
-    }
-
-    if (document.querySelector('#filter-bar-container') && config.products) {
-        FilterBar.render('#filter-bar-container', config.products);
-    }
-    
+    // Partners Section
     const partnersContainer = document.querySelector('#partners-section-container');
     if (partnersContainer) {
         try {
@@ -150,39 +123,35 @@ async function init() {
             if (partnersRes.ok) {
                 const partnersHtml = await partnersRes.text();
                 partnersContainer.innerHTML = partnersHtml;
-                
-                // Hydratation dynamique (Sprint 4)
+
+                // Hydratation dynamique
                 if (config.partners) {
                     Partners.render('#partners-grid-container', config.partners);
                 }
             }
         } catch (e) { console.warn('Partners error:', e); }
     }
-    
-    // 5. Contact & Footer Dynamique
+
+    // 3. Contact & Footer
     if (document.querySelector('#contact-container')) {
         ContactForm.render('#contact-container', config);
     }
 
     // -- STATIC TITLES I18N --
-    const catalogueTitle = document.querySelector('#produits h2');
-    const catalogueSubtitle = document.querySelector('#produits p');
-    if (catalogueTitle) catalogueTitle.textContent = window.millenium_i18n?.catalogue_title || catalogueTitle.textContent;
-    if (catalogueSubtitle) catalogueSubtitle.textContent = window.millenium_i18n?.catalogue_subtitle || catalogueSubtitle.textContent;
+    const servicesTitle = document.querySelector('#services .section-title h2');
+    if (servicesTitle) servicesTitle.textContent = window.millenium_i18n?.menu?.services || servicesTitle.textContent;
 
-    const engagementTitle = document.querySelector('#identite h2');
-    const engagementSubtitle = document.querySelector('#identite p');
-    if (engagementTitle) engagementTitle.textContent = window.millenium_i18n?.engagement_title || engagementTitle.textContent;
-    if (engagementSubtitle) engagementSubtitle.textContent = window.millenium_i18n?.engagement_subtitle || engagementSubtitle.textContent;
+    const projectsTitle = document.querySelector('#realisations .section-title h2');
+    if (projectsTitle) projectsTitle.textContent = window.millenium_i18n?.menu?.projects || projectsTitle.textContent;
 
-    const expertiseTitle = document.querySelector('#activites h2');
-    if (expertiseTitle) expertiseTitle.textContent = window.millenium_i18n?.expertise_title || expertiseTitle.textContent;
+    const teamTitle = document.querySelector('#equipe .section-title h2');
+    if (teamTitle) teamTitle.textContent = window.millenium_i18n?.menu?.team || teamTitle.textContent;
 
     if (document.querySelector('#footer-container')) {
         Footer.render('#footer-container', config);
     }
 
-    // 6. Identity & Global Animation Refresh
+    // 4. Identity & Global Animation Refresh
     Animations.initReveal();
 
     // -- BACK TO TOP & SCROLL LOGIC --
@@ -209,22 +178,12 @@ async function init() {
         });
     }
 
-    // -- RECENTLY VIEWED CONTAINER --
-    const footerContainer = document.querySelector('#footer-container');
-    if (footerContainer) {
-        const recentlyViewedDiv = document.createElement('div');
-        recentlyViewedDiv.id = 'recently-viewed-container';
-        recentlyViewedDiv.className = 'container reveal recently-viewed-section';
-        footerContainer.parentNode.insertBefore(recentlyViewedDiv, footerContainer);
-        RecentlyViewed.render('#recently-viewed-container', config.products);
-    }
-
     // -- BOTTOM NAV FOR MOBILE --
     if (window.innerWidth <= 768) {
         BottomNav.render('#bottom-nav-container');
     }
 
-    // 9. Cacher l'écran de chargement (Sprint 4)
+    // 5. Cacher l'écran de chargement
     setTimeout(() => {
         LoadingScreen.hide();
     }, 500);

@@ -10,14 +10,14 @@ const SEO = {
 
     injectOpenGraph(config) {
         const metaData = {
-            'og:title': `${config.company.name} | Partenaire Patrimonial`,
-            'og:description': 'Sécurisation foncière et construction premium en Côte d\'Ivoire.',
-            'og:image': 'https://milleniumci.netlify.app/assets/og-image.jpg',
+            'og:title': `${config.company.name} | Conseil en Transformation Digitale`,
+            'og:description': 'Cabinet de conseil en innovation numérique au service des coopératives, PME et institutions locales en Côte d\'Ivoire.',
+            'og:image': 'https://milleniumci.netlify.app/assets/icons/icon-512.png',
             'og:url': 'https://milleniumci.netlify.app',
             'og:type': 'website',
             'twitter:card': 'summary_large_image',
             'twitter:title': `${config.company.name}`,
-            'twitter:description': 'Expertise immobilière et construction haut de gamme à Abidjan.'
+            'twitter:description': 'Conseil & stratégie digitale, solutions numériques, accompagnement et formation en Côte d\'Ivoire.'
         };
 
         Object.keys(metaData).forEach(key => {
@@ -41,71 +41,52 @@ const SEO = {
             "@context": "https://schema.org",
             "@graph": [
                 {
-                    "@type": "Organization",
+                    "@type": "ProfessionalService",
                     "@id": "https://milleniumci.netlify.app/#organization",
                     "name": config.company.name,
                     "url": "https://milleniumci.netlify.app/",
-                    "logo": {
-                        "@type": "ImageObject",
-                        "url": "https://milleniumci.netlify.app/logo.png"
-                    },
-                    "description": "Expertise en sécurisation foncière et construction premium en Côte d'Ivoire. Partenaire de confiance pour la diaspora.",
+                    "description": config.company.mission,
+                    "slogan": config.company.slogan,
                     "address": {
                         "@type": "PostalAddress",
                         "streetAddress": config.company.address,
-                        "addressLocality": "Abidjan",
+                        "addressLocality": "Adzopé",
                         "addressCountry": "CI"
                     },
                     "contactPoint": {
                         "@type": "ContactPoint",
-                        "telephone": config.contact.phone,
+                        "telephone": config.company.phone,
                         "contactType": "customer service"
                     }
-                },
-                {
-                    "@type": "LocalBusiness",
-                    "name": config.company.name,
-                    "image": "https://milleniumci.netlify.app/logo.png",
-                    "address": {
-                        "@type": "PostalAddress",
-                        "streetAddress": config.company.address,
-                        "addressLocality": "Abidjan",
-                        "addressCountry": "CI"
-                    },
-                    "geo": {
-                        "@type": "GeoCoordinates",
-                        "latitude": 5.3484,
-                        "longitude": -4.0305
-                    },
-                    "openingHours": "Mo-Fr 08:30-17:30"
                 }
             ]
         };
 
-        // Add Projects (Real Estate Products)
-        if (config.products) {
-            config.products.forEach(p => {
+        // Add Services
+        if (config.services) {
+            config.services.forEach(s => {
                 schema["@graph"].push({
-                    "@type": "RealEstateListing",
-                    "name": p.name,
-                    "description": p.description,
-                    "address": {
-                        "@type": "PostalAddress",
-                        "addressLocality": p.zone
-                    },
-                    "category": "Real Estate",
-                    "additionalProperty": [
-                        {
-                            "@type": "PropertyValue",
-                            "name": "Standing",
-                            "value": p.standing
-                        },
-                        {
-                            "@type": "PropertyValue",
-                            "name": "Type",
-                            "value": p.type
-                        }
-                    ]
+                    "@type": "Service",
+                    "name": s.title,
+                    "description": s.description,
+                    "provider": {
+                        "@id": "https://milleniumci.netlify.app/#organization"
+                    }
+                });
+            });
+        }
+
+        // Add Team Members
+        if (config.team) {
+            config.team.forEach(m => {
+                schema["@graph"].push({
+                    "@type": "Person",
+                    "name": m.name,
+                    "jobTitle": m.role,
+                    "description": m.description,
+                    "worksFor": {
+                        "@id": "https://milleniumci.netlify.app/#organization"
+                    }
                 });
             });
         }

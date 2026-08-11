@@ -11,7 +11,7 @@ const Hero = {
            aria-label="${index + 1} sur ${data.slides.length}">
           <div class="slide-content">
               <h1>${slide.title}</h1>
-              <p>${slide.text}</p>
+              <p>${slide.subtitle}</p>
               <a href="${slide.link}" class="btn" aria-label="${slide.cta} - ${slide.title}">${slide.cta}</a>
           </div>
       </div>

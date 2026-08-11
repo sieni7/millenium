@@ -55,10 +55,12 @@ const UXRefinements = {
     },
 
     addWhatsAppWidget(config) {
-        if (!config.contact || !config.contact.social || !config.contact.social.whatsapp) return;
+        const contact = config.company || config.contact || {};
+        const social = contact.social || {};
+        const whatsappNum = social.whatsapp;
+        if (!whatsappNum) return;
 
-        const whatsappNum = config.contact.social.whatsapp;
-        const waUrl = `https://wa.me/${whatsappNum}`;
+        const waUrl = whatsappNum.startsWith('http') ? whatsappNum : `https://wa.me/${whatsappNum}`;
 
         const waBtn = document.createElement('a');
         waBtn.href = waUrl;
