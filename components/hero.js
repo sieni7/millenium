@@ -12,7 +12,7 @@ const Hero = {
           <div class="slide-content">
               <h1>${slide.title}</h1>
               <p>${slide.subtitle}</p>
-              <a href="${slide.link}" class="btn" aria-label="${slide.cta} - ${slide.title}">${slide.cta}</a>
+              <a href="${slide.link || '#services'}" class="btn" aria-label="${slide.cta} - ${slide.title}">${slide.cta}</a>
           </div>
       </div>
     `).join('');

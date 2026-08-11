@@ -1,20 +1,23 @@
 /**
  * Premium Dark Mode Theme (N3-016)
- * Palette based on deep forest / slate tones
+ * Palette alignée sur l'identité vert / or / ivoire MCI
  */
 
 body.dark-mode {
-    --background: #0f1715;
-    --surface: #1a2421;
-    --text-dark: #f1f5f9;
-    --text-muted: #94a3b8;
-    --glass: rgba(26, 36, 33, 0.85);
-    --soft-green: #243530;
-    --white: #1a2421;
+    --background: #0B1711;
+    --background-soft: #163124;
+    --surface: #10231A;
+    --text-dark: #F5F1E8;
+    --text-primary: #F5F1E8;
+    --text-secondary: #C5D0C9;
+    --text-muted: #899991;
+    --glass: rgba(11, 23, 17, 0.85);
+    --soft-green: #163124;
+    --white: #10231A;
 }
 
 body.dark-mode .section-title h2 {
-    color: #f1f5f9;
+    color: #F5F1E8;
 }
 
 body.dark-mode header {
