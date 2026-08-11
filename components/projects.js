@@ -56,7 +56,7 @@ const Projects = {
         <div class="case-study-grid">
           <div class="case-media">
             <div class="case-image">
-              <img src="${p.image}" alt="${p.title}" loading="lazy" onerror="this.style.display='none'">
+              <img src="${p.image}" alt="${p.title}" width="600" height="400" loading="lazy" onerror="this.style.display='none'">
             </div>
             ${factsHtml}
           </div>

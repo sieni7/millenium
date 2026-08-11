@@ -16,7 +16,7 @@ const Team = {
               <div class="photo-placeholder">
                 <i class="fas fa-user"></i>
               </div>
-              <img src="${m.photo}" alt="${m.name}" loading="lazy" onerror="this.style.display='none'">
+              <img src="${m.photo}" alt="${m.name}" width="200" height="200" loading="lazy" onerror="this.style.display='none'">
             </div>
             <h3>${m.name}</h3>
             <p class="team-role">${m.role}</p>
