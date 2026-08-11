@@ -65,8 +65,8 @@
     box-shadow: var(--shadow-soft);
 }
 .service-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-premium);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(23, 76, 50, 0.08);
     border-color: var(--secondary);
 }
 .service-card i {
@@ -185,7 +185,7 @@
     transition: var(--transition);
     box-shadow: var(--shadow-soft);
 }
-.team-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-premium); border-color: var(--secondary); }
+.team-card:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(23, 76, 50, 0.08); border-color: var(--secondary); }
 .team-photo { position: relative; width: 128px; height: 128px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; background: var(--background-soft); border: 3px solid var(--secondary); }
 .team-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .team-photo .photo-placeholder {

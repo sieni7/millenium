@@ -8,6 +8,21 @@
     background: linear-gradient(135deg, var(--primary) 0%, var(--background-soft) 100%);
 }
 
+/* Motif géométrique discret (triangle) — uniquement sur la Hero */
+#hero-slider-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    height: 60%;
+    background: var(--secondary);
+    opacity: 0.03;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
 .carousel {
     display: flex;
     height: 100%;

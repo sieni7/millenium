@@ -126,13 +126,17 @@
     }
 
     /* 2. Touch Target Optimization (min 44x44px) */
-    .btn, .filter-btn, .action-btn, .nav-link, .burger, .modal-close {
+    .btn, .filter-btn, .action-btn, .nav-link, .burger, .modal-close,
+    .submit-btn, .carousel-btn, .bottom-nav-item {
         min-width: 44px;
         min-height: 44px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
     }
+
+    /* CTA Hero : largeur naturelle (pas de width:100%) */
+    .slide-content .btn { width: auto; }
 
     /* 3. Section Adjustments */
     .hero-slide h1 { font-size: 2.8rem; }
