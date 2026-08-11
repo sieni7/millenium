@@ -1,10 +1,12 @@
-const CACHE_NAME = 'mci-cache-v1';
+const CACHE_NAME = 'mci-cache-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
   './config.json',
-  './assets/icons/icon-512.png'
+  './assets/icons/icon-512.png',
+  './assets/icons/favicon-32x32.png',
+  './assets/icons/favicon-16x16.png'
 ];
 
 // Install Event
