@@ -15,7 +15,7 @@ const Projects = {
         <p class="case-subtitle">${p.subtitle}</p>
         <div class="case-content">
           <div class="case-image">
-            <img src="${p.image}" alt="${p.title}" onerror="this.style.display='none'">
+            <img src="${p.image}" alt="${p.title}" loading="lazy" onerror="this.style.display='none'">
           </div>
           <div class="case-text">
             <h4>Contexte</h4>

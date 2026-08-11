@@ -133,8 +133,10 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { font-family: var(--font-body); background-color: var(--background); color: var(--text-dark); line-height: 1.7; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font-body); font-size: 16px; line-height: 1.65; background-color: var(--background); color: var(--text-dark); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
         h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; line-height: 1.2; }
+        h1 { font-weight: 800; letter-spacing: -0.02em; }
+        h2 { font-weight: 700; letter-spacing: -0.01em; }
         .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
 
         header { background: var(--glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-soft); position: fixed; width: 100%; top: 0; z-index: 5000; height: 120px; display: flex; align-items: center; }
@@ -145,14 +147,37 @@
         ul.nav-links a:hover { color: var(--primary); }
         
         .btn { background: var(--primary); color: #fff; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: var(--transition); display: inline-flex; align-items: center; gap: 10px; box-shadow: var(--shadow-soft); border: none; cursor: pointer; }
-        .btn:hover { background: var(--secondary); transform: translateY(-3px); box-shadow: var(--shadow-premium); }
+        .btn:hover { background: var(--primary-hover); transform: translateY(-3px); box-shadow: var(--shadow-premium); }
         .btn-sm { padding: 8px 22px; font-size: 0.9rem; }
         .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
         .btn-outline:hover { background: var(--primary); color: #fff; }
 
         .section-title { text-align: center; margin-bottom: 60px; }
         .section-title h2 { font-size: 3rem; color: var(--primary); margin-bottom: 15px; }
-        .section-title span { display: block; width: 80px; height: 3px; background: var(--accent); margin: 0 auto; }
+        .section-title span { display: block; width: 80px; height: 3px; background: var(--primary); margin: 0 auto; }
+
+        /* Or rare : trait fin uniquement sur les sections principales */
+        .section-title.with-underline span { display: none; }
+        .section-title.with-underline::after {
+            content: '';
+            display: block;
+            width: 72px;
+            height: 2px;
+            background: var(--secondary);
+            margin: 14px auto 0;
+        }
+
+        /* Préfixe numéroté en or pour les sections secondaires */
+        .section-title.numbered::before {
+            content: attr(data-number);
+            display: block;
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
 
         /* Sections spacing */
         section { padding: 100px 0; }
@@ -245,7 +270,7 @@
         <!-- Services Section -->
         <section id="services" class="services-section reveal">
             <div class="container">
-                <div class="section-title">
+                <div class="section-title with-underline">
                     <h2>Nos expertises</h2>
                     <span></span>
                 </div>
@@ -256,7 +281,7 @@
         <!-- Projects / Case Study Section -->
         <section id="realisations" class="projects-section reveal">
             <div class="container">
-                <div class="section-title">
+                <div class="section-title numbered with-underline" data-number="01">
                     <h2>Réalisations</h2>
                     <span></span>
                 </div>
@@ -267,7 +292,7 @@
         <!-- Team Section -->
         <section id="equipe" class="team-section reveal">
             <div class="container">
-                <div class="section-title">
+                <div class="section-title numbered" data-number="02">
                     <h2>L'équipe</h2>
                     <span></span>
                 </div>
