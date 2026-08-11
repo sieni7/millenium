@@ -21,13 +21,23 @@ const UXRefinements = {
             document.body.appendChild(btn);
         }
 
-        window.addEventListener('scroll', () => {
+        let ticking = false;
+        const updateVisibility = () => {
             if (window.scrollY > 400) {
                 btn.classList.add('visible', 'active');
             } else {
                 btn.classList.remove('visible', 'active');
             }
-        });
+        };
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                ticking = true;
+                requestAnimationFrame(() => {
+                    updateVisibility();
+                    ticking = false;
+                });
+            }
+        }, { passive: true });
 
         btn.addEventListener('click', () => {
             window.scrollTo({
@@ -46,12 +56,22 @@ const UXRefinements = {
         progressContainer.appendChild(progressBar);
         document.body.appendChild(progressContainer);
 
-        window.addEventListener('scroll', () => {
+        let ticking = false;
+        const updateProgress = () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
             progressBar.style.width = scrolled + "%";
-        });
+        };
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                ticking = true;
+                requestAnimationFrame(() => {
+                    updateProgress();
+                    ticking = false;
+                });
+            }
+        }, { passive: true });
     },
 
     addWhatsAppWidget(config) {

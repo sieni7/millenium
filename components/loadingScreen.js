@@ -10,7 +10,7 @@ const LoadingScreen = {
             <div class="loader-content">
                 <div class="loader-logo">MILLENIUM</div>
                 <div class="loader-spinner"></div>
-                <p>Votre Partenaire Patrimonial</p>
+                <p>Innover localement pour un impact durable</p>
             </div>
         `;
         document.body.appendChild(loader);
@@ -20,7 +20,7 @@ const LoadingScreen = {
         const loader = document.getElementById('loading-screen');
         if (loader) {
             loader.classList.add('fade-out');
-            setTimeout(() => loader.remove(), 800);
+            setTimeout(() => loader.remove(), 320);
         }
     }
 };

@@ -259,7 +259,7 @@ button:disabled,
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 #loading-screen.fade-out {
@@ -309,4 +309,34 @@ button:disabled,
         padding: 12px 20px;
         font-size: 0.9rem;
     }
+}
+
+/* ============================================
+   P4 Phase 3 — Performance & Accessibilité
+   ============================================ */
+
+/* Content-visibility : éviter le Style & Layout coûteux des sections hors écran (LCP/TBT).
+   #realisations exclue : contient .case-media sticky (content-visibility casserait le sticky). */
+#services, #equipe, #partners-section-container, #contact {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 700px;
+}
+
+/* Cibles tactiles >= 44px (WCAG 2.5.5) */
+.theme-btn {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+/* Liens rapides du footer : zone de clic >= 44px */
+#footer-quick-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px 0;
+    line-height: 1.2;
 }

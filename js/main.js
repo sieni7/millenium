@@ -154,11 +154,12 @@ async function init() {
     // 4. Identity & Global Animation Refresh
     Animations.initReveal();
 
-    // -- BACK TO TOP & SCROLL LOGIC --
+    // -- BACK TO TOP & SCROLL LOGIC (throttled via rAF) --
     const bttBtn = document.querySelector('#back-to-top');
     const scrollProgress = document.querySelector('#scroll-progress');
 
-    window.addEventListener('scroll', () => {
+    let scrollTicking = false;
+    const onScroll = () => {
         // Back to Top visibility
         if (window.scrollY > 500) bttBtn?.classList.add('active');
         else bttBtn?.classList.remove('active');
@@ -170,7 +171,17 @@ async function init() {
             const scrolled = (winScroll / height) * 100;
             scrollProgress.style.width = scrolled + "%";
         }
-    });
+    };
+    const onScrollThrottled = () => {
+        if (!scrollTicking) {
+            scrollTicking = true;
+            requestAnimationFrame(() => {
+                onScroll();
+                scrollTicking = false;
+            });
+        }
+    };
+    window.addEventListener('scroll', onScrollThrottled, { passive: true });
 
     if (bttBtn) {
         bttBtn.addEventListener('click', () => {
@@ -183,10 +194,10 @@ async function init() {
         BottomNav.render('#bottom-nav-container');
     }
 
-    // 5. Cacher l'écran de chargement
+    // 5. Cacher l'écran de chargement (minimise le blocage LCP)
     setTimeout(() => {
         LoadingScreen.hide();
-    }, 500);
+    }, 150);
 
   } catch (error) {
     console.error('MILLENIUM Init Error:', error);
