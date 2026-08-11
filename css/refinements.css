@@ -150,6 +150,22 @@ html {
     -webkit-tap-highlight-color: transparent;
 }
 
+/* Focus visible (WCAG) */
+:focus-visible {
+    outline: 2px solid var(--secondary);
+    outline-offset: 2px;
+}
+
+/* Réduction des animations pour les utilisateurs sensibles (WCAG) */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
 /* 9. Protection double-clic (style visuel complémentaire) */
 button:disabled,
 .btn:disabled,
