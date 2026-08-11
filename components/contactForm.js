@@ -98,6 +98,13 @@ const ContactForm = {
               </div>
             </div>` : ''}
           </div>
+          ${data.team && data.team.length ? `
+          <p class="contact-trust" style="margin-top: 1.5rem; padding: 12px 16px; background: var(--background-soft); border-radius: 14px; border-left: 3px solid var(--secondary); font-size: 0.88rem; color: var(--text-muted);">
+            <i class="fas fa-user-check" style="color: var(--primary); margin-right: 8px;"></i>
+            ${window.currentLang === 'fr'
+              ? `Votre demande est traitée directement par <strong style="color: var(--primary);">${data.team[0].name}</strong> (${data.team[0].role}).`
+              : `Your request is handled directly by <strong style="color: var(--primary);">${data.team[0].name}</strong> (${data.team[0].role}).`}
+          </p>` : ''}
         </div>
         
         <!-- Formulaire -->

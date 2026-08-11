@@ -51,6 +51,7 @@
 
 .slide-content p {
     font-size: 1.2rem;
+    font-weight: 400;
     margin-bottom: 40px;
     opacity: 0.9;
     max-width: 600px;
