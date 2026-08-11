@@ -70,6 +70,7 @@
   "testimonials": [],
   "partners": [],
   "i18n": {
+    "defaultLanguage": "fr",
     "fr": {
       "menu": {
         "home": "Accueil",

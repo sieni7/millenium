@@ -77,7 +77,7 @@ async function init() {
     }
 
     // -- I18N INITIALIZATION --
-    const lang = localStorage.getItem('millenium_lang') || config.settings.defaultLanguage || 'fr';
+    const lang = localStorage.getItem('millenium_lang') || config.i18n?.defaultLanguage || config.settings?.defaultLanguage || 'fr';
     window.millenium_i18n = config.i18n[lang];
     window.currentLang = lang;
 

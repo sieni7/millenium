@@ -1,16 +1,8 @@
-const CACHE_NAME = 'millenium-ci-v1';
+const CACHE_NAME = 'mci-cache-v1';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './css/hero.css',
-  './css/layout-fix.css',
-  './css/mobile.css',
-  './css/productGrid.css',
-  './css/refinements.css',
-  './js/main.js',
-  './js/animations.js',
-  './js/mobileMenu.js',
-  './js/ux-refinements.js',
+  './manifest.json',
   './config.json',
   './assets/icons/icon-512.png'
 ];
@@ -40,6 +32,12 @@ self.addEventListener('activate', (event) => {
 
 // Fetch Event (Stale-while-revalidate)
 self.addEventListener('fetch', (event) => {
+  // Only handle GET requests
+  if (event.request.method !== 'GET') return;
+
+  // Skip cross-origin requests
+  if (event.request.url.startsWith('http') && !event.request.url.includes(self.location.origin)) return;
+
   // Special handling for config.json (Network First)
   if (event.request.url.includes('config.json')) {
     event.respondWith(
@@ -59,8 +57,10 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       const fetchPromise = fetch(event.request).then((networkResponse) => {
+        // CLONE avant toute manipulation
+        const responseClone = networkResponse.clone();
         caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, networkResponse.clone());
+          cache.put(event.request, responseClone);
         });
         return networkResponse;
       });
