@@ -50,8 +50,8 @@ const Projects = {
         </div>`).join('');
 
     container.innerHTML = `
-      <div class="case-study reveal">
-        <h3 class="case-title">${p.title}</h3>
+      <div class="case-study reveal mci-card">
+        <h3 class="case-title mci-accent-gold">${p.title}</h3>
         <p class="case-subtitle">${p.subtitle}</p>
         <div class="case-study-grid">
           <div class="case-media">

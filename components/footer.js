@@ -23,8 +23,8 @@ const Footer = {
           <div class="footer-grid">
             
             <div class="footer-col">
-              <a href="#" class="footer-logo" aria-label="${data.company.name}">
-                <img src="./assets/logo_footer.png" alt="${data.company.name}" width="220" height="176" loading="lazy" style="height: 60px; width: auto; border-radius: 14px;">
+              <a href="/" class="logo-footer" aria-label="${data.company.name}">
+                <img src="./assets/logo_millenium.png" alt="${data.company.name}" width="1000" height="500" loading="lazy">
               </a>
               <p class="footer-mission">${data.company.mission}</p>
             </div>

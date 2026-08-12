@@ -11,8 +11,8 @@ const Services = {
     container.innerHTML = `
       <div class="services-grid">
         ${services.map(s => `
-          <div class="service-card reveal">
-            <i class="fas ${s.icon}"></i>
+          <div class="service-card reveal mci-card">
+            <i class="fas ${s.icon} mci-accent-gold"></i>
             <h3>${s.title}</h3>
             <p>${s.description}</p>
           </div>

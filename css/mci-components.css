@@ -209,3 +209,157 @@
     .about-text h2 { font-size: 2rem; }
     .services-grid, .team-grid { grid-template-columns: 1fr; }
 }
+
+/* ════════════════════════════════════════════════════════
+   MCI v2 — DESIGN SYSTEM (Émeraude/action · Or/accents)
+   Classes ajoutées EN COMPLÉMENT, aucune classe existante
+   n'est supprimée ni modifiée.
+   ════════════════════════════════════════════════════════ */
+
+/* ── LOGO HEADER / FOOTER (MCI v2) ────────── */
+.logo-header {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+    margin-right: 60px;
+}
+.logo-header img {
+    display: block;
+    height: 52px;
+    width: auto;
+    border-radius: 8px;
+    transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1),
+                filter 400ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.logo-footer {
+    display: inline-block;
+    text-decoration: none;
+    margin-bottom: 16px;
+}
+.logo-footer img {
+    display: block;
+    height: 40px;
+    width: auto;
+    border-radius: 8px;
+    transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1),
+                filter 400ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Zoom premium + halo doré — SURVOL DESKTOP UNIQUEMENT */
+@media (hover: hover) and (pointer: fine) {
+    .logo-header:hover img {
+        transform: scale(2.35);
+        filter: drop-shadow(0 8px 24px rgba(199, 144, 46, 0.35));
+    }
+    .logo-footer:hover img {
+        transform: scale(2.5);
+        filter: drop-shadow(0 8px 28px rgba(199, 144, 46, 0.4));
+    }
+}
+
+/* Focus visible clavier (logo) */
+.logo-header:focus-visible,
+.logo-footer:focus-visible {
+    outline: 2px solid var(--secondary);
+    outline-offset: 4px;
+    border-radius: 8px;
+}
+
+/* ── BOUTONS MCI v2 ───────────────────────── */
+.mci-btn-primary {
+    background: var(--mci-green-800);
+    color: #fff;
+    border: none;
+}
+.mci-btn-primary:hover {
+    background: var(--mci-green-900);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(16, 38, 27, 0.25);
+}
+
+.mci-btn-secondary {
+    background: transparent;
+    border: 2px solid var(--mci-gold-600);
+    color: var(--mci-gold-700);
+}
+.mci-btn-secondary:hover {
+    background: var(--mci-gold-600);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(201, 144, 46, 0.3);
+}
+
+/* ── CARTES MCI v2 ────────────────────────── */
+.mci-card {
+    background: var(--mci-ivory-100);
+    border: 1px solid var(--color-border-light);
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(23, 76, 50, 0.07);
+    transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1),
+                box-shadow 400ms cubic-bezier(0.23, 1, 0.32, 1),
+                border-color 400ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.mci-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--mci-gold-600);
+    box-shadow: 0 18px 40px rgba(23, 76, 50, 0.14);
+}
+
+/* ── ACCENTS TEXTE MCI v2 ─────────────────── */
+.mci-accent-gold {
+    color: var(--mci-gold-600);
+}
+.mci-accent-emerald {
+    color: var(--mci-green-800);
+}
+
+/* ── SÉPARATEUR OR MCI v2 ─────────────────── */
+.mci-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--mci-gold-600);
+    border: none;
+    margin: 0.5rem 0 1.5rem 0;
+}
+
+/* ── DARK MODE (overrides MCI v2) ─────────── */
+body.dark-mode .mci-card {
+    background: var(--surface);
+    border-color: var(--border-soft);
+}
+body.dark-mode .mci-btn-primary {
+    background: var(--mci-green-600);
+}
+body.dark-mode .mci-btn-primary:hover {
+    background: var(--mci-green-500);
+}
+body.dark-mode .mci-btn-secondary {
+    border-color: var(--mci-gold-500);
+    color: var(--mci-gold-400);
+}
+body.dark-mode .mci-btn-secondary:hover {
+    background: var(--mci-gold-500);
+    color: #0B1711;
+}
+body.dark-mode .mci-accent-gold { color: var(--mci-gold-400); }
+body.dark-mode .mci-accent-emerald { color: var(--mci-green-400); }
+body.dark-mode .mci-divider { background: var(--mci-gold-500); }
+
+/* ── REDUCED MOTION ───────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .logo-header img,
+    .logo-footer img,
+    .mci-card,
+    .mci-btn-primary,
+    .mci-btn-secondary {
+        transition: none;
+    }
+    @media (hover: hover) {
+        .logo-header:hover img,
+        .logo-footer:hover img {
+            transform: none;
+        }
+    }
+}

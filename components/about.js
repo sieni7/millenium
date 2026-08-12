@@ -6,7 +6,7 @@ const About = {
     const company = config.company;
     container.innerHTML = `
       <div class="about-text">
-        <h2>À propos</h2>
+        <h2 class="mci-accent-emerald">À propos</h2>
         <p><strong>${company.name}</strong></p>
         <p>${company.mission}</p>
         <blockquote>« ${company.slogan} »</blockquote>

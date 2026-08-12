@@ -126,7 +126,7 @@ const ContactForm = {
               <label for="message">Message *</label>
               <textarea id="message" name="message" required></textarea>
             </div>
-            <button type="submit" class="submit-btn">
+            <button type="submit" class="submit-btn mci-btn-primary">
               <i class="fas fa-paper-plane"></i>
               ${window.millenium_i18n?.form_btn || 'Envoyer le message'}
             </button>
