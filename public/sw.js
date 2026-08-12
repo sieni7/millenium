@@ -4,7 +4,7 @@ const ASSETS_TO_CACHE = [
   './index.html',
   './manifest.json',
   './config.json',
-  './assets/icons/icon-512.png',
+  './assets/icons/android-chrome-512x512.png',
   './assets/icons/favicon-32x32.png',
   './assets/icons/favicon-16x16.png'
 ];
