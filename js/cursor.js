@@ -54,31 +54,44 @@ const CustomCursor = {
         `;
         document.head.appendChild(style);
 
-        // Mouse move
-        window.addEventListener('mousemove', (e) => {
-            cursor.style.transform = `translate(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%))`;
-        });
+        // Throttle via requestAnimationFrame (évite les calculs de layout à chaque mousemove)
+        let rafId = null;
+        const onMouseMove = (e) => {
+            if (rafId) return;
+            rafId = requestAnimationFrame(() => {
+                rafId = null;
+                cursor.style.transform = `translate(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%))`;
+            });
+        };
+        window.addEventListener('mousemove', onMouseMove, { passive: true });
 
-        // Hover states
+        // Hover states (fonctions nommées pour pouvoir les retirer proprement)
+        const onEnter = () => cursor.classList.add('hover');
+        const onLeave = () => cursor.classList.remove('hover');
+        const attach = (el) => {
+            el.addEventListener('mouseenter', onEnter);
+            el.addEventListener('mouseleave', onLeave);
+        };
+        const detach = (el) => {
+            el.removeEventListener('mouseenter', onEnter);
+            el.removeEventListener('mouseleave', onLeave);
+        };
+
         const interactiveElements = document.querySelectorAll('a, button, .product-card, input, select, textarea');
-        
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-        });
+        interactiveElements.forEach(attach);
 
-        // Add dynamically injected elements observer
+        // Add dynamically injected elements observer (sans fuite de listeners)
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
-                if (mutation.addedNodes.length) {
-                    const newInteractives = document.querySelectorAll('a, button, .product-card, input, select, textarea');
-                    newInteractives.forEach(el => {
-                        el.removeEventListener('mouseenter', () => cursor.classList.add('hover'));
-                        el.removeEventListener('mouseleave', () => cursor.classList.remove('hover'));
-                        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-                        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-                    });
-                }
+                mutation.addedNodes.forEach((node) => {
+                    if (node.nodeType !== Node.ELEMENT_NODE) return;
+                    if (node.matches && node.matches('a, button, .product-card, input, select, textarea')) {
+                        attach(node);
+                    }
+                    if (node.querySelectorAll) {
+                        node.querySelectorAll('a, button, .product-card, input, select, textarea').forEach(attach);
+                    }
+                });
             });
         });
 
