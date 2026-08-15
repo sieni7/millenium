@@ -79,16 +79,16 @@ const Analytics = {
             region: ''
         };
 
-        // Geolocation via ip-api.com (free, no key, 45 req/min)
+        // Geolocation via ipwho.is (free, no key, HTTPS — compatible production)
         try {
-            const res = await fetch('http://ip-api.com/json/?fields=status,country,countryCode,regionName,city');
+            const res = await fetch('https://ipwho.is/');
             if (res.ok) {
                 const geo = await res.json();
-                if (geo.status === 'success') {
-                    visit.country = geo.country;
-                    visit.countryCode = geo.countryCode;
-                    visit.city = geo.city;
-                    visit.region = geo.regionName;
+                if (geo.success) {
+                    visit.country = geo.country || '';
+                    visit.countryCode = geo.country_code || '';
+                    visit.city = geo.city || '';
+                    visit.region = geo.region || '';
                 }
             }
         } catch (e) {
@@ -115,7 +115,8 @@ const Analytics = {
             const visits = this.getVisits();
             const visit = visits.find(v => v.id === this._currentVisitId);
             if (visit) {
-                visit.duration = Math.round((Date.now() - this._sessionStart) / 1000);
+                const raw = Math.round((Date.now() - this._sessionStart) / 1000);
+                visit.duration = Math.min(86400, Math.max(0, raw)); // Plafond 24h
                 localStorage.setItem(VISITS_KEY, JSON.stringify(visits));
             }
         };

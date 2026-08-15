@@ -65,6 +65,18 @@
                     <i class="fas fa-home"></i>
                     <span>Projets</span>
                 </button>
+                <button class="sidebar-link" data-tab="team">
+                    <i class="fas fa-users"></i>
+                    <span>Équipe</span>
+                </button>
+                <button class="sidebar-link" data-tab="partners">
+                    <i class="fas fa-handshake"></i>
+                    <span>Partenaires</span>
+                </button>
+                <button class="sidebar-link" data-tab="testimonials">
+                    <i class="fas fa-quote-right"></i>
+                    <span>Témoignages</span>
+                </button>
                 <button class="sidebar-link" data-tab="journal">
                     <i class="fas fa-clipboard-list"></i>
                     <span>Journal</span>
@@ -157,6 +169,22 @@
                     <div class="form-group full-width">
                         <label>Adresse (Siège)</label>
                         <textarea id="edit-company-address" style="height: 60px;"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>WhatsApp</label>
+                        <input type="text" id="edit-company-whatsapp" placeholder="05 74 97 10 22">
+                    </div>
+                    <div class="form-group">
+                        <label>LinkedIn</label>
+                        <input type="url" id="edit-social-linkedin" placeholder="https://www.linkedin.com/company/...">
+                    </div>
+                    <div class="form-group">
+                        <label>Facebook</label>
+                        <input type="url" id="edit-social-facebook" placeholder="https://facebook.com/...">
+                    </div>
+                    <div class="form-group">
+                        <label>Instagram</label>
+                        <input type="url" id="edit-social-instagram" placeholder="https://instagram.com/...">
                     </div>
                     
                     <div class="form-group full-width">
@@ -255,6 +283,87 @@
                 </div>
             </div>
 
+            <!-- Team Tab -->
+            <div id="tab-team" class="tab-content">
+                <div class="crud-header">
+                    <h3>Gestion de l'Équipe</h3>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <button id="add-team-btn" class="btn btn-sm">
+                            <i class="fas fa-plus"></i> Ajouter un membre
+                        </button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Membre</th>
+                                <th>Rôle</th>
+                                <th>Photo</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="team-body">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Partners Tab -->
+            <div id="tab-partners" class="tab-content">
+                <div class="crud-header">
+                    <h3>Partenaires</h3>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <button id="add-partner-btn" class="btn btn-sm">
+                            <i class="fas fa-plus"></i> Ajouter un partenaire
+                        </button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Partenaire</th>
+                                <th>Logo</th>
+                                <th>Site / URL</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="partners-body">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Testimonials Tab -->
+            <div id="tab-testimonials" class="tab-content">
+                <div class="crud-header">
+                    <h3>Témoignages Clients</h3>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <button id="add-testimonial-btn" class="btn btn-sm">
+                            <i class="fas fa-plus"></i> Ajouter un témoignage
+                        </button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Auteur</th>
+                                <th>Fonction / Organisation</th>
+                                <th>Témoignage</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="testimonials-body">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <!-- Journal Tab -->
             <div id="tab-journal" class="tab-content">
                 <div class="crud-header">
@@ -305,6 +414,9 @@
                 <div class="save-actions">
                     <button id="discard-btn" class="btn btn-outline btn-sm">Annuler</button>
                     <button id="export-config-btn" class="btn btn-outline btn-sm" title="Télécharger le fichier config.json"><i class="fas fa-download"></i> Exporter</button>
+                    <button id="import-config-btn" class="btn btn-outline btn-sm" title="Restaurer depuis un fichier config.json"><i class="fas fa-upload"></i> Importer</button>
+                    <input type="file" id="import-config-file" accept=".json,application/json" style="display: none;">
+                    <button id="server-save-btn" class="btn btn-outline btn-sm" title="Écrire public/config.json côté serveur (dev)" disabled><i class="fas fa-server"></i> Serveur</button>
                     <button id="reset-config-btn" class="btn btn-outline btn-sm" style="border-color: var(--warning, #f59e0b); color: var(--warning, #f59e0b);" title="Réinitialiser aux valeurs par défaut"><i class="fas fa-undo"></i> Reset</button>
                     <button id="save-config-btn" class="btn btn-accent btn-sm"><i class="fas fa-save"></i> Sauvegarder</button>
                 </div>
@@ -326,8 +438,28 @@
                     <input type="text" id="form-activity-title" required>
                 </div>
                 <div class="form-group">
-                    <label>Icône (Classe FontAwesome, ex: fas fa-hard-hat)</label>
-                    <input type="text" id="form-activity-icon" required>
+                    <label>Icône (FontAwesome)</label>
+                    <div class="icon-picker">
+                        <input type="text" id="form-activity-icon" list="activity-icon-list" required placeholder="fas fa-chart-line">
+                        <datalist id="activity-icon-list">
+                            <option value="fas fa-chart-line">Chart</option>
+                            <option value="fas fa-code">Code</option>
+                            <option value="fas fa-graduation-cap">Formation</option>
+                            <option value="fas fa-globe">Globe</option>
+                            <option value="fas fa-handshake">Partenariat</option>
+                            <option value="fas fa-mobile-alt">Mobile</option>
+                            <option value="fas fa-bullhorn">Communication</option>
+                            <option value="fas fa-database">Données</option>
+                            <option value="fas fa-cogs">Process</option>
+                            <option value="fas fa-users">Équipe</option>
+                            <option value="fas fa-seedling">Agriculture</option>
+                            <option value="fas fa-truck">Logistique</option>
+                        </datalist>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Aperçu</label>
+                    <span class="icon-preview" id="activity-icon-preview"><i class="fas fa-chart-line" style="font-size: 1.6rem;"></i></span>
                 </div>
                 <div class="form-group">
                     <label>Description</label>
@@ -359,33 +491,146 @@
                         <input type="text" id="form-scenario-lab" required>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Standing / Gamme</label>
-                    <input type="text" id="form-scenario-active" required>
-                </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Type de bien</label>
-                        <input type="text" id="form-scenario-presentation" placeholder="Ex: Résidence 5 pièces">
+                        <label>Standing / Gamme</label>
+                        <input type="text" id="form-scenario-active" placeholder="Ex: Premium, Standard">
                     </div>
                     <div class="form-group">
-                        <label>Images du projet (Galerie)</label>
-                        <div class="image-upload-zone" id="scenario-image-upload">
-                            <div class="gallery-previews" id="scenario-gallery-previews">
-                                <!-- Thumbnails will be injected here -->
-                            </div>
-                            <div class="image-dropzone" id="scenario-dropzone">
-                                <i class="fas fa-plus-circle"></i>
-                                <span>Ajouter une image <label for="scenario-file-input" class="upload-link">parcourez</label></span>
-                                <input type="file" id="scenario-file-input" accept="image/jpeg,image/png,image/webp" style="display:none;">
-                            </div>
-                            <input type="text" id="form-scenario-image-url" placeholder="Ou collez une URL d'image à ajouter" style="font-size: 0.8rem; margin-top: 5px;">
+                        <label>Type de projet</label>
+                        <select id="form-scenario-presentation">
+                            <option value="Étude de cas">Étude de cas</option>
+                            <option value="Projet">Projet</option>
+                            <option value="Mission">Mission</option>
+                            <option value="Service">Service</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Contexte & Enjeu (challenge)</label>
+                    <textarea id="form-scenario-challenge" style="height: 90px;" placeholder="Quel était le problème de départ ?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Solution apportée</label>
+                    <textarea id="form-scenario-solution" style="height: 90px;" placeholder="Comment avez-vous répondu ?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Résultats chiffrés</label>
+                    <textarea id="form-scenario-results" style="height: 70px;" placeholder="Ex: 4 sites en ligne, 1 référent formé..."></textarea>
+                </div>
+                <div class="form-group full-width">
+                    <label>Images du projet (Galerie)</label>
+                    <div class="image-upload-zone" id="scenario-image-upload">
+                        <div class="gallery-previews" id="scenario-gallery-previews">
+                            <!-- Thumbnails will be injected here -->
                         </div>
+                        <div class="image-dropzone" id="scenario-dropzone">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Ajouter une image <label for="scenario-file-input" class="upload-link">parcourez</label></span>
+                            <input type="file" id="scenario-file-input" accept="image/jpeg,image/png,image/webp" style="display:none;">
+                        </div>
+                        <input type="text" id="form-scenario-image-url" placeholder="Ou collez une URL d'image à ajouter" style="font-size: 0.8rem; margin-top: 5px;">
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Description / Atout principal</label>
                     <textarea id="form-scenario-indication" style="height: 100px;"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn">Valider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Add/Edit Team Member -->
+    <div id="team-form-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="team-form-title">Nouveau membre</h3>
+                <button class="close-modal" onclick="document.getElementById('team-form-modal').classList.remove('active')"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="team-form" class="modal-body">
+                <input type="hidden" id="form-team-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nom complet</label>
+                        <input type="text" id="form-team-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Rôle / Fonction</label>
+                        <input type="text" id="form-team-role" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Biographie</label>
+                    <textarea id="form-team-desc" style="height: 100px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Photo (URL)</label>
+                    <input type="text" id="form-team-photo" placeholder="URL de la photo">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn">Valider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Add/Edit Partner -->
+    <div id="partner-form-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="partner-form-title">Nouveau partenaire</h3>
+                <button class="close-modal" onclick="document.getElementById('partner-form-modal').classList.remove('active')"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="partner-form" class="modal-body">
+                <input type="hidden" id="form-partner-id">
+                <div class="form-group">
+                    <label>Nom du partenaire</label>
+                    <input type="text" id="form-partner-name" required>
+                </div>
+                <div class="form-group">
+                    <label>Logo (URL)</label>
+                    <input type="text" id="form-partner-logo" placeholder="URL du logo (optionnel)">
+                </div>
+                <div class="form-group">
+                    <label>Site web / Lien</label>
+                    <input type="url" id="form-partner-url" placeholder="https://...">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn">Valider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Add/Edit Testimonial -->
+    <div id="testimonial-form-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="testimonial-form-title">Nouveau témoignage</h3>
+                <button class="close-modal" onclick="document.getElementById('testimonial-form-modal').classList.remove('active')"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="testimonial-form" class="modal-body">
+                <input type="hidden" id="form-testimonial-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nom de l'auteur</label>
+                        <input type="text" id="form-testimonial-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Fonction</label>
+                        <input type="text" id="form-testimonial-role" placeholder="Ex: Président de coopérative">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Organisation / Coopérative</label>
+                    <input type="text" id="form-testimonial-organization" placeholder="Ex: Coopéra-Afféry">
+                </div>
+                <div class="form-group">
+                    <label>Texte du témoignage</label>
+                    <textarea id="form-testimonial-text" style="height: 100px;" required></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn">Valider</button>

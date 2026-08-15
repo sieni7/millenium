@@ -837,3 +837,23 @@ tr.drag-over { border-top: 2px solid var(--primary) !important; }
 @media (prefers-reduced-motion: reduce) {
     .analytics-live-badge .live-dot { animation: none; }
 }
+
+/* ── ICON PICKER (Activités) ───────────────────────────── */
+.icon-picker input {
+    font-family: monospace;
+}
+
+.icon-preview {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    background: var(--primary-light, rgba(30,127,110,0.1));
+    color: var(--primary, #1e7f6e);
+}
+
+[data-theme="dark"] .icon-preview {
+    background: rgba(255,255,255,0.06);
+}

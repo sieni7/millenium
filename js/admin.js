@@ -19,6 +19,9 @@ const tabLabels = {
     hero: { icon: 'fas fa-images', label: 'Hero & Accroches' },
     activities: { icon: 'fas fa-tasks', label: 'Activités' },
     scenarios: { icon: 'fas fa-home', label: 'Projets' },
+    team: { icon: 'fas fa-users', label: 'Équipe' },
+    partners: { icon: 'fas fa-handshake', label: 'Partenaires' },
+    testimonials: { icon: 'fas fa-quote-right', label: 'Témoignages' },
     journal: { icon: 'fas fa-clipboard-list', label: 'Journal' }
 };
 
@@ -180,6 +183,35 @@ function normalizeConfig(cfg) {
     // Préserve social (LinkedIn/Facebook/WhatsApp) manipulé en Profil
     if (!cfg.company.social) cfg.company.social = {};
 
+    // Team (membres directs)
+    cfg.team = Array.isArray(cfg.team) ? cfg.team : [];
+    cfg.team = cfg.team.map(t => ({
+        id: t.id || 'member_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
+        name: t.name || '',
+        role: t.role || '',
+        description: t.description || '',
+        photo: t.photo || ''
+    }));
+
+    // Partenaires
+    cfg.partners = Array.isArray(cfg.partners) ? cfg.partners : [];
+    cfg.partners = cfg.partners.map(p => ({
+        id: p.id || 'part_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
+        name: p.name || '',
+        logo: p.logo || '',
+        url: p.url || ''
+    }));
+
+    // Témoignages
+    cfg.testimonials = Array.isArray(cfg.testimonials) ? cfg.testimonials : [];
+    cfg.testimonials = cfg.testimonials.map(t => ({
+        id: t.id || 'testi_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
+        name: t.name || '',
+        role: t.role || '',
+        organization: t.organization || '',
+        text: t.text || t.message || ''
+    }));
+
     if (!cfg.settings) cfg.settings = {};
     if (!cfg.i18n) cfg.i18n = { fr: {} };
     return cfg;
@@ -221,10 +253,31 @@ function writeBackConfig() {
     currentConfig.company.slogan = currentConfig.company.slogan || '';
     currentConfig.company.mission = currentConfig.company.mission || '';
     currentConfig.company.address = currentConfig.company.address || '';
-    currentConfig.company.whatsapp = currentConfig.company.whatsapp || '';
+    currentConfig.company.whatsapp = currentConfig.contact.whatsapp || currentConfig.company.whatsapp || '';
     if (!currentConfig.company.social) currentConfig.company.social = {};
+    currentConfig.company.social.linkedin = currentConfig.company.social.linkedin || '';
+    currentConfig.company.social.facebook = currentConfig.company.social.facebook || '';
+    currentConfig.company.social.instagram = currentConfig.company.social.instagram || '';
+    currentConfig.company.social.whatsapp = currentConfig.company.social.whatsapp || `https://wa.me/225${(currentConfig.company.whatsapp || '').replace(/\D/g, '')}`;
 
-    // Stats restituées dans company.stats (attendu par le front public)
+    // Team / Partenaires / Témoignages (formats publics attendus)
+    currentConfig.team = currentConfig.team.map(t => ({
+        name: t.name || '',
+        role: t.role || '',
+        description: t.description || '',
+        photo: t.photo || ''
+    }));
+    currentConfig.partners = currentConfig.partners.map(p => ({
+        name: p.name || '',
+        logo: p.logo || '',
+        url: p.url || ''
+    }));
+    currentConfig.testimonials = currentConfig.testimonials.map(t => ({
+        name: t.name || '',
+        role: t.role || '',
+        organization: t.organization || '',
+        text: t.text || ''
+    }));
     if (Array.isArray(currentConfig.products)) {
         currentConfig.company.stats = currentConfig.company.stats.filter(s =>
             typeof s.key === 'string' && s.key && typeof s.value !== 'undefined'
@@ -256,6 +309,9 @@ async function loadConfig() {
         renderHero();
         renderActivities();
         renderScenarios();
+        renderTeam();
+        renderPartners();
+        renderTestimonials();
         ActivityLog.render();
     } catch (e) {
         console.error('Failed to load config:', e);
@@ -305,6 +361,7 @@ const resetToDefault = async () => {
         originalConfig = normalizeConfig(await res.json());
         currentConfig = JSON.parse(JSON.stringify(originalConfig));
         renderProfile(); renderHero(); renderActivities(); renderScenarios();
+        renderTeam(); renderPartners(); renderTestimonials();
         isDirty = false;
         document.getElementById('save-bar').style.display = 'none';
         ActivityLog.add('config', 'Configuration réinitialisée', 'Système');
@@ -321,6 +378,10 @@ const renderProfile = () => {
     document.getElementById('edit-company-phone').value = currentConfig.contact.phone;
     document.getElementById('edit-webhook-url').value = currentConfig.contact.webhook_url;
     document.getElementById('edit-company-address').value = currentConfig.company.address;
+    document.getElementById('edit-company-whatsapp').value = currentConfig.company.whatsapp || '';
+    document.getElementById('edit-social-linkedin').value = currentConfig.company.social?.linkedin || '';
+    document.getElementById('edit-social-facebook').value = currentConfig.company.social?.facebook || '';
+    document.getElementById('edit-social-instagram').value = currentConfig.company.social?.instagram || '';
     document.getElementById('edit-maintenance-mode').checked = currentConfig.settings?.maintenanceMode || false;
 
     const statsContainer = document.getElementById('stats-container');
@@ -531,14 +592,21 @@ window.openScenarioForm = (id) => {
         document.getElementById('form-scenario-lab').value = p.zone;
         document.getElementById('form-scenario-active').value = p.standing;
         document.getElementById('form-scenario-presentation').value = p.type;
+        document.getElementById('form-scenario-challenge').value = p.challenge || '';
+        document.getElementById('form-scenario-solution').value = p.solution || '';
+        document.getElementById('form-scenario-results').value = p.results || '';
         document.getElementById('form-scenario-indication').value = p.description;
-        
+
         // Load existing images
         window._tempScenarioImages = p.images ? [...p.images] : (p.image ? [p.image] : []);
     } else {
         document.getElementById('scenario-form-title').textContent = "Nouveau Scénario";
         document.getElementById('scenario-form').reset();
         document.getElementById('form-scenario-id').value = '';
+        document.getElementById('form-scenario-presentation').value = 'Étude de cas';
+        document.getElementById('form-scenario-challenge').value = '';
+        document.getElementById('form-scenario-solution').value = '';
+        document.getElementById('form-scenario-results').value = '';
         window._tempScenarioImages = [];
     }
     
@@ -594,6 +662,9 @@ const handleScenarioSubmit = (e) => {
         zone: document.getElementById('form-scenario-lab').value,
         standing: document.getElementById('form-scenario-active').value,
         type: document.getElementById('form-scenario-presentation').value,
+        challenge: document.getElementById('form-scenario-challenge').value,
+        solution: document.getElementById('form-scenario-solution').value,
+        results: document.getElementById('form-scenario-results').value,
         images: images,
         image: images[0] || '', // Backward compatibility
         description: document.getElementById('form-scenario-indication').value
@@ -609,6 +680,277 @@ const handleScenarioSubmit = (e) => {
     window.markDirty();
     renderScenarios();
     document.getElementById('scenario-form-modal').classList.remove('active');
+};
+
+// ── CRUD TEAM ────────────────────────────────────────────
+const renderTeam = () => {
+    const tbody = document.getElementById('team-body');
+    if (!tbody) return;
+    tbody.innerHTML = currentConfig.team.length === 0
+        ? '<tr><td colspan="4" style="text-align:center; color: var(--text-muted);">Aucun membre — ajoutez-en un</td></tr>'
+        : currentConfig.team.map((t, idx) => `
+            <tr draggable="true" data-index="${idx}">
+                <td><span class="drag-handle"><i class="fas fa-grip-vertical"></i></span> <strong>${t.name}</strong></td>
+                <td>${t.role}</td>
+                <td>${t.photo ? `<img src="${t.photo}" alt="${t.name}" style="width:40px;height:40px;border-radius:8px;object-fit:cover;">` : '—'}</td>
+                <td>
+                    <div class="actions">
+                        <button class="action-btn edit-btn" onclick="openTeamForm('${t.id}')"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn delete-btn" onclick="deleteTeam('${t.id}')"><i class="fas fa-trash"></i></button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+    DragDrop.init(tbody, (from, to) => {
+        DragDrop.reorderArray(currentConfig.team, from, to);
+        ActivityLog.add('update', `Membre réordonné: ${from + 1} → ${to + 1}`, 'Équipe');
+        window.markDirty();
+        renderTeam();
+    });
+};
+
+window.openTeamForm = (id) => {
+    const modal = document.getElementById('team-form-modal');
+    modal.classList.add('active');
+    if (id) {
+        const t = currentConfig.team.find(m => m.id === id);
+        document.getElementById('team-form-title').textContent = "Modifier le membre";
+        document.getElementById('form-team-id').value = t.id;
+        document.getElementById('form-team-name').value = t.name;
+        document.getElementById('form-team-role').value = t.role;
+        document.getElementById('form-team-desc').value = t.description;
+        document.getElementById('form-team-photo').value = t.photo;
+    } else {
+        document.getElementById('team-form-title').textContent = "Nouveau membre";
+        document.getElementById('team-form').reset();
+        document.getElementById('form-team-id').value = '';
+    }
+};
+
+window.deleteTeam = (id) => {
+    const t = currentConfig.team.find(m => m.id === id);
+    if (confirm(`Supprimer ${t?.name || 'ce membre'} ?`)) {
+        currentConfig.team = currentConfig.team.filter(m => m.id !== id);
+        ActivityLog.add('delete', `Membre supprimé: ${t?.name || id}`, 'Équipe');
+        window.markDirty();
+        renderTeam();
+    }
+};
+
+const handleTeamSubmit = (e) => {
+    e.preventDefault();
+    const id = document.getElementById('form-team-id').value;
+    const data = {
+        id: id || 'member_' + Date.now(),
+        name: document.getElementById('form-team-name').value,
+        role: document.getElementById('form-team-role').value,
+        description: document.getElementById('form-team-desc').value,
+        photo: document.getElementById('form-team-photo').value
+    };
+    if (id) {
+        const index = currentConfig.team.findIndex(m => m.id === id);
+        currentConfig.team[index] = data;
+        ActivityLog.add('update', `Membre modifié: ${data.name}`, 'Équipe');
+    } else {
+        currentConfig.team.push(data);
+        ActivityLog.add('create', `Membre ajouté: ${data.name}`, 'Équipe');
+    }
+    window.markDirty();
+    renderTeam();
+    document.getElementById('team-form-modal').classList.remove('active');
+};
+
+// ── CRUD PARTNERS ────────────────────────────────────────
+const renderPartners = () => {
+    const tbody = document.getElementById('partners-body');
+    if (!tbody) return;
+    tbody.innerHTML = currentConfig.partners.length === 0
+        ? '<tr><td colspan="4" style="text-align:center; color: var(--text-muted);">Aucun partenaire — la section sera masquée sur le site public</td></tr>'
+        : currentConfig.partners.map(p => `
+            <tr>
+                <td><strong>${p.name}</strong></td>
+                <td>${p.logo ? `<img src="${p.logo}" alt="${p.name}" style="height:32px;max-width:90px;object-fit:contain;">` : '<i class="fas fa-handshake" style="color: var(--text-muted);"></i>'}</td>
+                <td>${p.url ? `<a href="${p.url}" target="_blank" rel="noopener">${p.url}</a>` : '—'}</td>
+                <td>
+                    <div class="actions">
+                        <button class="action-btn edit-btn" onclick="openPartnerForm('${p.id}')"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn delete-btn" onclick="deletePartner('${p.id}')"><i class="fas fa-trash"></i></button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+};
+
+window.openPartnerForm = (id) => {
+    const modal = document.getElementById('partner-form-modal');
+    modal.classList.add('active');
+    if (id) {
+        const p = currentConfig.partners.find(x => x.id === id);
+        document.getElementById('partner-form-title').textContent = "Modifier le partenaire";
+        document.getElementById('form-partner-id').value = p.id;
+        document.getElementById('form-partner-name').value = p.name;
+        document.getElementById('form-partner-logo').value = p.logo;
+        document.getElementById('form-partner-url').value = p.url;
+    } else {
+        document.getElementById('partner-form-title').textContent = "Nouveau partenaire";
+        document.getElementById('partner-form').reset();
+        document.getElementById('form-partner-id').value = '';
+    }
+};
+
+window.deletePartner = (id) => {
+    const p = currentConfig.partners.find(x => x.id === id);
+    if (confirm(`Supprimer ${p?.name || 'ce partenaire'} ?`)) {
+        currentConfig.partners = currentConfig.partners.filter(x => x.id !== id);
+        ActivityLog.add('delete', `Partenaire supprimé: ${p?.name || id}`, 'Partenaires');
+        window.markDirty();
+        renderPartners();
+    }
+};
+
+const handlePartnerSubmit = (e) => {
+    e.preventDefault();
+    const id = document.getElementById('form-partner-id').value;
+    const data = {
+        id: id || 'part_' + Date.now(),
+        name: document.getElementById('form-partner-name').value,
+        logo: document.getElementById('form-partner-logo').value,
+        url: document.getElementById('form-partner-url').value
+    };
+    if (id) {
+        const index = currentConfig.partners.findIndex(x => x.id === id);
+        currentConfig.partners[index] = data;
+        ActivityLog.add('update', `Partenaire modifié: ${data.name}`, 'Partenaires');
+    } else {
+        currentConfig.partners.push(data);
+        ActivityLog.add('create', `Partenaire ajouté: ${data.name}`, 'Partenaires');
+    }
+    window.markDirty();
+    renderPartners();
+    document.getElementById('partner-form-modal').classList.remove('active');
+};
+
+// ── CRUD TESTIMONIALS ────────────────────────────────────
+const renderTestimonials = () => {
+    const tbody = document.getElementById('testimonials-body');
+    if (!tbody) return;
+    tbody.innerHTML = currentConfig.testimonials.length === 0
+        ? '<tr><td colspan="4" style="text-align:center; color: var(--text-muted);">Aucun témoignage — recueillez vos premiers retours clients</td></tr>'
+        : currentConfig.testimonials.map(t => `
+            <tr>
+                <td><strong>${t.name}</strong></td>
+                <td>${[t.role, t.organization].filter(Boolean).join(' · ')}</td>
+                <td>${t.text && t.text.length > 90 ? t.text.substring(0, 90) + '…' : (t.text || '')}</td>
+                <td>
+                    <div class="actions">
+                        <button class="action-btn edit-btn" onclick="openTestimonialForm('${t.id}')"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn delete-btn" onclick="deleteTestimonial('${t.id}')"><i class="fas fa-trash"></i></button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+};
+
+window.openTestimonialForm = (id) => {
+    const modal = document.getElementById('testimonial-form-modal');
+    modal.classList.add('active');
+    if (id) {
+        const t = currentConfig.testimonials.find(x => x.id === id);
+        document.getElementById('testimonial-form-title').textContent = "Modifier le témoignage";
+        document.getElementById('form-testimonial-id').value = t.id;
+        document.getElementById('form-testimonial-name').value = t.name;
+        document.getElementById('form-testimonial-role').value = t.role;
+        document.getElementById('form-testimonial-organization').value = t.organization;
+        document.getElementById('form-testimonial-text').value = t.text;
+    } else {
+        document.getElementById('testimonial-form-title').textContent = "Nouveau témoignage";
+        document.getElementById('testimonial-form').reset();
+        document.getElementById('form-testimonial-id').value = '';
+    }
+};
+
+window.deleteTestimonial = (id) => {
+    const t = currentConfig.testimonials.find(x => x.id === id);
+    if (confirm(`Supprimer le témoignage de ${t?.name || 'cet auteur'} ?`)) {
+        currentConfig.testimonials = currentConfig.testimonials.filter(x => x.id !== id);
+        ActivityLog.add('delete', `Témoignage supprimé: ${t?.name || id}`, 'Témoignages');
+        window.markDirty();
+        renderTestimonials();
+    }
+};
+
+const handleTestimonialSubmit = (e) => {
+    e.preventDefault();
+    const id = document.getElementById('form-testimonial-id').value;
+    const data = {
+        id: id || 'testi_' + Date.now(),
+        name: document.getElementById('form-testimonial-name').value,
+        role: document.getElementById('form-testimonial-role').value,
+        organization: document.getElementById('form-testimonial-organization').value,
+        text: document.getElementById('form-testimonial-text').value
+    };
+    if (id) {
+        const index = currentConfig.testimonials.findIndex(x => x.id === id);
+        currentConfig.testimonials[index] = data;
+        ActivityLog.add('update', `Témoignage modifié: ${data.name}`, 'Témoignages');
+    } else {
+        currentConfig.testimonials.push(data);
+        ActivityLog.add('create', `Témoignage ajouté: ${data.name}`, 'Témoignages');
+    }
+    window.markDirty();
+    renderTestimonials();
+    document.getElementById('testimonial-form-modal').classList.remove('active');
+};
+
+// ── SERVER SAVE (C19) ────────────────────────────────────
+const serverSave = async () => {
+    try {
+        writeBackConfig();
+        const res = await fetch('/api/save-config', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(currentConfig, null, 2)
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const json = await res.json();
+        if (json.success) {
+            Toast.show("✅ Configuration écrite sur public/config.json", "success");
+            ActivityLog.add('config', 'Configuration sauvegardée sur le serveur', 'Système');
+        } else {
+            throw new Error(json.error || 'Erreur serveur');
+        }
+    } catch (e) {
+        Toast.show(`Serveur: ${e.message} — disponible en dev uniquement`, "error", 4000);
+    }
+};
+
+// ── IMPORT CONFIG (C20) ──────────────────────────────────
+const importConfig = (file) => {
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+        try {
+            const parsed = JSON.parse(ev.target.result);
+            if (!parsed || typeof parsed !== 'object' || !parsed.company) {
+                throw new Error('Structure invalide');
+            }
+            if (!confirm('Importer ce fichier ? Les modifications non sauvegardées seront perdues.')) return;
+            originalConfig = normalizeConfig(parsed);
+            currentConfig = JSON.parse(JSON.stringify(originalConfig));
+            currentConfig.products.forEach(p => {
+                if (p.image && (!p.images || p.images.length === 0)) p.images = [p.image];
+                if (!p.images) p.images = [];
+            });
+            renderProfile(); renderHero(); renderActivities(); renderScenarios();
+            renderTeam(); renderPartners(); renderTestimonials();
+            window.markDirty();
+            ActivityLog.add('config', 'Configuration importée depuis un fichier', 'Système');
+            Toast.show("📂 Configuration importée — vérifiez puis sauvegardez", "success", 4000);
+        } catch (e) {
+            Toast.show("Fichier JSON invalide", "error");
+        }
+    };
+    reader.readAsText(file);
 };
 
 // ── SIDEBAR & TABS (#3 — UX Architect) ───────────────────
@@ -704,17 +1046,54 @@ document.addEventListener('DOMContentLoaded', () => {
     const journalClear = document.getElementById('journal-clear-btn');
     if (journalClear) journalClear.addEventListener('click', () => { if (ActivityLog.clear()) ActivityLog.render(); });
 
+    // Team / Partners / Testimonials buttons
+    document.getElementById('add-team-btn').addEventListener('click', () => window.openTeamForm());
+    document.getElementById('team-form').addEventListener('submit', handleTeamSubmit);
+    document.getElementById('add-partner-btn').addEventListener('click', () => window.openPartnerForm());
+    document.getElementById('partner-form').addEventListener('submit', handlePartnerSubmit);
+    document.getElementById('add-testimonial-btn').addEventListener('click', () => window.openTestimonialForm());
+    document.getElementById('testimonial-form').addEventListener('submit', handleTestimonialSubmit);
+
+    // Import / Server save
+    document.getElementById('import-config-btn').addEventListener('click', () => document.getElementById('import-config-file').click());
+    document.getElementById('import-config-file').addEventListener('change', (e) => {
+        if (e.target.files[0]) importConfig(e.target.files[0]);
+        e.target.value = '';
+    });
+    const serverBtn = document.getElementById('server-save-btn');
+    if (serverBtn) {
+        // Disponible uniquement en dev (plugin vite save-config)
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            serverBtn.disabled = false;
+            serverBtn.title = "Écrire public/config.json côté serveur (dev)";
+        }
+        serverBtn.addEventListener('click', serverSave);
+    }
+
     // Auto-save simple fields
-    ['edit-company-name', 'edit-company-email', 'edit-company-phone', 'edit-webhook-url', 'edit-company-address'].forEach(id => {
+    ['edit-company-name', 'edit-company-email', 'edit-company-phone', 'edit-webhook-url', 'edit-company-address', 'edit-company-whatsapp', 'edit-social-linkedin', 'edit-social-facebook', 'edit-social-instagram'].forEach(id => {
         document.getElementById(id).addEventListener('input', (e) => {
             if (id === 'edit-company-name') currentConfig.company.name = e.target.value;
             if (id === 'edit-company-email') currentConfig.contact.email = e.target.value;
             if (id === 'edit-company-phone') currentConfig.contact.phone = e.target.value;
             if (id === 'edit-webhook-url') currentConfig.contact.webhook_url = e.target.value;
             if (id === 'edit-company-address') currentConfig.company.address = e.target.value;
+            if (id === 'edit-company-whatsapp') currentConfig.company.whatsapp = e.target.value;
+            if (id === 'edit-social-linkedin') { if (!currentConfig.company.social) currentConfig.company.social = {}; currentConfig.company.social.linkedin = e.target.value; }
+            if (id === 'edit-social-facebook') { if (!currentConfig.company.social) currentConfig.company.social = {}; currentConfig.company.social.facebook = e.target.value; }
+            if (id === 'edit-social-instagram') { if (!currentConfig.company.social) currentConfig.company.social = {}; currentConfig.company.social.instagram = e.target.value; }
             window.markDirty();
         });
     });
+
+    // Activity icon live preview
+    const iconInput = document.getElementById('form-activity-icon');
+    const iconPreview = document.getElementById('activity-icon-preview');
+    if (iconInput && iconPreview) {
+        iconInput.addEventListener('input', () => {
+            iconPreview.innerHTML = `<i class="${iconInput.value || 'fas fa-circle'}" style="font-size: 1.6rem;"></i>`;
+        });
+    }
 
     document.getElementById('edit-maintenance-mode').addEventListener('change', (e) => {
         if (!currentConfig.settings) currentConfig.settings = {};
