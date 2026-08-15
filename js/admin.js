@@ -4,6 +4,7 @@ import ActivityLog from './activityLog.js';
 import DragDrop from './dragDrop.js';
 import ImageUpload from './imageUpload.js';
 import AdminDarkMode from './darkMode.admin.js';
+import GithubSync from './githubSync.js';
 
 Toast.init();
 
@@ -27,9 +28,31 @@ window.markDirty = () => {
 };
 
 // ── AUTH ──────────────────────────────────────────────────
+// Mots de passe stockés en SHA-256 (jamais en clair).
+// Hashes des comptes autorisés — à remplacer via A4 (config distante).
+const AUTH_HASHES = new Set([
+    'e2d2e2735b2f471b51f19f4ef1f2eb57801ef11fd230ba4291eeaa67847abc5f', // MilleniumAdmin2026
+    '6aef9995b92181c3233da005a2e34e5ef3d1d61fb23eb3a2d7c052a74fed9b87'  // Millenium2026
+]);
+
+const AUTH_MAX_ATTEMPTS = 5;
+const AUTH_LOCKOUT_MS = 30000;
+
+const sha256 = async (text) => {
+    const data = new TextEncoder().encode(text);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+};
+
+const lockoutRemaining = () => {
+    const until = parseInt(sessionStorage.getItem('admin_lock_until') || '0', 10);
+    return Math.max(0, until - Date.now());
+};
+
 const checkAuth = () => {
     const auth = sessionStorage.getItem('admin_auth');
-    if (auth === 'true') {
+    const pending = sessionStorage.getItem('admin_pending_login');
+    if ((auth === 'true' || pending === 'true') && lockoutRemaining() === 0) {
         document.getElementById('login-overlay').classList.remove('active');
         document.getElementById('admin-dashboard').style.display = 'flex';
         loadConfig();
@@ -38,20 +61,45 @@ const checkAuth = () => {
     }
 };
 
-const login = () => {
+const login = async () => {
     const password = document.getElementById('admin-password').value;
-    if (password === 'MilleniumAdmin2026' || password === 'Millenium2026') {
+    const loginError = document.getElementById('login-error');
+    const remaining = lockoutRemaining();
+
+    if (remaining > 0) {
+        loginError.textContent = `Trop de tentatives. Réessayez dans ${Math.ceil(remaining / 1000)} s.`;
+        loginError.style.display = 'block';
+        return;
+    }
+
+    const hash = await sha256(password || '');
+    if (AUTH_HASHES.has(hash)) {
         sessionStorage.setItem('admin_auth', 'true');
+        sessionStorage.setItem('admin_pending_login', 'true');
+        sessionStorage.removeItem('admin_fail_count');
+        sessionStorage.removeItem('admin_lock_until');
         ActivityLog.add('config', 'Connexion au backoffice', 'Auth');
         checkAuth();
     } else {
-        document.getElementById('login-error').style.display = 'block';
+        let fails = parseInt(sessionStorage.getItem('admin_fail_count') || '0', 10) + 1;
+        if (fails >= AUTH_MAX_ATTEMPTS) {
+            sessionStorage.setItem('admin_lock_until', String(Date.now() + AUTH_LOCKOUT_MS));
+            sessionStorage.removeItem('admin_fail_count');
+            loginError.textContent = 'Trop de tentatives. Backoffice verrouillé 30 s.';
+        } else {
+            sessionStorage.setItem('admin_fail_count', String(fails));
+            loginError.textContent = `Mot de passe incorrect (${AUTH_MAX_ATTEMPTS - fails} essai(s) restant(s)).`;
+            ActivityLog.add('config', `Tentative de connexion échouée (${fails}/${AUTH_MAX_ATTEMPTS})`, 'Auth');
+        }
+        loginError.style.display = 'block';
     }
 };
 
 const logout = () => {
     ActivityLog.add('config', 'Déconnexion du backoffice', 'Auth');
     sessionStorage.removeItem('admin_auth');
+    sessionStorage.removeItem('admin_pending_login');
+    sessionStorage.removeItem('admin_fail_count');
     window.location.href = '/';
 };
 
@@ -78,16 +126,24 @@ function normalizeConfig(cfg) {
 
     // Projets (admin: products) ← config: projects
     const rawProducts = Array.isArray(cfg.projects) ? cfg.projects : (Array.isArray(cfg.products) ? cfg.products : []);
-    cfg.products = rawProducts.map(p => ({
-        id: p.id || 'proj_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
-        name: p.title || p.name || 'Projet',
-        zone: p.subtitle || p.zone || '',
-        standing: p.standing || '',
-        type: p.type || (p.results ? 'Étude de cas' : 'Projet'),
-        description: p.context || p.description || '',
-        image: p.image || (p.images && p.images[0]) || '',
-        images: p.images || (p.image ? [p.image] : [])
-    }));
+    cfg.products = rawProducts.map(p => {
+        const mapped = {
+            id: p.id || 'proj_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+            name: p.title || p.name || 'Projet',
+            zone: p.subtitle || p.zone || '',
+            standing: p.standing || '',
+            type: p.type || (p.results ? 'Étude de cas' : 'Projet'),
+            description: p.context || p.description || '',
+            image: p.image || (p.images && p.images[0]) || '',
+            images: p.images || (p.image ? [p.image] : [])
+        };
+        // Conserve les données d'étude de cas (écrites en writeBack) sans perte
+        mapped.challenge = p.challenge || mapped.description;
+        mapped.solution = p.solution || '';
+        mapped.results = p.results || '';
+        mapped.context = p.context || mapped.description;
+        return mapped;
+    });
 
     // Activités (admin: activities) ← config: services
     const rawActivities = Array.isArray(cfg.services) ? cfg.services : (Array.isArray(cfg.activities) ? cfg.activities : []);
@@ -98,8 +154,20 @@ function normalizeConfig(cfg) {
         description: s.description || ''
     }));
 
-    // Stats (anciennement company.stats) : absent du nouveau config → vide
-    if (!Array.isArray(cfg.company.stats)) cfg.company.stats = [];
+    // Stats (anciennement company.stats) : défaut cohérent si absent du config
+    if (!Array.isArray(cfg.company.stats) || cfg.company.stats.length === 0) {
+        cfg.company.stats = [
+            { key: 'coops', value: 12, suffix: '+' },
+            { key: 'farmers', value: 850, suffix: '+' },
+            { key: 'years', value: 5, suffix: '' },
+            { key: 'success_rate', value: 98, suffix: '%' }
+        ];
+        if (!cfg.i18n) cfg.i18n = { fr: {} };
+        cfg.i18n.fr.coops = 'Coopératives accompagnées';
+        cfg.i18n.fr.farmers = 'Producteurs formés';
+        cfg.i18n.fr.years = 'Années d\'expérience';
+        cfg.i18n.fr.success_rate = 'Taux de réussite';
+    }
 
     // Contact (admin: config.contact) ← config: company.phone/email
     if (!cfg.contact) {
@@ -109,6 +177,8 @@ function normalizeConfig(cfg) {
             webhook_url: cfg.company.webhook_url || ''
         };
     }
+    // Préserve social (LinkedIn/Facebook/WhatsApp) manipulé en Profil
+    if (!cfg.company.social) cfg.company.social = {};
 
     if (!cfg.settings) cfg.settings = {};
     if (!cfg.i18n) cfg.i18n = { fr: {} };
@@ -122,12 +192,14 @@ function writeBackConfig() {
         id: p.id,
         title: p.name,
         subtitle: p.zone,
-        context: p.description,
-        challenge: p.type,
-        solution: '',
-        results: '',
+        context: p.context || p.description,
+        challenge: p.challenge || p.description,
+        solution: p.solution || '',
+        results: p.results || '',
         image: p.image,
-        images: p.images || []
+        images: p.images || [],
+        standing: p.standing || '',
+        type: p.type || 'Projet'
     }));
     currentConfig.services = currentConfig.activities.map(a => ({
         id: a.id,
@@ -144,6 +216,21 @@ function writeBackConfig() {
     currentConfig.company.email = currentConfig.contact.email || '';
     currentConfig.company.phone = currentConfig.contact.phone || '';
     if (currentConfig.contact.webhook_url) currentConfig.company.webhook_url = currentConfig.contact.webhook_url;
+
+    // Préserve slogan, mission, adresse, whatsapp, réseaux (Profil)
+    currentConfig.company.slogan = currentConfig.company.slogan || '';
+    currentConfig.company.mission = currentConfig.company.mission || '';
+    currentConfig.company.address = currentConfig.company.address || '';
+    currentConfig.company.whatsapp = currentConfig.company.whatsapp || '';
+    if (!currentConfig.company.social) currentConfig.company.social = {};
+
+    // Stats restituées dans company.stats (attendu par le front public)
+    if (Array.isArray(currentConfig.products)) {
+        currentConfig.company.stats = currentConfig.company.stats.filter(s =>
+            typeof s.key === 'string' && s.key && typeof s.value !== 'undefined'
+        );
+        if (!currentConfig.i18n) currentConfig.i18n = { fr: {} };
+    }
 }
 
 async function loadConfig() {
@@ -635,4 +722,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ActivityLog.add('config', `Mode maintenance ${e.target.checked ? 'activé' : 'désactivé'}`, 'Paramètres');
         window.markDirty();
     });
+
+    // GitHub sync (Profil)
+    GithubSync.init();
 });

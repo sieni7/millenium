@@ -165,6 +165,25 @@
                             <!-- Injected by JS -->
                         </div>
                     </div>
+
+                    <div class="form-group full-width" style="background: var(--surface, #fff); border: 1px dashed var(--primary, #1e7f6e); border-radius: 12px; padding: 20px; margin-top: 10px;">
+                        <h4 style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                            <i class="fab fa-github" style="color: var(--primary, #1e7f6e);"></i> Déploiement GitHub
+                        </h4>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">
+                            Publiez <code>config.json</code> vers le dépôt pour déclencher le rebuild Netlify en production.
+                        </p>
+                        <label>Personal Access Token (GitHub)</label>
+                        <input type="password" id="github-token" placeholder="ghp_..." autocomplete="off" style="font-family: monospace;">
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;">
+                            <button id="github-push-btn" class="btn"><i class="fas fa-cloud-upload-alt"></i> Deploy → GitHub</button>
+                            <button id="github-verify-btn" class="btn btn-sm" style="background: transparent; border: 1px solid var(--border-soft);"><i class="fas fa-check-circle"></i> Vérifier le token</button>
+                            <span id="github-status" style="align-self: center; font-size: 0.85rem; color: var(--text-muted);"></span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">
+                            <i class="fas fa-info-circle"></i> Le token est stocké en session uniquement (jamais dans le code ni les sauvegardes). Créez un fine-grained token avec permission "Contents: Read and write" sur le dépôt.
+                        </p>
+                    </div>
                 </div>
             </div>
 
