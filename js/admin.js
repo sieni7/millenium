@@ -56,6 +56,96 @@ const logout = () => {
 };
 
 // ── CONFIG ───────────────────────────────────────────────
+// L'admin a été construit sur l'ancien modèle de données (products/activities/
+// contact/company.stats), tandis que le config.json MCI utilise projects/
+// services/company.*. Ce pont évite les crashs (forEach sur undefined) et
+// conserve l'architecture existante sans toucher au config.json.
+function normalizeConfig(cfg) {
+    cfg = cfg || {};
+    if (!cfg.company) cfg.company = {};
+    if (!cfg.hero) cfg.hero = { slides: [] };
+    if (!Array.isArray(cfg.hero.slides)) cfg.hero.slides = [];
+
+    // Hero slides : l'admin lit `text`, le config public utilise `subtitle`
+    cfg.hero.slides = cfg.hero.slides.map(s => ({
+        ...s,
+        title: s.title || '',
+        text: s.text || s.subtitle || '',
+        subtitle: s.subtitle || s.text || '',
+        cta: s.cta || '',
+        image: s.image || ''
+    }));
+
+    // Projets (admin: products) ← config: projects
+    const rawProducts = Array.isArray(cfg.projects) ? cfg.projects : (Array.isArray(cfg.products) ? cfg.products : []);
+    cfg.products = rawProducts.map(p => ({
+        id: p.id || 'proj_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+        name: p.title || p.name || 'Projet',
+        zone: p.subtitle || p.zone || '',
+        standing: p.standing || '',
+        type: p.type || (p.results ? 'Étude de cas' : 'Projet'),
+        description: p.context || p.description || '',
+        image: p.image || (p.images && p.images[0]) || '',
+        images: p.images || (p.image ? [p.image] : [])
+    }));
+
+    // Activités (admin: activities) ← config: services
+    const rawActivities = Array.isArray(cfg.services) ? cfg.services : (Array.isArray(cfg.activities) ? cfg.activities : []);
+    cfg.activities = rawActivities.map(s => ({
+        id: s.id || 'act_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+        title: s.title || 'Activité',
+        icon: s.icon || 'fas fa-circle',
+        description: s.description || ''
+    }));
+
+    // Stats (anciennement company.stats) : absent du nouveau config → vide
+    if (!Array.isArray(cfg.company.stats)) cfg.company.stats = [];
+
+    // Contact (admin: config.contact) ← config: company.phone/email
+    if (!cfg.contact) {
+        cfg.contact = {
+            email: cfg.company.email || '',
+            phone: cfg.company.phone || '',
+            webhook_url: cfg.company.webhook_url || ''
+        };
+    }
+
+    if (!cfg.settings) cfg.settings = {};
+    if (!cfg.i18n) cfg.i18n = { fr: {} };
+    return cfg;
+}
+
+// Renvoie les données éditables vers les clés publiques (projects/services/company)
+function writeBackConfig() {
+    if (!currentConfig) return;
+    currentConfig.projects = currentConfig.products.map(p => ({
+        id: p.id,
+        title: p.name,
+        subtitle: p.zone,
+        context: p.description,
+        challenge: p.type,
+        solution: '',
+        results: '',
+        image: p.image,
+        images: p.images || []
+    }));
+    currentConfig.services = currentConfig.activities.map(a => ({
+        id: a.id,
+        title: a.title,
+        icon: a.icon,
+        description: a.description
+    }));
+    // Hero slides : renvoyer `text` → `subtitle` (clé publique)
+    currentConfig.hero.slides = currentConfig.hero.slides.map(s => ({
+        ...s,
+        subtitle: s.subtitle || s.text || '',
+        text: s.text || s.subtitle || ''
+    }));
+    currentConfig.company.email = currentConfig.contact.email || '';
+    currentConfig.company.phone = currentConfig.contact.phone || '';
+    if (currentConfig.contact.webhook_url) currentConfig.company.webhook_url = currentConfig.contact.webhook_url;
+}
+
 async function loadConfig() {
     try {
         const stored = localStorage.getItem('millenium_config');
@@ -66,9 +156,10 @@ async function loadConfig() {
             const res = await fetch('config.json');
             originalConfig = await res.json();
         }
+        originalConfig = normalizeConfig(originalConfig);
         currentConfig = JSON.parse(JSON.stringify(originalConfig));
-        
-        // -- DATA NORMALIZATION --
+
+        // Backfill images compat (ancien: p.image seul → p.images[])
         currentConfig.products.forEach(p => {
             if (p.image && (!p.images || p.images.length === 0)) p.images = [p.image];
             if (!p.images) p.images = [];
@@ -91,6 +182,7 @@ const discardChanges = () => {
 
 const saveConfig = () => {
     try {
+        writeBackConfig();
         localStorage.setItem('millenium_config', JSON.stringify(currentConfig));
         Toast.show("✅ Configuration sauvegardée !", "success");
         ActivityLog.add('config', 'Configuration sauvegardée', 'Système');
@@ -123,7 +215,7 @@ const resetToDefault = async () => {
     try {
         localStorage.removeItem('millenium_config');
         const res = await fetch('config.json');
-        originalConfig = await res.json();
+        originalConfig = normalizeConfig(await res.json());
         currentConfig = JSON.parse(JSON.stringify(originalConfig));
         renderProfile(); renderHero(); renderActivities(); renderScenarios();
         isDirty = false;
