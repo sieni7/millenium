@@ -1,4 +1,4 @@
-# Millenium Côte d'Ivoire - Documentation des Fonctionnalités
+# Millenium Coop Initiative - Documentation des Fonctionnalités
 
 Ce document répertorie les fonctionnalités détaillées implémentées dans le cadre du projet Millenium Côte d'Ivoire.
 

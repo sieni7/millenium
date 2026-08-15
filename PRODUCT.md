@@ -1,4 +1,4 @@
-# PRODUCT.md – Millenium Côte d'Ivoire
+# PRODUCT.md – Millenium Coop Initiative
 
 ## Vision produit
 

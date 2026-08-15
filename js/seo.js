@@ -11,13 +11,13 @@ const SEO = {
     injectOpenGraph(config) {
         const metaData = {
             'og:title': `${config.company.name} | Conseil en Transformation Digitale`,
-            'og:description': 'Cabinet de conseil en innovation numérique au service des coopératives, PME et institutions locales en Côte d\'Ivoire.',
+            'og:description': 'Accompagnement numérique des coopératives agricoles en Côte d\'Ivoire. Création de sites web, formation et support local.',
             'og:image': 'https://milleniumci.netlify.app/assets/icons/icon-512.png',
             'og:url': 'https://milleniumci.netlify.app',
             'og:type': 'website',
             'twitter:card': 'summary_large_image',
             'twitter:title': `${config.company.name}`,
-            'twitter:description': 'Conseil & stratégie digitale, solutions numériques, accompagnement et formation en Côte d\'Ivoire.'
+            'twitter:description': 'Accompagnement numérique des coopératives agricoles en Côte d\'Ivoire. Création de sites web, formation et support local.'
         };
 
         Object.keys(metaData).forEach(key => {

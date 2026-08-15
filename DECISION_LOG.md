@@ -1,4 +1,4 @@
-# DECISION_LOG.md – Millenium Côte d'Ivoire
+# DECISION_LOG.md – Millenium Coop Initiative
 
 ## Format d’enregistrement
 

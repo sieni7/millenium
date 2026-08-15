@@ -1,7 +1,7 @@
 {
-  "name": "mci-consulting",
+  "name": "millenium-coop-initiative",
   "version": "1.0.0",
-  "description": "Site institutionnel de Millénium Consulting Innovation - Conseil en Transformation Digitale",
+  "description": "Millenium Coop Initiative — Des sites web pour les coopératives agricoles",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -16,7 +16,7 @@
     "cote-divoire",
     "abidjan"
   ],
-  "author": "Millénium Consulting Innovation",
+  "author": "Millenium Coop Initiative",
   "license": "MIT",
   "devDependencies": {
     "serve": "^14.2.0",

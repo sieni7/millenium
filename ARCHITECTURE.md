@@ -1,4 +1,4 @@
-# ARCHITECTURE.md – Millenium Côte d'Ivoire
+# ARCHITECTURE.md – Millenium Coop Initiative
 
 ## Vue d’ensemble
 ┌─────────────────────────────────────────────────────────────┐

@@ -1,5 +1,5 @@
 /* ============================================
-   Millenium Côte d'Ivoire - UI/UX REFINEMENTS (Top 10)
+   Millenium Coop Initiative - UI/UX REFINEMENTS (Top 10)
    ============================================ */
 
 (function () {

@@ -1,8 +1,8 @@
 {
   "company": {
-    "name": "Millénium Consulting Innovation",
-    "slogan": "Innover localement pour un impact durable.",
-    "mission": "Accompagner les organisations locales dans leur transformation numérique, en alliant expertise technique et ancrage terrain.",
+    "name": "Millenium Coop Initiative",
+    "slogan": "Des sites web pour les coopératives agricoles",
+    "mission": "Millenium Coop Initiative s'inscrit dans la dynamique des Objectifs de Développement Durable (ODD) de l'ONU. En connectant nos producteurs au web, nous créons un levier d'émancipation économique, de sécurité alimentaire et d'inclusion sociale directement à Afféry et Adzopé.",
     "phone": "05 74 97 10 22",
     "whatsapp": "05 74 97 10 22",
     "email": "",
@@ -15,7 +15,7 @@
     "slides": [
       {
         "title": "Transformer le potentiel local en présence digitale durable",
-        "subtitle": "Cabinet de conseil en innovation numérique au service des coopératives et des PME",
+        "subtitle": "Des sites web pour les coopératives agricoles en Côte d'Ivoire",
         "cta": "Découvrir nos services",
         "image": "/assets/placeholder-hero.jpg"
       }
@@ -56,8 +56,8 @@
   "team": [
     {
       "name": "Guisso Franck",
-      "role": "Chef du Projet Terrain",
-      "description": "Informaticien, résident à Afféry. Assure la mobilisation, la collecte, la logistique et le support local.",
+      "role": "Chargé de mobilisation locale",
+      "description": "Millenium Coop Initiative — Des sites web pour les coopératives agricoles — Web & Développement Durable | Zone Afféry - Adzopé. Assure la mobilisation, la collecte, la logistique et le support local.",
       "photo": "/assets/placeholder-guiss.jpg"
     },
     {

@@ -1,20 +1,18 @@
-# Millénium Consulting Innovation (MCI)
+# Millenium Coop Initiative (MCI)
 
-**Site institutionnel** du cabinet de conseil en transformation digitale.
+**Site institutionnel** — Des sites web pour les coopératives agricoles.
 
 ## Présentation
 
-Millénium Consulting Innovation (MCI) est un cabinet ivoirien de conseil et d'ingénierie numérique, fondé sur une conviction forte : **la technologie n'a de sens que si elle est accessible, utile et durable pour les acteurs locaux.**
-
-Nous accompagnons les coopératives agricoles, les PME et les institutions dans leur transformation digitale, en alliant expertise technique et ancrage terrain.
+Millenium Coop Initiative accompagne les coopératives agricoles de Côte d'Ivoire dans leur transition numérique, avec une conviction forte : **connecter nos producteurs au web pour créer un levier d'émancipation économique, de sécurité alimentaire et d'inclusion sociale.**
 
 ## Mission
 
-> « Innover localement pour un impact durable. »
+> « Millenium Coop Initiative s'inscrit dans la dynamique des Objectifs de Développement Durable (ODD) de l'ONU. En connectant nos producteurs au web, nous créons un levier d'émancipation économique, de sécurité alimentaire et d'inclusion sociale directement à Afféry et Adzopé. »
 
 ## Équipe
 
-- **Guisso Franck** — Chef du Projet Terrain (Afféry)
+- **Guisso Franck** — Chargé de mobilisation locale (Afféry)
 - **Oulaï Sieni** — Consultant Digital & Formateur Technique (Abidjan)
 
 ## Stack technique

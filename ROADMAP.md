@@ -1,4 +1,4 @@
-# 🚀 Roadmap & Propositions d'Évolution : Millenium Côte d'Ivoire
+# 🚀 Roadmap & Propositions d'Évolution : Millenium Coop Initiative
 
 Le socle actuel du projet est propre, modulaire et très fonctionnel. Cependant, pour positionner **Millenium CI** comme le leader absolu et ultra-premium de la promotion et sécurisation immobilière en Côte d'Ivoire, voici 20 axes d'améliorations stratégiques à intégrer dans les futurs sprints.
 
