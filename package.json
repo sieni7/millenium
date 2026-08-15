@@ -23,5 +23,8 @@
     "terser": "^5.30.0",
     "uglifycss": "^0.0.29",
     "vite": "^8.0.9"
+  },
+  "dependencies": {
+    "chart.js": "^4.5.1"
   }
 }
