@@ -37,8 +37,12 @@ self.addEventListener('fetch', (event) => {
   // Only handle GET requests
   if (event.request.method !== 'GET') return;
 
+  // Skip non-http(s) schemes (chrome-extension, data, blob, ...)
+  const scheme = event.request.url.split(':')[0];
+  if (scheme !== 'http' && scheme !== 'https') return;
+
   // Skip cross-origin requests
-  if (event.request.url.startsWith('http') && !event.request.url.includes(self.location.origin)) return;
+  if (!event.request.url.includes(self.location.origin)) return;
 
   // Special handling for config.json (Network First)
   if (event.request.url.includes('config.json')) {
@@ -46,9 +50,9 @@ self.addEventListener('fetch', (event) => {
       fetch(event.request)
         .then((response) => {
           const clonedResponse = response.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, clonedResponse);
-          });
+          caches.open(CACHE_NAME)
+            .then((cache) => cache.put(event.request, clonedResponse))
+            .catch(() => {});
           return response;
         })
         .catch(() => caches.match(event.request))
@@ -58,14 +62,18 @@ self.addEventListener('fetch', (event) => {
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
-      const fetchPromise = fetch(event.request).then((networkResponse) => {
-        // CLONE avant toute manipulation
-        const responseClone = networkResponse.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseClone);
-        });
-        return networkResponse;
-      });
+      const fetchPromise = fetch(event.request)
+        .then((networkResponse) => {
+          // CLONE avant toute manipulation
+          if (networkResponse && networkResponse.status === 200) {
+            const responseClone = networkResponse.clone();
+            caches.open(CACHE_NAME)
+              .then((cache) => cache.put(event.request, responseClone))
+              .catch(() => {});
+          }
+          return networkResponse;
+        })
+        .catch(() => cachedResponse);
       return cachedResponse || fetchPromise;
     })
   );
