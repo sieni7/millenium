@@ -1,45 +1,87 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "MILLENIUM Config Schema",
+  "title": "Millenium Coop Initiative — Config Schema",
+  "description": "Schéma de référence de public/config.json (état actuel du projet). Source de vérité : public/config.json.",
   "type": "object",
-  "required": ["company", "contact", "design", "hero", "activities"],
+  "required": ["company", "hero", "services", "projects", "team", "testimonials", "partners"],
   "properties": {
     "company": {
       "type": "object",
-      "required": ["name", "rccm", "bp", "address", "manager"],
+      "required": ["name", "slogan", "mission", "phone", "whatsapp", "email", "address"],
       "properties": {
         "name": { "type": "string" },
-        "rccm": { "type": "string" },
-        "bp": { "type": "string" },
-        "address": { "type": "string" },
-        "manager": { "type": "string" }
-      }
-    },
-    "contact": {
-      "type": "object",
-      "required": ["phone", "email"],
-      "properties": {
+        "slogan": { "type": "string" },
+        "mission": { "type": "string" },
         "phone": { "type": "string" },
-        "email": { "type": "string", "format": "email" },
+        "whatsapp": { "type": "string" },
+        "email": { "type": "string" },
+        "address": { "type": "string" },
+        "logo_header": { "type": "string" },
+        "logo_footer": { "type": "string" },
+        "footer_credit": { "type": "string" },
+        "footer_agreements": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
         "social": {
           "type": "object",
           "properties": {
-            "facebook": { "type": "string" },
+            "whatsapp": { "type": "string" },
             "linkedin": { "type": "string" },
-            "twitter": { "type": "string" }
+            "facebook": { "type": "string" },
+            "instagram": { "type": "string" }
           }
-        }
-      }
-    },
-    "design": {
-      "type": "object",
-      "properties": {
-        "colors": {
+        },
+        "bottomNav": {
           "type": "object",
           "properties": {
-            "primary": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
-            "secondary": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
-            "accent": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" }
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["id", "label", "icon", "href"],
+                "properties": {
+                  "id": { "type": "string" },
+                  "label": { "type": "string" },
+                  "icon": { "type": "string" },
+                  "href": { "type": "string" },
+                  "visible": { "type": "boolean" },
+                  "order": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "widgets": {
+          "type": "object",
+          "properties": {
+            "whatsapp": {
+              "type": "object",
+              "required": ["enabled"],
+              "properties": {
+                "enabled": { "type": "boolean" },
+                "url": { "type": "string" },
+                "position": { "type": "string", "enum": ["bottom-right", "bottom-left"] },
+                "bottom": { "type": "integer" },
+                "right": { "type": "integer" },
+                "left": { "type": "integer" }
+              }
+            },
+            "backToTop": {
+              "type": "object",
+              "required": ["enabled"],
+              "properties": {
+                "enabled": { "type": "boolean" },
+                "threshold": { "type": "integer" }
+              }
+            },
+            "progressBar": {
+              "type": "object",
+              "required": ["enabled"],
+              "properties": {
+                "enabled": { "type": "boolean" }
+              }
+            }
           }
         }
       }
@@ -51,30 +93,104 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["title", "text", "image", "cta"],
+            "required": ["title", "subtitle", "cta"],
             "properties": {
               "title": { "type": "string" },
-              "text": { "type": "string" },
-              "image": { "type": "string" },
+              "subtitle": { "type": "string" },
               "cta": { "type": "string" },
-              "link": { "type": "string" }
+              "image": { "type": "string" }
             }
           }
         }
       }
     },
-    "activities": {
+    "services": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "title", "icon", "description"],
+        "required": ["id", "title", "description", "icon"],
         "properties": {
           "id": { "type": "string" },
           "title": { "type": "string" },
-          "icon": { "type": "string" },
-          "description": { "type": "string" }
+          "description": { "type": "string" },
+          "icon": { "type": "string" }
+        }
+      }
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "subtitle", "context", "challenge", "solution", "results"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "subtitle": { "type": "string" },
+          "context": { "type": "string" },
+          "challenge": { "type": "string" },
+          "solution": { "type": "string" },
+          "results": { "type": "string" },
+          "image": { "type": "string" }
+        }
+      }
+    },
+    "team": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "role", "description"],
+        "properties": {
+          "name": { "type": "string" },
+          "role": { "type": "string" },
+          "description": { "type": "string" },
+          "photo": { "type": "string" }
+        }
+      }
+    },
+    "testimonials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "role": { "type": "string" },
+          "organization": { "type": "string" },
+          "quote": { "type": "string" }
+        }
+      }
+    },
+    "partners": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "logo": { "type": "string" },
+          "url": { "type": "string" },
+          "type": { "type": "string" },
+          "group": { "type": "string" }
+        }
+      }
+    },
+    "i18n": {
+      "type": "object",
+      "properties": {
+        "defaultLanguage": { "type": "string" },
+        "fr": { "$ref": "#/definitions/language" },
+        "en": { "$ref": "#/definitions/language" }
+      }
+    }
+  },
+  "definitions": {
+    "language": {
+      "type": "object",
+      "properties": {
+        "menu": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
         }
       }
     }
-  }
+  },
+  "additionalProperties": true
 }

@@ -1,52 +1,60 @@
-# PRODUCT.md – Millenium Coop Initiative
+# PRODUCT.md — Millenium Coop Initiative
 
 ## Vision produit
 
-**Plateforme institutionnelle évolutive** pour Millenium Côte d'Ivoire, SARL basée à Abidjan, spécialisée dans la sécurisation foncière, le conseil patrimonial et la construction premium.
+Millenium Coop Initiative accompagne les **coopératives agricoles** de Côte d'Ivoire (au départ : zone Afféry / Adzopé) dans leur **transition numérique**.
+
+> « En connectant nos producteurs au web, nous créons un levier d'émancipation économique, de sécurité alimentaire et d'inclusion sociale. » (aligné avec les ODD de l'ONU)
 
 Le site doit :
-- Refléter le prestige, la sécurité et la transparence d’un partenaire immobilier de confiance.
-- Permettre un accompagnement fluide : découverte → portfolio de projets → consultation personnalisée.
-- Offrir une visibilité totale à la diaspora sur l'avancement des projets et la sécurité des investissements.
-- Être administrable simplement pour mettre à jour le catalogue de projets.
+- Refléter la crédibilité de terrain et le sérieux de la démarche (équipe résidente à Afféry, méthode éprouvée).
+- Permettre un accompagnement fluide : découverte → étude de cas / réalisations → prise de contact.
+- Être **administrable simplement** par Oulaï (ou un référent) via le back-office, sans toucher au code.
 
----
+## Personas
 
-## Scope ProMax (Actuel)
+### Persona 1 — Coopérative agricole
+> *Président de coopérative (Afféry/Adzopé)*
+> Souhaite une présence en ligne et une formation de ses membres, avec un support local de proximité.
 
-| Feature | Priorité | Statut |
-|---------|----------|--------|
-| Design System Premium (Or/Forêt) | P0 | ✅ |
-| Catalogue Projets (Foncier/Construction) | P0 | ✅ |
-| Back-office sécurisé (Gestion JSON) | P0 | ✅ |
-| Export Portfolio PDF pour clients | P1 | ✅ |
-| Mode Sombre & Animations Luxe | P1 | ✅ |
-| PWA & Offline Support | P1 | ✅ |
-| Chatbot WhatsApp flottant | P1 | ✅ |
-| SEO & JSON-LD Immobilier | P1 | ✅ |
+### Persona 2 — Partenaire / Institution
+> *Programme de développement, OP, institution de financement, partenaire technique*
+> Cherche des signaux de crédibilité : projets en ligne, équipe locale, chiffres d'impact.
 
----
+### Persona 3 — Décideur / rédacteur
+> *Oulaï Sieni (consultant digital) ou référent local*
+> Doit mettre à jour les contenus et lancer des déploiements sans compétence technique avancée.
 
-## User Personas
+## Offre (scope livré)
 
-### Persona 1 – Investisseur Diaspora
-> *M. Traoré, cadre basé à Paris*
-> Souhaite construire sa résidence principale ou un immeuble de rapport à Abidjan. Cherche sécurité juridique et suivi de chantier sans déplacement.
+1. **Création de sites web** pour coopératives (vitrines institutionnelles).
+2. **Conseil & stratégie digitale** : diagnostic numérique, feuille de route, gouvernance des données, communication digitale.
+3. **Formation & accompagnement** : formation des référents locaux, transfert de compétences, support 3 mois.
 
-### Persona 2 – Investisseur Local
-> *Mme Diakité, entrepreneuse à Abidjan*
-> Cherche à diversifier son patrimoine avec des projets immobiliers sécurisés et bien situés.
+## Équipe
 
-### Persona 3 – Partenaire Institutionnel
-> *Notaires, Banques, Architectes*
-> Collaborent avec Millenium pour la structuration et la validation des projets.
+| Nom | Rôle | Zone |
+|---|---|---|
+| Guisso Franck | Chargé de mobilisation locale | Afféry |
+| Oulaï Sieni | Consultant Digital & Formateur Technique | Abidjan |
 
----
+## Étude de cas de référence
+
+**Transformation digitale de 4 coopératives agricoles** (Zone Afféry / Adzopé — mission 3 jours) : 4 sites en ligne, 1 référent local formé, 3 mois de support inclus.
 
 ## KPIs de succès
+
 | KPI | Cible |
-|-----|-------|
-| Temps de chargement | < 1s (Vite optimized) |
-| Score Lighthouse | 100/100 |
-| Taux de conversion contact | > 10% |
-| Engagement (temps passé) | > 3 min |
+|---|---|
+| Temps de chargement | < 1,5 s (Lighthouse mobile ≥ 70) |
+| Crédibilité | 100 % photos réelles, témoignages/partenaires réels publiés |
+| Conversion contact | Formulaire + WhatsApp : taux de réponse < 24 h |
+| Impact mesurable | N coopératives en ligne / référents formés / survie à 6 mois |
+
+## Prochaines évolutions majeures
+
+- Backend : persistance serveur de `config.json` (endpoint Netlify Functions), authentification serveur.
+- Témoignages : rendu frontend des témoignages (CRUD admin déjà en place ⚠️).
+- Multi-langue complète (fr/en structure i18n existante).
+
+Voir `docs/ROADMAP.md` pour le détail priorisé.

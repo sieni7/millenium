@@ -62,7 +62,7 @@ main {
   padding: 0.75rem;
   background: #f8fafc;
   border-radius: 16px;
-  transition: all 0.2s;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s, border-color 0.2s;
 }
 
 .contact-item:hover {
@@ -140,7 +140,7 @@ main {
   border-radius: 16px;
   font-family: inherit;
   font-size: 0.95rem;
-  transition: all 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
   background: #fefefe;
 }
 
@@ -165,7 +165,7 @@ main {
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
   width: 100%;
   display: flex;
   align-items: center;
@@ -257,7 +257,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
 }
 
 .footer-social a:hover {
@@ -287,7 +287,9 @@ main {
     padding: 2rem;
     box-shadow: 0 10px 30px rgba(30, 127, 110, 0.05);
     border: 1px solid rgba(30, 127, 110, 0.05);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -304,14 +306,14 @@ main {
     width: 64px;
     height: 64px;
     background: #eef9f5;
-    border-radius: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #1e7f6e;
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    transition: all 0.3s;
+border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1e7f6e;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: background 0.3s, color 0.3s, transform 0.3s;
 }
 
 .card-luxe:hover .card-luxe-icon {

@@ -1,48 +1,45 @@
-# Millenium Coop Initiative - Documentation des Fonctionnalités
+# Millenium Coop Initiative — Fonctionnalités
 
-Ce document répertorie les fonctionnalités détaillées implémentées dans le cadre du projet Millenium Côte d'Ivoire.
+Ce document décrit les fonctionnalités **implémentées** du projet (état actuel du code). Pour la vision et la feuille de route, voir `PRODUCT.md` et `docs/ROADMAP.md`.
 
-## 1. Design & Expérience Utilisateur (UX)
-- **Esthétique Premium** : Design moderne utilisant une palette de couleurs sophistiquée (Slate, Orange Millenium, Or).
-- **Splash Screen** : Écran de chargement animé avec le logo Millenium pour une première impression soignée.
-- **Responsive Design** : Interface entièrement optimisée pour mobiles, tablettes et ordinateurs.
-- **Animations "Reveal"** : Apparition fluide des éléments au défilement (Intersection Observer).
-- **Navigation Fluide** : Menu sticky avec effet de réduction au scroll et menu mobile latéral.
+## 1. Site vitrine (landing page)
 
-## 2. Contenu Stratégique
-- **Hero Section Dynamique** : Présentation forte avec statistiques d'expertise et chips de réassurance.
-- **Parcours Méthodologique** : Section "Méthode" détaillant les 5 étapes clés du projet (Qualification, Audit, Structuration, Pilotage, Finalisation).
-- **Showcase de Services** : Grille de services segmentée par types de besoins (Audit, Cadrage, Construction, Accompagnement).
-- **Scénarios de Projet** : Section portfolio présentant des cas d'usage concrets (Villa premium, Diaspora, Budget structuré).
-- **Zones d'Implantation** : Liste et carte visuelle des zones privilégiées (Abidjan, Bassam, Bingerville, etc.).
+- **Hero configurable** : slides (titre, sous-titre, CTA, image) pilotés par `public/config.json` ; hydratation du HTML statique pour le LCP.
+- **Services** : grille segmentée (Conseil & Stratégie Digitale, Solutions Numériques, Accompagnement & Formation), avec icônes.
+- **Réalisations** : études de cas structurées en 4 volets (Contexte / Défi / Intervention / Résultat).
+- **Équipe** : présentation des membres (nom, rôle, description, photo) ; photo dégradée de repli.
+- **Partenaires** : grille de partenaires (logo + regroupement, fallback icône) configurée dans `config.json`.
+- **Témoignages** : gérés dans `config.json` et par le back-office (CRUD) ; aucun rendu frontend pour l'instant ⚠️.
+- **Contact** : formulaire de consultation (validation + fallback WhatsApp si aucun webhook), bouton WhatsApp flottant personnalisable.
+- **Navigation mobile** : menu latéral et bottom navigation configurable (ordre, visibilité, icônes).
+- **Footer** : coordonnées, réseaux sociaux (LinkedIn, Facebook, Instagram, WhatsApp), crédit.
 
-## 3. Capture de Leads & Conversion
-- **Formulaire de Consultation** : 
-    - Formulaire complet (Nom, Tel, Pays, Zone, Projet, Budget, Délai).
-    - Intégration **FormSubmit** (Gratuit, illimité, sans backend).
-    - Support multi-destinataires (Email principal + Copie).
-    - Protection anti-spam Honeypot.
-- **Intégration WhatsApp** :
-    - Bouton flottant persistant.
-    - Messages pré-remplis personnalisés selon le bouton cliqué (Consultation vs Échange générique).
+## 2. Expérience utilisateur & design
 
-## 4. Analyse & Performance
-- **Google Analytics 4 (GA4)** :
-    - Suivi du temps passé sur le site (paliers 30s, 60s, 120s).
-    - Mesure de la profondeur de défilement (25%, 50%, 75%, 90%).
-    - Tracking des clics CTA (WhatsApp, Submit).
-    - Suivi du remplissage des champs du formulaire.
-- **SEO & Social** :
-    - Meta tags optimisés (Open Graph, Twitter Cards).
-    - Données structurées JSON-LD (Schema.org) pour le référencement local.
-    - Hiérarchie HTML5 sémantique.
+- **Loading screen** : écran de chargement animé puis fondu.
+- **Animations reveal** : apparition au défilement (Intersection Observer, `prefers-reduced-motion` respecté).
+- **Dark mode** : bascule manuelle + prise en compte de la préférence système, persistance (`localStorage`).
+- **Back-to-top**, barre de progression de lecture, curseur personnalisé (tokens standardisés).
+- **Responsive** : breakpoints mobiles/tablette/desktop ; `backdrop-filter` désactivé sur mobile.
 
-## 5. Administration & Maintenance
-- **Dashboard Minimaliste** : Page `dashboard.html` pour gérer l'état du site.
-- **Mode Maintenance** : Système de bascule locale (via localStorage) permettant de rediriger le trafic vers une page d'attente pendant les mises à jour.
-- **Configuration Netlify** : Fichier `netlify.toml` optimisé pour la sécurité (Headers) et la performance (Cache).
+## 3. SEO, PWA & Analytics
 
-## 6. Stack Technique
-- **Frontend** : HTML5, Vanilla CSS3 (Custom properties), JavaScript ES6+.
-- **Fonts** : Google Fonts (Inter).
-- **Hébergement** : Optimisé pour Netlify (Static hosting).
+- **SEO** : meta Open Graph + Twitter Cards, données structurées JSON-LD (`ProfessionalService`, `Service`, `Person`), `robots.txt` (bloque `admin.html` + `js/admin.js`), `sitemap.xml`.
+- **PWA** : `manifest.json` (installable, icônes 192/512) + service worker (`public/sw.js`, cache `mci-cache-v2`, `config.json` en network-first, stale-while-revalidate).
+- **Analytics local** (`js/analytics.js`) : suivi des visites, sessions, durée (plafonnée à 24 h), géolocalisation via **ipwho.is** (HTTPS), événements (thème, CTA). Données stockées en `localStorage`.
+
+## 4. Back-office (`/admin.html`)
+
+- **Authentification** : hash SHA-256 (WebCrypto), verrouillage anti-bruteforce (30 s après 5 échecs), session en `sessionStorage`.
+- **Dashboard Audience** : KPIs (visites, sessions, durée moyenne, taux de rebond), graphiques Chart.js (activité 7/30 jours, appareils, navigateurs), top pages, référents, badge temps réel, géolocalisation des visiteurs.
+- **CRUD de contenu** : services, projets, slides, équipe, partenaires, témoignages.
+- **Onglet Profil** : coordonnées, réseaux sociaux, widgets, footer, + **déploiement GitHub** (vérification et push du `config.json` via l'API GitHub depuis le navigateur).
+- **Journal d'activité** : historique des actions (500 entrées max) avec badges et **export CSV**.
+- **Import/Export de configuration** : sauvegarde/restauration du `config.json` ; envoi serveur dev (`POST /api/save-config`).
+- **Upload d'images** : glisser-déposer et sélection de fichiers.
+
+## 5. Déploiement & CI
+
+- **Vite 8** multi-entrées (`index.html`, `admin.html`, `maintenance.html`), minification **terser**, sourcemaps.
+- **Netlify** : déploiement continu depuis GitHub (`netlify.toml` : build `npm run build`, dossier `dist`, Node 22, redirects `/admin` et fallback SPA, en-têtes de sécurité, mode maintenance commenté).
+- **CI GitHub Actions** (`.github/workflows/build.yml`) : build et vérification de `dist/` à chaque push/PR sur `main`.
