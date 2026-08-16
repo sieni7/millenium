@@ -216,6 +216,16 @@ function normalizeConfig(cfg) {
 
     if (!cfg.settings) cfg.settings = {};
     if (!cfg.i18n) cfg.i18n = { fr: {} };
+    if (!cfg.bottomNav) cfg.bottomNav = { items: [] };
+    if (!Array.isArray(cfg.bottomNav.items)) cfg.bottomNav.items = [];
+    cfg.bottomNav.items = cfg.bottomNav.items.map((item, idx) => ({
+        id: item.id || `nav_${idx}`,
+        label: item.label || '',
+        icon: item.icon || 'fas fa-circle',
+        href: item.href || '#',
+        visible: item.visible !== false,
+        order: typeof item.order === 'number' ? item.order : idx
+    }));
     return cfg;
 }
 
@@ -284,6 +294,16 @@ function writeBackConfig() {
         role: t.role || '',
         organization: t.organization || '',
         text: t.text || ''
+    }));
+    if (!currentConfig.bottomNav) currentConfig.bottomNav = { items: [] };
+    if (!Array.isArray(currentConfig.bottomNav.items)) currentConfig.bottomNav.items = [];
+    currentConfig.bottomNav.items = currentConfig.bottomNav.items.map(item => ({
+        id: item.id || '',
+        label: item.label || '',
+        icon: item.icon || 'fas fa-circle',
+        href: item.href || '#',
+        visible: item.visible !== false,
+        order: typeof item.order === 'number' ? item.order : 0
     }));
     if (Array.isArray(currentConfig.products)) {
         currentConfig.company.stats = currentConfig.company.stats.filter(s =>

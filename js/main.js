@@ -173,7 +173,7 @@ async function init() {
 
     // -- BOTTOM NAV FOR MOBILE --
     if (window.innerWidth <= 768) {
-        BottomNav.render('#bottom-nav-container');
+        BottomNav.render('#bottom-nav-container', config);
     }
 
     // 5. Cacher l'écran de chargement (minimise le blocage LCP)

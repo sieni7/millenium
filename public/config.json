@@ -13,6 +13,14 @@
     "footer_agreements": [],
     "social": {
       "whatsapp": "https://wa.me/2250574971022"
+    },
+    "bottomNav": {
+      "items": [
+        { "id": "home", "label": "home", "icon": "fas fa-home", "href": "#about", "visible": true, "order": 1 },
+        { "id": "services", "label": "services", "icon": "fas fa-chart-line", "href": "#services", "visible": true, "order": 2 },
+        { "id": "projects", "label": "projects", "icon": "fas fa-briefcase", "href": "#realisations", "visible": true, "order": 3 },
+        { "id": "contact", "label": "contact", "icon": "fas fa-envelope", "href": "#contact", "visible": true, "order": 4 }
+      ]
     }
   },
   "hero": {
