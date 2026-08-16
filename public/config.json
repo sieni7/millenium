@@ -9,6 +9,8 @@
     "address": "Afféry / Adzopé, Côte d'Ivoire",
     "logo_header": "./assets/logo_header.png",
     "logo_footer": "./assets/logo_footer.png",
+    "footer_credit": "Site conçu avec ❤️ par OULAI Siéni",
+    "footer_agreements": [],
     "social": {
       "whatsapp": "https://wa.me/2250574971022"
     }

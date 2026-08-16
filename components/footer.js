@@ -3,7 +3,7 @@ const Footer = {
     const container = document.querySelector(containerSelector);
     if (!container) return;
 
-    const agreementsHtml = data.contact && data.contact.agreements ? data.contact.agreements.map(a => `
+    const agreementsHtml = data.company.footer_agreements && data.company.footer_agreements.length ? data.company.footer_agreements.map(a => `
       <p style="margin-top: 1rem;">
         <i class="${a.icon}"></i> ${a.name}
       </p>
@@ -16,6 +16,8 @@ const Footer = {
         ${data.company.social && data.company.social.whatsapp ? `<a href="${data.company.social.whatsapp.startsWith('http') ? data.company.social.whatsapp : 'https://wa.me/' + data.company.social.whatsapp.replace(/\+/g, '')}" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>` : ''}
       </div>
     `;
+
+    const footerCredit = data.company.footer_credit || (window.currentLang === 'fr' ? 'Site conçu avec ❤️ par OULAI Siéni' : 'Website designed with ❤️ by OULAI Siéni');
 
     container.innerHTML = `
       <footer class="footer">
@@ -55,7 +57,7 @@ const Footer = {
           <div class="footer-bottom">
             <p>&copy; ${new Date().getFullYear()} ${data.company.name}. Tous droits réservés.</p>
             <p style="margin-top: 0.5rem; font-size: 0.75rem;">
-              ${window.currentLang === 'fr' ? 'Site conçu avec ❤️ par OULAI Siéni' : 'Website designed with ❤️ by OULAI Siéni'}
+              ${footerCredit}
             </p>
           </div>
         </div>

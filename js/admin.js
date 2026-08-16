@@ -250,12 +250,14 @@ function writeBackConfig() {
     currentConfig.company.phone = currentConfig.contact.phone || '';
     if (currentConfig.contact.webhook_url) currentConfig.company.webhook_url = currentConfig.contact.webhook_url;
 
-    // Préserve slogan, mission, adresse, whatsapp, logos, réseaux (Profil)
+    // Préserve slogan, mission, adresse, whatsapp, logos, footer, réseaux (Profil)
     currentConfig.company.slogan = currentConfig.company.slogan || '';
     currentConfig.company.mission = currentConfig.company.mission || '';
     currentConfig.company.address = currentConfig.company.address || '';
     currentConfig.company.logo_header = currentConfig.company.logo_header || '';
     currentConfig.company.logo_footer = currentConfig.company.logo_footer || '';
+    currentConfig.company.footer_credit = currentConfig.company.footer_credit || '';
+    currentConfig.company.footer_agreements = Array.isArray(currentConfig.company.footer_agreements) ? currentConfig.company.footer_agreements : [];
     currentConfig.company.whatsapp = currentConfig.contact.whatsapp || currentConfig.company.whatsapp || '';
     if (!currentConfig.company.social) currentConfig.company.social = {};
     currentConfig.company.social.linkedin = currentConfig.company.social.linkedin || '';
@@ -386,6 +388,8 @@ const renderProfile = () => {
     document.getElementById('edit-company-whatsapp').value = currentConfig.company.whatsapp || '';
     document.getElementById('edit-company-logo-header').value = currentConfig.company.logo_header || '';
     document.getElementById('edit-company-logo-footer').value = currentConfig.company.logo_footer || '';
+    document.getElementById('edit-footer-credit').value = currentConfig.company.footer_credit || '';
+    document.getElementById('edit-footer-agreements').value = (currentConfig.company.footer_agreements || []).map(a => `${a.icon}|${a.name}`).join('\n');
     document.getElementById('edit-social-linkedin').value = currentConfig.company.social?.linkedin || '';
     document.getElementById('edit-social-facebook').value = currentConfig.company.social?.facebook || '';
     document.getElementById('edit-social-instagram').value = currentConfig.company.social?.instagram || '';
@@ -1104,12 +1108,12 @@ document.addEventListener('DOMContentLoaded', () => {
         serverBtn.addEventListener('click', serverSave);
     }
 
-    // Auto-save simple fields
-    ['edit-company-name', 'edit-company-email', 'edit-company-phone', 'edit-webhook-url', 'edit-company-address', 'edit-company-mission', 'edit-company-slogan', 'edit-company-whatsapp', 'edit-company-logo-header', 'edit-company-logo-footer', 'edit-social-linkedin', 'edit-social-facebook', 'edit-social-instagram'].forEach(id => {
+// Auto-save simple fields
+    ['edit-company-name', 'edit-company-email', 'edit-company-phone', 'edit-webhook-url', 'edit-company-address', 'edit-company-mission', 'edit-company-slogan', 'edit-company-whatsapp', 'edit-company-logo-header', 'edit-company-logo-footer', 'edit-footer-credit', 'edit-footer-agreements', 'edit-social-linkedin', 'edit-social-facebook', 'edit-social-instagram'].forEach(id => {
         document.getElementById(id).addEventListener('input', (e) => {
             if (id === 'edit-company-name') currentConfig.company.name = e.target.value;
             if (id === 'edit-company-email') currentConfig.contact.email = e.target.value;
-            if (id === 'edit-company-phone') currentConfig.contact.phone = e.target.value;
+            if (id === 'edit-company-phone') currentConfig.company.phone = e.target.value;
             if (id === 'edit-webhook-url') currentConfig.contact.webhook_url = e.target.value;
             if (id === 'edit-company-address') currentConfig.company.address = e.target.value;
             if (id === 'edit-company-mission') currentConfig.company.mission = e.target.value;
@@ -1117,10 +1121,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (id === 'edit-company-whatsapp') currentConfig.company.whatsapp = e.target.value;
             if (id === 'edit-company-logo-header') currentConfig.company.logo_header = e.target.value;
             if (id === 'edit-company-logo-footer') currentConfig.company.logo_footer = e.target.value;
+            if (id === 'edit-footer-credit') currentConfig.company.footer_credit = e.target.value;
+            if (id === 'edit-footer-agreements') {
+                currentConfig.company.footer_agreements = e.target.value.split('\n').filter(l => l.trim()).map(l => {
+                    const [icon, ...nameParts] = l.split('|');
+                    return { icon: icon?.trim() || '', name: nameParts.join('|').trim() };
+                }).filter(a => a.icon || a.name);
+            }
             if (id === 'edit-social-linkedin') { if (!currentConfig.company.social) currentConfig.company.social = {}; currentConfig.company.social.linkedin = e.target.value; }
             if (id === 'edit-social-facebook') { if (!currentConfig.company.social) currentConfig.company.social = {}; currentConfig.company.social.facebook = e.target.value; }
             if (id === 'edit-social-instagram') { if (!currentConfig.company.social) currentConfig.company.social = {}; currentConfig.company.social.instagram = e.target.value; }
-            window.markDirty();
+window.markDirty();
         });
     });
 
