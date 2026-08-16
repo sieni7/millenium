@@ -24,7 +24,7 @@ const Footer = {
             
             <div class="footer-col">
               <a href="/" class="logo-footer" aria-label="${data.company.name}">
-                <img src="./assets/logo_footer.png" alt="${data.company.name}" width="220" height="220" loading="lazy" style="border-radius: 5px;">
+                <img src="${data.company.logo_footer || './assets/logo_footer.png'}" alt="${data.company.name}" width="220" height="220" loading="lazy" style="border-radius: 5px;">
               </a>
               <p class="footer-mission">${data.company.mission}</p>
             </div>

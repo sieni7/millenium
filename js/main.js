@@ -23,6 +23,20 @@ import CustomCursor from './cursor.js';
 window.Toast = Toast;
 window.Analytics = Analytics;
 
+// Update logos from config
+function updateLogos(config) {
+    const headerLogo = config.company?.logo_header;
+    const footerLogo = config.company?.logo_footer;
+    if (headerLogo) {
+        const headerImg = document.querySelector('.logo-header img');
+        if (headerImg) headerImg.src = headerLogo;
+    }
+    if (footerLogo) {
+        const footerImg = document.querySelector('.logo-footer img');
+        if (footerImg) footerImg.src = footerLogo;
+    }
+}
+
 // Load Styles for Vite Bundle
 import '../css/animations.css';
 import '../css/mobile.css';
@@ -150,6 +164,9 @@ async function init() {
     if (document.querySelector('#footer-container')) {
         Footer.render('#footer-container', config);
     }
+
+    // Update logos from config
+    updateLogos(config);
 
     // 4. Identity & Global Animation Refresh
     Animations.initReveal();

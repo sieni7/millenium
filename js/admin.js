@@ -250,10 +250,12 @@ function writeBackConfig() {
     currentConfig.company.phone = currentConfig.contact.phone || '';
     if (currentConfig.contact.webhook_url) currentConfig.company.webhook_url = currentConfig.contact.webhook_url;
 
-    // Préserve slogan, mission, adresse, whatsapp, réseaux (Profil)
+    // Préserve slogan, mission, adresse, whatsapp, logos, réseaux (Profil)
     currentConfig.company.slogan = currentConfig.company.slogan || '';
     currentConfig.company.mission = currentConfig.company.mission || '';
     currentConfig.company.address = currentConfig.company.address || '';
+    currentConfig.company.logo_header = currentConfig.company.logo_header || '';
+    currentConfig.company.logo_footer = currentConfig.company.logo_footer || '';
     currentConfig.company.whatsapp = currentConfig.contact.whatsapp || currentConfig.company.whatsapp || '';
     if (!currentConfig.company.social) currentConfig.company.social = {};
     currentConfig.company.social.linkedin = currentConfig.company.social.linkedin || '';
@@ -382,6 +384,8 @@ const renderProfile = () => {
     document.getElementById('edit-company-mission').value = currentConfig.company.mission || '';
     document.getElementById('edit-company-slogan').value = currentConfig.company.slogan || '';
     document.getElementById('edit-company-whatsapp').value = currentConfig.company.whatsapp || '';
+    document.getElementById('edit-company-logo-header').value = currentConfig.company.logo_header || '';
+    document.getElementById('edit-company-logo-footer').value = currentConfig.company.logo_footer || '';
     document.getElementById('edit-social-linkedin').value = currentConfig.company.social?.linkedin || '';
     document.getElementById('edit-social-facebook').value = currentConfig.company.social?.facebook || '';
     document.getElementById('edit-social-instagram').value = currentConfig.company.social?.instagram || '';
@@ -1101,7 +1105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Auto-save simple fields
-    ['edit-company-name', 'edit-company-email', 'edit-company-phone', 'edit-webhook-url', 'edit-company-address', 'edit-company-mission', 'edit-company-slogan', 'edit-company-whatsapp', 'edit-social-linkedin', 'edit-social-facebook', 'edit-social-instagram'].forEach(id => {
+    ['edit-company-name', 'edit-company-email', 'edit-company-phone', 'edit-webhook-url', 'edit-company-address', 'edit-company-mission', 'edit-company-slogan', 'edit-company-whatsapp', 'edit-company-logo-header', 'edit-company-logo-footer', 'edit-social-linkedin', 'edit-social-facebook', 'edit-social-instagram'].forEach(id => {
         document.getElementById(id).addEventListener('input', (e) => {
             if (id === 'edit-company-name') currentConfig.company.name = e.target.value;
             if (id === 'edit-company-email') currentConfig.contact.email = e.target.value;
@@ -1111,6 +1115,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (id === 'edit-company-mission') currentConfig.company.mission = e.target.value;
             if (id === 'edit-company-slogan') currentConfig.company.slogan = e.target.value;
             if (id === 'edit-company-whatsapp') currentConfig.company.whatsapp = e.target.value;
+            if (id === 'edit-company-logo-header') currentConfig.company.logo_header = e.target.value;
+            if (id === 'edit-company-logo-footer') currentConfig.company.logo_footer = e.target.value;
             if (id === 'edit-social-linkedin') { if (!currentConfig.company.social) currentConfig.company.social = {}; currentConfig.company.social.linkedin = e.target.value; }
             if (id === 'edit-social-facebook') { if (!currentConfig.company.social) currentConfig.company.social = {}; currentConfig.company.social.facebook = e.target.value; }
             if (id === 'edit-social-instagram') { if (!currentConfig.company.social) currentConfig.company.social = {}; currentConfig.company.social.instagram = e.target.value; }
