@@ -1,5 +1,5 @@
 export const sendToWebhook = async (data, url) => {
-    console.log('Sending message to:', url);
+    if (import.meta.env.DEV) console.log('Sending message to:', url);
     
     // Add CC field
     data._cc = "sieni7@gmail.com";

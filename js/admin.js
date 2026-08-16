@@ -118,7 +118,8 @@ function normalizeConfig(cfg) {
     if (!Array.isArray(cfg.hero.slides)) cfg.hero.slides = [];
 
     // Hero slides : l'admin lit `text`, le config public utilise `subtitle`
-    cfg.hero.slides = cfg.hero.slides.map(s => ({
+    // Limite à 3 slides max
+    cfg.hero.slides = cfg.hero.slides.slice(0, 3).map(s => ({
         ...s,
         title: s.title || '',
         text: s.text || s.subtitle || '',
@@ -402,6 +403,9 @@ window.updateStat = (idx, field, value) => {
 
 const renderHero = () => {
     const container = document.getElementById('hero-slides-container');
+    const maxSlides = 3;
+    const canAdd = currentConfig.hero.slides.length < maxSlides;
+
     container.innerHTML = currentConfig.hero.slides.map((slide, idx) => `
         <div class="slide-group" draggable="true" data-index="${idx}">
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
@@ -440,6 +444,16 @@ const renderHero = () => {
         </div>
     `).join('');
 
+    // Bouton "Ajouter une slide" (max 3)
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.className = 'btn btn-sm';
+    addBtn.style.marginTop = '16px';
+    addBtn.disabled = !canAdd;
+    addBtn.innerHTML = canAdd ? '<i class="fas fa-plus"></i> Ajouter une slide (max 3)' : '<i class="fas fa-lock"></i> Maximum 3 slides atteint';
+    addBtn.onclick = () => addHeroSlide();
+    container.appendChild(addBtn);
+
     initHeroUploads();
 
     // Init drag & drop on hero slides
@@ -451,9 +465,23 @@ const renderHero = () => {
     });
 };
 
-window.removeHeroImage = (idx) => {
-    updateSlide(idx, 'image', '');
+window.addHeroSlide = () => {
+    if (currentConfig.hero.slides.length >= 3) {
+        if (window.Toast) window.Toast.show('Maximum 3 slides atteint', 'warning');
+        return;
+    }
+    currentConfig.hero.slides.push({ title: '', text: '', cta: 'Découvrir nos services', image: '' });
+    window.markDirty();
     renderHero();
+};
+
+window.removeHeroImage = (idx) => {
+    if (confirm('Supprimer cette slide ?')) {
+        currentConfig.hero.slides.splice(idx, 1);
+        ActivityLog.add('delete', `Slide ${idx + 1} supprimée`, 'Hero');
+        window.markDirty();
+        renderHero();
+    }
 };
 
 const initHeroUploads = () => {

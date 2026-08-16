@@ -3,17 +3,20 @@ const Hero = {
     const container = document.querySelector(containerSelector);
     if (!container) return;
 
+    // Limite de sécurité : maximum 3 slides
+    const slides = (data.slides || []).slice(0, 3);
+
     // Hydrate statique existant (LCP : H1 déjà dans le HTML initial) sinon build
     const existingCarousel = container.querySelector('.carousel');
     const slideEls = existingCarousel ? existingCarousel.querySelectorAll('.slide') : [];
 
-    if (!existingCarousel || slideEls.length !== data.slides.length) {
-      const slides = data.slides.map((slide, index) => `
+    if (!existingCarousel || slideEls.length !== slides.length) {
+      const slidesHtml = slides.map((slide, index) => `
         <div class="slide"
              style="background-image: url('${slide.image}')"
              role="group"
              aria-roledescription="diapositive"
-             aria-label="${index + 1} sur ${data.slides.length}">
+             aria-label="${index + 1} sur ${slides.length}">
             <div class="slide-content">
                 <h1>${slide.title}</h1>
                 <p>${slide.subtitle}</p>
@@ -22,7 +25,7 @@ const Hero = {
         </div>
       `).join('');
 
-      const dots = data.slides.map((_, index) => `
+      const dots = slides.map((_, index) => `
         <div class="dot ${index === 0 ? 'active' : ''}"
              data-index="${index}"
              role="tab"
@@ -33,7 +36,7 @@ const Hero = {
 
       container.innerHTML = `
         <div class="carousel" id="carousel" role="region" aria-roledescription="carrousel" aria-live="polite">
-            ${slides}
+            ${slidesHtml}
         </div>
         <button class="carousel-btn prev" id="prev" aria-label="Diapositive précédente">
             <i class="fas fa-chevron-left" aria-hidden="true"></i>
@@ -47,12 +50,12 @@ const Hero = {
       `;
     } else {
       // Mise à jour des contenus du markup statique (config admin)
-      const slides = Array.from(slideEls);
-      slides.forEach((slideEl, index) => {
-        const slide = data.slides[index];
+      const slideElsArray = Array.from(slideEls);
+      slideElsArray.forEach((slideEl, index) => {
+        const slide = slides[index];
         if (!slide) return;
         slideEl.style.backgroundImage = `url('${slide.image}')`;
-        slideEl.setAttribute('aria-label', `${index + 1} sur ${data.slides.length}`);
+        slideEl.setAttribute('aria-label', `${index + 1} sur ${slides.length}`);
         const h1 = slideEl.querySelector('h1');
         if (h1) h1.textContent = slide.title;
         const p = slideEl.querySelector('p');
@@ -70,7 +73,7 @@ const Hero = {
     let currentIndex = 0;
     const carouselEl = container.querySelector('#carousel');
     const dotEls = container.querySelectorAll('.dot');
-    const totalSlides = data.slides.length;
+    const totalSlides = slides.length;
 
     const update = () => {
       // Use cubic-bezier for more premium feel

@@ -105,7 +105,7 @@ const Analytics = {
         // Store current visit ID for session duration update
         this._currentVisitId = visit.id;
 
-        console.log('[Analytics] Visit tracked:', visit.city || 'unknown', visit.country || '');
+        if (import.meta.env.DEV) console.log('[Analytics] Visit tracked:', visit.city || 'unknown', visit.country || '');
     },
 
     // ── SESSION DURATION ──────────────────────────────────────
@@ -169,7 +169,7 @@ const Analytics = {
     // ── CUSTOM EVENT TRACKING ─────────────────────────────────
     trackEvent(category, action, name = null) {
         if (localStorage.getItem('analytics_consent') !== 'accepted') return;
-        console.log(`[Analytics Event] ${category} -> ${action}${name ? ' (' + name + ')' : ''}`);
+        if (import.meta.env.DEV) console.log(`[Analytics Event] ${category} -> ${action}${name ? ' (' + name + ')' : ''}`);
     },
 
     bindCustomEvents() {

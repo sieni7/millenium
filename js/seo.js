@@ -33,7 +33,7 @@ const SEO = {
             }
             meta.setAttribute('content', metaData[key]);
         });
-        console.log('[SEO] Open Graph Tags Injected.');
+        if (import.meta.env.DEV) console.log('[SEO] Open Graph Tags Injected.');
     },
 
     injectJSONLD(config) {
@@ -95,7 +95,7 @@ const SEO = {
         script.type = 'application/ld+json';
         script.text = JSON.stringify(schema);
         document.head.appendChild(script);
-        console.log('[SEO] JSON-LD Structure Injected.');
+        if (import.meta.env.DEV) console.log('[SEO] JSON-LD Structure Injected.');
     }
 };
 
