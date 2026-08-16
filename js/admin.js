@@ -379,6 +379,8 @@ const renderProfile = () => {
     document.getElementById('edit-company-phone').value = currentConfig.contact.phone;
     document.getElementById('edit-webhook-url').value = currentConfig.contact.webhook_url;
     document.getElementById('edit-company-address').value = currentConfig.company.address;
+    document.getElementById('edit-company-mission').value = currentConfig.company.mission || '';
+    document.getElementById('edit-company-slogan').value = currentConfig.company.slogan || '';
     document.getElementById('edit-company-whatsapp').value = currentConfig.company.whatsapp || '';
     document.getElementById('edit-social-linkedin').value = currentConfig.company.social?.linkedin || '';
     document.getElementById('edit-social-facebook').value = currentConfig.company.social?.facebook || '';
@@ -1099,13 +1101,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Auto-save simple fields
-    ['edit-company-name', 'edit-company-email', 'edit-company-phone', 'edit-webhook-url', 'edit-company-address', 'edit-company-whatsapp', 'edit-social-linkedin', 'edit-social-facebook', 'edit-social-instagram'].forEach(id => {
+    ['edit-company-name', 'edit-company-email', 'edit-company-phone', 'edit-webhook-url', 'edit-company-address', 'edit-company-mission', 'edit-company-slogan', 'edit-company-whatsapp', 'edit-social-linkedin', 'edit-social-facebook', 'edit-social-instagram'].forEach(id => {
         document.getElementById(id).addEventListener('input', (e) => {
             if (id === 'edit-company-name') currentConfig.company.name = e.target.value;
             if (id === 'edit-company-email') currentConfig.contact.email = e.target.value;
             if (id === 'edit-company-phone') currentConfig.contact.phone = e.target.value;
             if (id === 'edit-webhook-url') currentConfig.contact.webhook_url = e.target.value;
             if (id === 'edit-company-address') currentConfig.company.address = e.target.value;
+            if (id === 'edit-company-mission') currentConfig.company.mission = e.target.value;
+            if (id === 'edit-company-slogan') currentConfig.company.slogan = e.target.value;
             if (id === 'edit-company-whatsapp') currentConfig.company.whatsapp = e.target.value;
             if (id === 'edit-social-linkedin') { if (!currentConfig.company.social) currentConfig.company.social = {}; currentConfig.company.social.linkedin = e.target.value; }
             if (id === 'edit-social-facebook') { if (!currentConfig.company.social) currentConfig.company.social = {}; currentConfig.company.social.facebook = e.target.value; }
