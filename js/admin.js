@@ -200,7 +200,8 @@ function normalizeConfig(cfg) {
         id: p.id || 'part_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
         name: p.name || '',
         logo: p.logo || '',
-        url: p.url || ''
+        url: p.url || '',
+        icon: p.icon || 'fas fa-handshake'
     }));
 
     // Témoignages
@@ -275,7 +276,8 @@ function writeBackConfig() {
     currentConfig.partners = currentConfig.partners.map(p => ({
         name: p.name || '',
         logo: p.logo || '',
-        url: p.url || ''
+        url: p.url || '',
+        icon: p.icon || 'fas fa-handshake'
     }));
     currentConfig.testimonials = currentConfig.testimonials.map(t => ({
         name: t.name || '',

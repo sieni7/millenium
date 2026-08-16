@@ -13,12 +13,27 @@ const Partners = {
             return;
         }
 
-        container.innerHTML = partners.map(partner => `
+        container.innerHTML = partners.map(partner => {
+            const hasLogo = partner.logo && partner.logo.trim();
+            const logoHtml = hasLogo
+                ? `<img src="${partner.logo}" alt="${partner.name}" class="partner-logo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';">`
+                : '';
+            const iconHtml = hasLogo
+                ? `<i class="${partner.icon || 'fas fa-handshake'}" class="partner-logo-placeholder" style="display:none;"></i>`
+                : `<i class="${partner.icon || 'fas fa-handshake'}" class="partner-logo-placeholder"></i>`;
+            const linkAttrs = partner.url ? `href="${partner.url}" target="_blank" rel="noopener"` : '';
+            
+            return `
             <div class="partner-item reveal ripple">
-                <i class="${partner.icon} partner-logo-placeholder"></i>
-                <p class="partner-name">${partner.name}</p>
-            </div>
-        `).join('');
+                ${linkAttrs ? `<a ${linkAttrs}>` : ''}
+                    <div class="partner-logo-wrapper">
+                        ${logoHtml}
+                        ${iconHtml}
+                    </div>
+                    <p class="partner-name">${partner.name}</p>
+                ${linkAttrs ? '</a>' : ''}
+            </div>`;
+        }).join('');
     }
 };
 
