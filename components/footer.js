@@ -13,6 +13,7 @@ const Footer = {
       <div class="footer-social">
         ${data.company.social && data.company.social.linkedin ? `<a href="${data.company.social.linkedin}" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>` : ''}
         ${data.company.social && data.company.social.facebook ? `<a href="${data.company.social.facebook}" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>` : ''}
+        ${data.company.social && data.company.social.instagram ? `<a href="${data.company.social.instagram}" aria-label="Instagram"><i class="fab fa-instagram"></i></a>` : ''}
         ${data.company.social && data.company.social.whatsapp ? `<a href="${data.company.social.whatsapp.startsWith('http') ? data.company.social.whatsapp : 'https://wa.me/' + data.company.social.whatsapp.replace(/\+/g, '')}" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>` : ''}
       </div>
     `;
