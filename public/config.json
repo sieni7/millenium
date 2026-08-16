@@ -21,6 +21,22 @@
         { "id": "projects", "label": "projects", "icon": "fas fa-briefcase", "href": "#realisations", "visible": true, "order": 3 },
         { "id": "contact", "label": "contact", "icon": "fas fa-envelope", "href": "#contact", "visible": true, "order": 4 }
       ]
+    },
+    "widgets": {
+      "whatsapp": {
+        "enabled": true,
+        "url": "https://wa.me/2250574971022",
+        "position": "bottom-right",
+        "bottom": 100,
+        "right": 40
+      },
+      "backToTop": {
+        "enabled": true,
+        "threshold": 500
+      },
+      "progressBar": {
+        "enabled": true
+      }
     }
   },
   "hero": {

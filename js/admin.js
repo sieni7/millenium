@@ -226,6 +226,11 @@ function normalizeConfig(cfg) {
         visible: item.visible !== false,
         order: typeof item.order === 'number' ? item.order : idx
     }));
+    if (!cfg.widgets) cfg.widgets = {
+        whatsapp: { enabled: true, url: 'https://wa.me/2250574971022', position: 'bottom-right', bottom: 100, right: 40 },
+        backToTop: { enabled: true, threshold: 500 },
+        progressBar: { enabled: true }
+    };
     return cfg;
 }
 
@@ -305,6 +310,11 @@ function writeBackConfig() {
         visible: item.visible !== false,
         order: typeof item.order === 'number' ? item.order : 0
     }));
+    if (!currentConfig.widgets) currentConfig.widgets = {
+        whatsapp: { enabled: true, url: 'https://wa.me/2250574971022', position: 'bottom-right', bottom: 100, right: 40 },
+        backToTop: { enabled: true, threshold: 500 },
+        progressBar: { enabled: true }
+    };
     if (Array.isArray(currentConfig.products)) {
         currentConfig.company.stats = currentConfig.company.stats.filter(s =>
             typeof s.key === 'string' && s.key && typeof s.value !== 'undefined'
