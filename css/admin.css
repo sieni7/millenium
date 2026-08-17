@@ -597,7 +597,7 @@ tr.drag-over { border-top: 2px solid var(--primary) !important; }
     padding: 8px 12px;
     border-radius: 10px;
     background: rgba(0,0,0,0.02);
-    transition: all 0.2s ease;
+    transition: background 0.2s ease;
 }
 
 .top-product-row:hover {
@@ -787,7 +787,7 @@ tr.drag-over { border-top: 2px solid var(--primary) !important; }
     padding: 5px 12px;
     border-radius: 6px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .chart-range-toggle button.active {
