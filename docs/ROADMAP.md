@@ -1,6 +1,18 @@
 # Feuille de route — Millenium Coop Initiative
 
 > Repère rapide : `✅ = livré et validé` · `🚧 = en cours / planifié` · `🧭 = vision` · `⚠️ = à confirmer` (non engagé).
+>
+> Deux familles de jalons sont distinguées : **jalons initiative** (preuve bailleurs, KPI, méthode de réplicabilité) et **jalons techniques** (le dépôt `millenium`). Le périmètre des deux niveaux : `docs/SCOPE.md`.
+
+## 🎯 Jalons initiative (programme pilote)
+
+| Jalon | Description | Statut |
+|---|---|---|
+| Cadre d'impact & KPI | Définir les indicateurs du pilote (T0/T6/T12) | ✅ `docs/IMPACT.md` livré |
+| Méthode de réplicabilité | Formaliser la méthode (template → N vitrines → porte qualité → coût marginal) | ✅ `docs/METHODE_REPLICABILITE.md` livré |
+| Vérification par le projet | Appliquer la méthode au projet vitrines (preuve d'existence formelle) | ⚠️ Relève de `cooperatives-affery` |
+| Dossier bailleur | Capitaliser preuve → mesures → méthode dans un dossier factuel | 🧭 Planifié |
+| Rapport d'impact pilote | Synthèse T0/T6/T12 publiée | 🧭 Planifié |
 
 ## ✅ V1 — Livrée
 

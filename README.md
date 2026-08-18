@@ -2,7 +2,21 @@
 
 **Programme de transformation numérique au service des coopératives agricoles de Côte d'Ivoire (zone Afféry / Adzopé).**
 
-> Ce document est le **README institutionnel** du dépôt `millenium` : site institutionnel + back-office d'administration. Il s'adresse aux coopératives, partenaires techniques et financiers, bailleurs, décideurs et développeurs. Pour la documentation technique détaillée : [`README_DEV.md`](README_DEV.md) et [`docs/`](docs/).
+> Ce document est le **README institutionnel** du dépôt `millenium`. Il s'adresse aux coopératives, partenaires techniques et financiers, bailleurs, décideurs et développeurs. Pour la documentation technique détaillée : [`README_DEV.md`](README_DEV.md) et [`docs/`](docs/).
+
+## Deux périmètres
+
+Le programme **Millenium Coop Initiative** s'articule autour de deux périmètres complémentaires, à ne pas confondre :
+
+| Périmètre | Dépôt | Rôle |
+|---|---|---|
+| **Initiative / programme pilote** | `millenium` (ce dépôt) | Prouver la démarche aux bailleurs, établir les KPI, générer une méthode de réplicabilité. Porte le site institutionnel + le back-office (vitrine, données, pilotage). |
+| **Projet** | `cooperatives-affery` | Le projet concret : preuve d'existence formelle, sous la forme d'un projet de **4 sites vitrines pour 4 coopératives agricoles de la zone Afféry / Adzopé**. ⚠️ Mention générique — détails du projet à confirmer depuis son propre dépôt. |
+
+- Ce dépôt (`millenium`) = **le bras institutionnel & de pilotage** de l'initiative.
+- Le dépôt du **projet** (vitrines coopératives) reste la référence de son propre périmètre (données, filières, contenus).
+- Document de référence sur les périmètres : [`docs/SCOPE.md`](docs/SCOPE.md).
+- Méthode de réplication du programme : [`docs/METHODE_REPLICABILITE.md`](docs/METHODE_REPLICABILITE.md).
 
 | Référence | Valeur |
 |---|---|
@@ -222,7 +236,8 @@ millenium/
 ├── js/                # main, admin, adminAnalytics, analytics, seo, darkMode,
 │                      #   githubSync, activityLog, imageUpload, dragDrop…
 ├── public/            # config.json, manifest.json, sw.js, robots.txt, sitemap.xml, images
-├── docs/              # ARCHITECTURE, DEPLOYMENT, CONTRIBUTING, ROADMAP, IMPACT, GOVERNANCE
+├── docs/              # SCOPE, ARCHITECTURE, DEPLOYMENT, CONTRIBUTING, ROADMAP,
+│                      #   IMPACT, METHODE_REPLICABILITE, GOVERNANCE
 ├── reports/           # audits (historique)
 ├── index.html         # page principale
 ├── admin.html         # back-office
@@ -251,10 +266,12 @@ millenium/
 
 ## 17. Réplicabilité
 
+La réplicabilité est une finalité centrale du programme pilote : générer une **méthode de réplication** réutilisable pour étendre la présence en ligne à d'autres coopératives et localités. Méthode détaillée : [`docs/METHODE_REPLICABILITE.md`](docs/METHODE_REPLICABILITE.md).
+
 - **Configurable par design** : un même code sert n'importe quelle organisation (renommage, coordonnées, contenus dans `config.json`).
 - **Zéro backend** : déployable sur tout hébergeur statique, sans base de données ni serveur applicatif.
 - **Outillage documenté** : guides, ADR, schémas et procédures dans le dépôt.
-- **CI intégrée** : build et contrôle automatiques à chaque push.
+- **CI intégrée** : build et contrôle automatiques à chaque push — garantit qu'une copie du template reste déployable sans correction.
 
 ---
 
@@ -287,6 +304,8 @@ Documentée dans [`docs/ROADMAP.md`](docs/ROADMAP.md). Résumé :
 
 | Étape | Statut |
 |---|---|
+| Cadre d'impact, KPI pilote et méthode de réplicabilité | ✅ Livré (docs/IMPACT.md, docs/METHODE_REPLICABILITE.md) |
+| Vérification par le projet vitrines (preuve d'existence formelle) | ⚠️ Relève de `cooperatives-affery` |
 | Site institutionnel + back-office + dashboard + analytics | ✅ Livré |
 | PWA, SEO, dark mode, accessibilité | ✅ Livré |
 | Backend : persistance serveur de `config.json`, authentification serveur | 🧭 Planifié |

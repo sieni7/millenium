@@ -4,6 +4,15 @@ Ce document décrit la gouvernance technique, des données et des contenus du d�
 
 ## 1. Gouvernance de projet
 
+### Deux niveaux de gouvernance
+
+| Niveau | Objet | Dépôt | Responsabilité |
+|---|---|---|---|
+| **Initiative / programme pilote** | Cadre, KPI, méthode de réplicabilité, vitrine institutionnelle | `millenium` (ce dépôt) | Preuve aux bailleurs, établissement des KPI, méthode de réplication |
+| **Projet** | Réalisation concrète (4 sites vitrines pour 4 coopératives) | `cooperatives-affery` | Preuve d'existence formelle, contenus et données du projet (⚠️ se référer à son propre dépôt) |
+
+La gouvernance de ce dépôt porte sur le **niveau initiative**. Le périmètre détaillé des deux niveaux : `docs/SCOPE.md`.
+
 ### Rôles (source : `public/config.json`)
 
 | Rôle | Périmètre | Référence |
@@ -65,4 +74,4 @@ modifier (back-office admin.html ou config.json)
 
 ## 6. Transparence
 
-Le programme s'engage à documenter ouvertement : code source (dépôt public), décisions (ADR), schémas de données (`config.schema.json`), cadre d'impact (`docs/IMPACT.md`) et feuille de route (`docs/ROADMAP.md`).
+Le programme s'engage à documenter ouvertement : code source (dépôt public), décisions (ADR), schémas de données (`config.schema.json`), cadre d'impact (`docs/IMPACT.md`), méthode de réplicabilité (`docs/METHODE_REPLICABILITE.md`), périmètres (`docs/SCOPE.md`) et feuille de route (`docs/ROADMAP.md`).

@@ -58,9 +58,24 @@
 - **Audience** : `localStorage` (analytics) — ⚠️ non centralisée, navigateur par navigateur.
 - **Décisions** : `DECISION_LOG.md` (ADR-001 à ADR-006).
 
-## 4. Recommandations
+## 4. KPI du programme pilote
+
+> Axé sur la démonstration aux bailleurs : mesurer que la démarche fonctionne (preuve), est mesurable (KPI) et reproductible (méthode). Méthode détaillée : `docs/METHODE_REPLICABILITE.md`.
+
+| Dimension | KPI pilote | Mesure |
+|---|---|---|
+| Preuve | Nombre de coopératives accompagnées et en ligne | Projet vitrines (⚠️ données `cooperatives-affery`) |
+| Adoption | Taux d'adoption et de participation des coopératives | Enquête programme (⚠️ à formaliser) |
+| Capacités | Référents formés, formations diffusées | Suivi programme |
+| Conformité | % de contenus alignés sur les référentiels affichés | Audit `config.json` |
+| Réplicabilité | **Coût marginal d'un site** · **Temps de mise en ligne** · **Complétude des contenus** | Mesures par cycle de réplication (voir `docs/METHODE_REPLICABILITE.md`) |
+
+**Rhythmique proposée** : mesure à **T0** (départ), **T6** (à 6 mois), **T12** (à 12 mois) — synthèse dans un rapport d'impact pour les bailleurs.
+
+## 5. Recommandations
 
 1. **Collecter des données de référence** avec les coopératives accompagnées.
 2. **Mesurer périodiquement** (T0, T6, T12) les indicateurs ci-dessus.
 3. **Publier un rapport d'impact** annuel sur le site institutionnel.
 4. **Enrichir les contenus** : témoignages et partenaires réels (sections actuellement vides dans `config.json`).
+5. **Suivre les KPI de réplicabilité** à chaque nouveau site répliqué (coût marginal, délai, complétude).
