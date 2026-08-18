@@ -1,18 +1,16 @@
 # Gouvernance — Millenium Coop Initiative
 
-Ce document décrit la gouvernance technique, des données et des contenus du programme MCI (site institutionnel + plateforme vitrines coopératives). Il distingue les **faits observés** des **éléments à confirmer**.
+Ce document décrit la gouvernance technique, des données et des contenus du dépôt `millenium` (site institutionnel + back-office). Il distingue les **faits observés** des éléments **⚠️ à confirmer**.
 
 ## 1. Gouvernance de projet
 
-### Rôles
+### Rôles (source : `public/config.json`)
 
 | Rôle | Périmètre | Référence |
 |---|---|---|
-| GOVERNOR | Validation des décisions structurantes | `DECISION_LOG.md` ⚠️ rôle organisationnel réel à confirmer |
-| PRODUCTOR | Vision produit et priorisation | `DECISION_LOG.md` |
-| ARCHITECT | Décisions techniques | `DECISION_LOG.md` |
-| Consultant Digital | Développement, formation, déploiement | `config.json` (Oulaï Sieni) |
-| Chargé de mobilisation | Collecte terrain, logistique, support | `config.json` (Guisso Franck) |
+| Consultant Digital & Formateur Technique | Développement, formation, déploiement | `config.json` (Oulaï Sieni) |
+| Chargé de mobilisation locale | Collecte terrain, logistique, support | `config.json` (Guisso Franck) |
+| GOVERNOR / PRODUCTOR / ARCHITECT | Validation des décisions structurantes | `DECISION_LOG.md` ⚠️ rôle effectif à confirmer |
 
 ### Journal des décisions (ADR)
 
@@ -28,46 +26,43 @@ En attente : ADR-007 (choix webhook), ADR-008 (mode sombre), ADR-009 (hébergeme
 
 | Donnée | Source de vérité | Localisation |
 |---|---|---|
-| Contenu institutionnel | `config.json` | `millenium/public/config.json` |
-| Contenu vitrines | `coops.json` + `coopN.json` | `cooperatives-affery/content-src/` |
-| Décisions | `DECISION_LOG.md` | racine institutionnelle |
-| Analytics | `localStorage` (navigateur) | non centralisée — ⚠️ |
+| Contenu institutionnel | `config.json` | `public/config.json` |
+| Schéma de référence | `config.schema.json` | racine du dépôt |
+| Décisions | `DECISION_LOG.md` | racine du dépôt |
+| Audience | `localStorage` (navigateur) | non centralisée — ⚠️ |
 
 ### Principes
 
-- **Données propriété du territoire** : contenus dans des fichiers ouverts, versionnés par Git.
-- **Éditions sans code** : back-office institutionnel (`admin.html`) et CMS Decap (vitrines).
-- **Traçabilité** : journal d'activité institutionnel (500 entrées, export CSV).
-- **Règle d'or vitrines** : ne jamais modifier les sites générés à la main (`coop1/`…`coop4/`).
+- **Configuration centralisée** : toute modification de contenu passe par `config.json` ou le back-office, pas par le code.
+- **Traçabilité** : journal d'activité du back-office (500 entrées, export CSV) + historique Git.
+- **Éditions sans code** : back-office (`admin.html`).
 
-## 3. Gouvernance des contenus vitrines
-
-### Workflow de publication
+## 3. Workflow de publication
 
 ```
-collecter (terrain / CMS) → modifier (content-src/ ou CMS) → générer (generate.ps1)
-→ valider (validate.ps1, 28/28 PASS) → prévisualiser (serve.ps1) → publier (Netlify)
+modifier (back-office admin.html ou config.json)
+→ valider (build npm run build / CI GitHub Actions)
+→ pousser et déployer (Netlify, push sur main)
 ```
 
-### Porte qualité
-
-`validate.ps1` vérifie structure, données et rendu avant publication. La publication est bloquée tant que la validation ne passe pas.
+- La **CI** (`.github/workflows/build.yml`) vérifie le build avant publication.
+- La **persistance serveur** (`/api/save-config`) n'existe qu'en dev (middleware Vite) ; en production, la sauvegarde passe par le **push GitHub** depuis l'admin.
 
 ## 4. Sécurité & accès
 
-- Back-office institutionnel : authentification SHA-256 côté client (⚠️ limite — voir `docs/ARCHITECTURE.md`).
-- Édition CMS vitrines : Netlify Identity + Git Gateway ⚠️ à mettre en œuvre au déploiement réel.
-- Aucun secret dans les dépôts ; tokens en `sessionStorage` uniquement.
-- `robots.txt` bloque `admin.html` et `js/admin.js`.
+- **Back-office** : authentification SHA-256 (WebCrypto) côté client — ⚠️ **limite** documentée dans `docs/ARCHITECTURE.md` (une authentification serveur est recommandée).
+- **Verrouillage anti-bruteforce** : 30 s après 5 échecs, persisté en `sessionStorage`.
+- **robots.txt** : bloque `admin.html` et `js/admin.js`.
+- **Aucun secret dans le dépôt** ; tokens GitHub en `sessionStorage` uniquement.
 
-## 5. Gouvernance technique (recommandations)
+## 5. Recommandations de gouvernance
 
-1. **Configurer les remotes** Git des deux dépôts (⚠️ `cooperatives-affery` sans `origin`).
-2. **Publier les 4 vitrines** et documenter les URLs Netlify réelles.
-3. **Formaliser une authentification serveur** pour les écritures du back-office institutionnel.
-4. **Politique d'accès CMS** : rôles, invitations, revue des publications.
-5. **Rendre l'audit périodique** et archiver les rapports (`reports/`).
+1. **Formaliser les rôles effectifs** (revue des publications, validation des décisions).
+2. **Faire évoluer l'authentification** vers une vérification serveur pour les écritures.
+3. **Centraliser les analytics** (aujourd'hui en `localStorage`) pour une mesure d'impact fiable.
+4. **Rendre l'audit périodique** et archiver les rapports (`reports/`).
+5. **Enrichir les contenus** (témoignages, partenaires) pour une vitrine crédible.
 
 ## 6. Transparence
 
-Le programme s'engage à documenter ouvertement : code source (dépôts publics), décisions (ADR), schémas de données (`config.schema.json`), cadre d'impact (`docs/IMPACT.md`) et feuille de route (`docs/ROADMAP.md`).
+Le programme s'engage à documenter ouvertement : code source (dépôt public), décisions (ADR), schémas de données (`config.schema.json`), cadre d'impact (`docs/IMPACT.md`) et feuille de route (`docs/ROADMAP.md`).
