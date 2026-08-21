@@ -267,11 +267,7 @@ button:disabled,
    ============================================ */
 
 /* Content-visibility : éviter le Style & Layout coûteux des sections hors écran (LCP/TBT).
-   #realisations exclue : contient .case-media sticky (content-visibility casserait le sticky). */
-#services, #equipe, #partners-section-container, #contact {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 700px;
-}
+   Désactivé sur les sections animées (reveal via IntersectionObserver) pour éviter les conflits. */
 
 /* Cibles tactiles >= 44px (WCAG 2.5.5) */
 .theme-btn {

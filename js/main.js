@@ -179,7 +179,7 @@ async function init() {
     // 5. Cacher l'écran de chargement (minimise le blocage LCP)
     setTimeout(() => {
         LoadingScreen.hide();
-    }, 150);
+    }, 500);
 
   } catch (error) {
     console.error('MILLENIUM Init Error:', error);
